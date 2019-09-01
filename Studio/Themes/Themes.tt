@@ -1,0 +1,214 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension="?" #>
+<#@ include file="TemplateFileManager.ttinclude" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Xml" #>
+<#@ Assembly Name="System.Xml.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<# 
+    var manager = TemplateFileManager.Create(this);
+    var dir = this.Host.ResolvePath("VSTheme");
+    var files = Directory.EnumerateFiles(dir, "*.vstheme");
+    foreach (var fileName in files)
+    {
+        manager.StartNewFile(Path.GetFileNameWithoutExtension(fileName) + ".xaml");
+        #><ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<#
+        var results = new List<ColourResource>();
+
+        var doc = new XmlDocument();
+        doc.Load(fileName);
+
+        foreach (XmlNode node in doc.SelectNodes(@"//Category/Color"))
+            results.Add(new ColourResource(node));
+    
+        var filtered = results.Where(Filter).OrderBy(c => c.Category).ThenBy(c => c.Name);
+
+        foreach (var g in filtered.GroupBy(c => c.Category))
+        {
+            var values = from c in g.SelectMany(c => c.ResourceComponents)
+                         let split = c.Key.Split('.')
+                         select new 
+                         {
+                             Key = c.Key,
+                             Value = c.Value,
+                             Group = split.Length > 2 ? split[1] : string.Empty
+                         };
+            #>
+
+    <!--#region <#= g.Key #>-->
+
+<#
+            foreach (var gg in values.GroupBy(c => c.Group).OrderBy(gg => gg.Key))
+            {
+                if (gg.Key.Length > 0)
+                {
+                #>
+
+    <!--#region <#= gg.Key #>-->
+<#
+                }
+                foreach (var v in gg)
+                {
+                #>
+    <SolidColorBrush x:Key="<#= v.Key #>" Color="#<#= v.Value #>" />
+<#
+                }
+                if (gg.Key.Length > 0)
+                {
+                #>
+    <!--#endregion-->
+<#
+                }
+            }
+        #>
+
+    <!--#endregion-->
+<#
+        }
+        #>
+
+</ResourceDictionary>
+        <#
+    }
+
+    manager.Process();
+
+    //var provider = (IServiceProvider)Host;
+    //var dte = (EnvDTE.DTE)provider.GetService(typeof(EnvDTE.DTE));
+    //var item = dte.Solution.FindProjectItem(Path.GetFileNameWithoutExtension(Host.TemplateFile) + ".xaml");
+    //item.Delete();
+#>
+<#+
+    public bool Filter(ColourResource c)
+    {
+        var excludedCategories = new[]
+        {
+            "ApplicationInsights",
+            "^Autos",
+            "^CallStack", 
+            "^Cider", 
+            "^Code", 
+            "^ColorizedSignatureHelp",
+            "Config",
+            "Console",
+            "^Data",
+            "Debug",
+            "Designer",
+            "Diagnostic",
+            "Editor",
+            "Explorer",
+            "^Find Results",
+            "^Folder Difference",
+            "^Graph",
+            "Graphics",
+            "^Immediate Window",
+            "^InfoBar",
+            "^Intelli",
+            "JavaScript",
+            "^Locals",
+            "Manifest",
+            "^Navigat",
+            "Notification",
+            "^Parallel",
+            "^Perf",
+            "Project",
+            "^SharePoint",
+            "^StartPage",
+            "SQL",
+            "^ThemedDialog",
+            "^Threads",
+            "^UserInformation",
+            "^Version",
+            "^Visual",
+            "^Vs",
+            "^Watch",
+            "^Welcome",
+            "^Work"
+        };
+    
+        var excludedResources = new[]
+        {
+            "^ClassDesigner",
+            "^DiagReport",
+            "Project",
+            "^StartPage",
+            "^VizSurface",
+            "Debug",
+            "SmartTag",
+            "Wizard",
+            "^Branded",
+            "^Extension",
+            "^Help",
+            "^QuickCustomize"
+        };
+    
+        if (excludedCategories.Any(s => Regex.IsMatch(c.Category, s, RegexOptions.IgnoreCase)))
+            return false;
+        
+        if (excludedResources.Any(s => Regex.IsMatch(c.Name, s, RegexOptions.IgnoreCase)))
+            return false;
+        
+        return true;
+    }
+
+    public class ColourResource
+    {
+        private static Dictionary<string, string[]> groups = new Dictionary<string, string[]>
+        {
+            { "CommonControls", new[] { "Button", "CheckBox", "ComboBox", "InnerTab", "TextBox" }},
+            { "Environment", new[] { "DropDown", "DockTarget", "ScrollBar", "ComboBox", "CommandBar", "CommandShelf", "FileTab", "SearchBox", "TitleBar", "Toolbox", "ToolWindow", "Panel", "SideBar", "MainWindow", "RaftedWindow", "StatusBar", "ToolTip" }},
+            { "SearchControl", new[] { "Popup" }},
+            { "TreeView", new[] { "SelectedItem" }}
+        };
+    
+        public string Category { get; set; }
+        public string Name { get; set; }
+        private Dictionary<string, string> Components { get; set; }
+    
+        public ColourResource(XmlNode node)
+        {
+            Category = node.ParentNode.Attributes["Name"].Value;
+            Name = node.Attributes["Name"].Value;
+
+            Components = new Dictionary<string,string>();
+            foreach (XmlNode n in node.ChildNodes)
+                Components.Add(n.Name, n.Attributes["Source"].Value);
+        }
+    
+        public IEnumerable<KeyValuePair<string,string>> ResourceComponents
+        {
+            get
+            {
+                var cat = Regex.Replace(Category, @"[ ]", string.Empty);
+                var name = Regex.Replace(Name, @"[ \(\)]", string.Empty);
+            
+                if (groups.ContainsKey(Category))
+                {
+                    var g = groups[Category].FirstOrDefault(s => name.StartsWith(s));
+                    if (g != null) name = name.Replace(g, g + ".");
+                }
+                
+                foreach (var component in Components)
+                {
+                    if (name.EndsWith("Background"))
+                    {
+                        if (component.Key == "Foreground")
+                            name = Regex.Replace(name, "(.*)Background$", "$1Foreground");
+                    }
+                    else if (Components.Count > 1) 
+                        name += component.Key;
+                    
+                    yield return new KeyValuePair<string, string>(string.Format("{0}.{1}", cat, name).TrimEnd('.'), component.Value);
+                }
+            }
+        }
+    }
+#>
