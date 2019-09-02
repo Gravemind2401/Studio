@@ -8,4 +8,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Studio;component/Themes/Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <StackPanel Width="300" Margin="5">
+        <s:SearchControl WatermarkText="Search..." />
+        <s:SearchControl IsEnabled="False" WatermarkText="Search..." />
+        <TextBox Text="enabled" />
+        <TextBox IsReadOnly="True" Text="readonly" />
+        <TextBox IsEnabled="False" Text="disabled" />
+    </StackPanel>
 </Window>

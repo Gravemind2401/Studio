@@ -20,6 +20,10 @@
         manager.StartNewFile(Path.GetFileNameWithoutExtension(fileName) + ".xaml");
         #><ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Studio;component/Styles/VS2015.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 <#
         var results = new List<ColourResource>();
 
