@@ -1,5 +1,5 @@
 <Themes>
-  <Theme Name="Blue (1)" GUID="{680cf907-3ed9-480f-8a07-b513fe056aae}">
+  <Theme Name="Blue" GUID="{680cf907-3ed9-480f-8a07-b513fe056aae}">
     <Category Name="ApplicationInsights" GUID="{fb17cf37-09ea-44a4-88a6-cd806fc6a24a}">
       <Color Name="ButtonBorder">
         <Background Type="CT_RAW" Source="FF4B76E7" />

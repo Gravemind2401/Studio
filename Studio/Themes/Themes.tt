@@ -33,39 +33,70 @@
         foreach (XmlNode node in doc.SelectNodes(@"//Category/Color"))
             results.Add(new ColourResource(node));
     
-        var filtered = results.Where(Filter).OrderBy(c => c.Category).ThenBy(c => c.Name);
+        var ordered = results.OrderBy(c => c.Category).ThenBy(c => c.Name);
 
-        foreach (var g in filtered.GroupBy(c => c.Category))
+        foreach (var category in ordered.GroupBy(c => c.Category))
         {
-            var values = from c in g.SelectMany(c => c.ResourceComponents)
-                         let split = c.Key.Split('.')
-                         select new 
-                         {
-                             Key = c.Key,
-                             Value = c.Value,
-                             Group = split.Length > 2 ? split[1] : string.Empty
-                         };
+            var values = (from c in category.SelectMany(c => c.ResourceComponents)
+						  where !excludedResources.Any(s => Regex.IsMatch(c.Key, s))
+                          let split = c.Key.Split('.')
+                          select new 
+                          {
+                              Key = c.Key,
+                              Value = c.Value,
+                              Group = split.Length > 2 ? split[1] : string.Empty
+                          }).ToList();
+
+			if (values.Count == 0) continue;
             #>
 
-    <!--#region <#= g.Key #>-->
+    <!--#region <#= category.Key #>-->
 
 <#
-            foreach (var gg in values.GroupBy(c => c.Group).OrderBy(gg => gg.Key))
+            foreach (var g in values.GroupBy(c => c.Group).OrderBy(g => g.Key))
             {
-                if (gg.Key.Length > 0)
+				var list = g.ToList();
+
+                if (g.Key.Length > 0)
                 {
                 #>
 
-    <!--#region <#= gg.Key #>-->
+    <!--#region <#= g.Key #>-->
 <#
                 }
-                foreach (var v in gg)
+
+                for (int i = 0; i < list.Count; i++)
                 {
-                #>
-    <SolidColorBrush x:Key="<#= v.Key #>" Color="#<#= v.Value #>" />
+					var item = list[i];
+					if (item.Key.EndsWith("GradientBegin"))
+                    {
+						var name = Regex.Replace(item.Key, @"([\w\.]+Gradient)\w+$", "$1");
+						var gradients = list.Skip(i).TakeWhile(v => v.Key.StartsWith(name)).ToList();
+					#>
+    <LinearGradientBrush x:Key="<#= name #>" StartPoint="0,0" EndPoint="0,1">
+<#						
+						int stopCount = 0;
+						foreach (var stop in gradients.OrderBy(v => v.Key.EndsWith("End") ? 1 : 0).ThenBy(v => v.Key))
+                        {
+							var offset = stopCount++ / (float)(gradients.Count - 1);
+							#>
+	    <GradientStop Offset="<#= offset.ToString("0.###") #>" Color="#<#= stop.Value #>" />
 <#
+                        }
+
+						i += gradients.Count - 1;
+
+						#>
+    </LinearGradientBrush>
+<#
+					}
+                    else
+                    {
+					#>
+    <SolidColorBrush x:Key="<#= item.Key #>" Color="#<#= item.Value #>" />
+<#					}
                 }
-                if (gg.Key.Length > 0)
+                if (g.Key.Length > 0)
                 {
                 #>
     <!--#endregion-->
@@ -91,77 +122,61 @@
     //item.Delete();
 #>
 <#+
-    public bool Filter(ColourResource c)
+    string[] excludedResources = new[]
     {
-        var excludedCategories = new[]
-        {
-            "ApplicationInsights",
-            "^Autos",
-            "^CallStack", 
-            "^Cider", 
-            "^Code", 
-            "^ColorizedSignatureHelp",
-            "Config",
-            "Console",
-            "^Data",
-            "Debug",
-            "Designer",
-            "Diagnostic",
-            "Editor",
-            "Explorer",
-            "^Find Results",
-            "^Folder Difference",
-            "^Graph",
-            "Graphics",
-            "^Immediate Window",
-            "^InfoBar",
-            "^Intelli",
-            "JavaScript",
-            "^Locals",
-            "Manifest",
-            "^Navigat",
-            "Notification",
-            "^Parallel",
-            "^Perf",
-            "Project",
-            "^SharePoint",
-            "^StartPage",
-            "SQL",
-            "^ThemedDialog",
-            "^Threads",
-            "^UserInformation",
-            "^Version",
-            "^Visual",
-            "^Vs",
-            "^Watch",
-            "^Welcome",
-            "^Work"
-        };
-    
-        var excludedResources = new[]
-        {
-            "^ClassDesigner",
-            "^DiagReport",
-            "Project",
-            "^StartPage",
-            "^VizSurface",
-            "Debug",
-            "SmartTag",
-            "Wizard",
-            "^Branded",
-            "^Extension",
-            "^Help",
-            "^QuickCustomize"
-        };
-    
-        if (excludedCategories.Any(s => Regex.IsMatch(c.Category, s, RegexOptions.IgnoreCase)))
-            return false;
-        
-        if (excludedResources.Any(s => Regex.IsMatch(c.Name, s, RegexOptions.IgnoreCase)))
-            return false;
-        
-        return true;
-    }
+        @"ApplicationInsights",
+        @"^Autos",
+        @"^CallStack", 
+        @"^Cider", 
+        @"^Code", 
+        @"^ColorizedSignatureHelp",
+        @"Config",
+        @"Console",
+        @"^Data",
+        @"Debug",
+        @"^Designer",
+        @"Diagnostic",
+        @"^\w*Editor",
+        @"^Environment\.Branded",
+        @"^Environment\.ClassDesigner",
+        @"^Environment\.Diag",
+        @"^Environment\.Extension",
+        @"^Environment\.Help",
+        @"^Environment\.\w*SmartTag",
+        @"^Environment\.StartPage",
+        @"^Environment\.QuickCustomize",
+        @"^Environment\.VizSurface",
+        @"^Environment\.Wizard",
+        @"Explorer",
+        @"^FindResults",
+        @"^FolderDifference",
+        @"^Graph",
+        @"Graphics",
+        @"^ImmediateWindow",
+        @"^InfoBar",
+        @"^Intelli",
+        @"JavaScript",
+        @"^Locals",
+        @"Manifest",
+        @"^Navigat",
+        @"Notification",
+        @"^Parallel",
+        @"^Perf",
+        @"Project",
+        @"^SharePoint",
+        @"^StartPage",
+        @"SQL",
+        @"^ThemedDialog",
+        @"^Threads",
+        @"^UserInformation",
+        @"^Version",
+        @"^Visual",
+        @"^Vs",
+        @"^Watch",
+        @"^Welcome",
+        @"^Work",
+        @"^XAML"
+    };
 
     public class ColourResource
     {
