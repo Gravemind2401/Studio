@@ -68,7 +68,7 @@
                 for (int i = 0; i < list.Count; i++)
                 {
 					var item = list[i];
-					if (item.Key.EndsWith("GradientBegin"))
+					if (item.Key.EndsWith("GradientBegin") || item.Key.EndsWith("GradientBottom"))
                     {
 						var name = Regex.Replace(item.Key, @"([\w\.]+Gradient)\w+$", "$1");
 						var gradients = list.Skip(i).TakeWhile(v => v.Key.StartsWith(name)).ToList();
@@ -76,7 +76,7 @@
     <LinearGradientBrush x:Key="<#= name #>" StartPoint="0,0" EndPoint="0,1">
 <#						
 						int stopCount = 0;
-						foreach (var stop in gradients.OrderBy(v => v.Key.EndsWith("End") ? 1 : 0).ThenBy(v => v.Key))
+						foreach (var stop in gradients.OrderBy(v => SortGradient(v.Key)).ThenBy(v => v.Key))
                         {
 							var offset = stopCount++ / (float)(gradients.Count - 1);
 							#>
@@ -177,6 +177,17 @@
         @"^Work",
         @"^XAML"
     };
+
+	public int SortGradient(string key)
+    {
+		if (key.EndsWith("Begin") || key.EndsWith("Top"))
+			return 0;
+			
+		if (key.EndsWith("End") || key.EndsWith("Bottom"))
+			return 2;
+
+		return 1;
+    }
 
     public class ColourResource
     {

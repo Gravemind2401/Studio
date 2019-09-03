@@ -503,23 +503,29 @@
     <SolidColorBrush x:Key="Environment.FileTab.GradientLight" Color="#FF293955" />
     <SolidColorBrush x:Key="Environment.FileTab.HotBorder" Color="#FF5B7199" />
     <SolidColorBrush x:Key="Environment.FileTab.HotGlyph" Color="#FFCED4DD" />
-    <SolidColorBrush x:Key="Environment.FileTab.HotGradientBottom" Color="#FF5B7199" />
-    <SolidColorBrush x:Key="Environment.FileTab.HotGradientTop" Color="#FF5B7199" />
+    <LinearGradientBrush x:Key="Environment.FileTab.HotGradient" StartPoint="0,0" EndPoint="0,1">
+	    <GradientStop Offset="0" Color="#FF5B7199" />
+	    <GradientStop Offset="1" Color="#FF5B7199" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.HotText" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveBorder" Color="#FF4D6082" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveDocumentBorderBackground" Color="#FF4D6082" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveDocumentBorderEdge" Color="#FF4D6082" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveGlyph" Color="#FFCED4DD" />
-    <SolidColorBrush x:Key="Environment.FileTab.InactiveGradientBottom" Color="#FF4D6082" />
-    <SolidColorBrush x:Key="Environment.FileTab.InactiveGradientTop" Color="#FF4D6082" />
+    <LinearGradientBrush x:Key="Environment.FileTab.InactiveGradient" StartPoint="0,0" EndPoint="0,1">
+	    <GradientStop Offset="0" Color="#FF4D6082" />
+	    <GradientStop Offset="1" Color="#FF4D6082" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.InactiveText" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderBackground" Color="#FFCED4DF" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderEdge" Color="#FFC0C9D9" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveGlyph" Color="#FF5F6673" />
-    <SolidColorBrush x:Key="Environment.FileTab.LastActiveGradientBottom" Color="#FFD5DAE3" />
-    <SolidColorBrush x:Key="Environment.FileTab.LastActiveGradientMiddle1" Color="#FFD5DAE3" />
-    <SolidColorBrush x:Key="Environment.FileTab.LastActiveGradientMiddle2" Color="#FFD5DAE3" />
-    <SolidColorBrush x:Key="Environment.FileTab.LastActiveGradientTop" Color="#FFD5DAE3" />
+    <LinearGradientBrush x:Key="Environment.FileTab.LastActiveGradient" StartPoint="0,0" EndPoint="0,1">
+	    <GradientStop Offset="0" Color="#FFD5DAE3" />
+	    <GradientStop Offset="0.333" Color="#FFD5DAE3" />
+	    <GradientStop Offset="0.667" Color="#FFD5DAE3" />
+	    <GradientStop Offset="1" Color="#FFD5DAE3" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHover" Color="#FF68B4FF" />
     <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHoverBorder" Color="#FF68B4FF" />
@@ -535,10 +541,12 @@
     <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedInactiveForeground" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.FileTab.SelectedBackground" Color="#FF293955" />
     <SolidColorBrush x:Key="Environment.FileTab.SelectedBorder" Color="#FFFFF29D" />
-    <SolidColorBrush x:Key="Environment.FileTab.SelectedGradientBottom" Color="#FFFFF29D" />
-    <SolidColorBrush x:Key="Environment.FileTab.SelectedGradientMiddle1" Color="#FFFFF29D" />
-    <SolidColorBrush x:Key="Environment.FileTab.SelectedGradientMiddle2" Color="#FFFFF29D" />
-    <SolidColorBrush x:Key="Environment.FileTab.SelectedGradientTop" Color="#FFFFF29D" />
+    <LinearGradientBrush x:Key="Environment.FileTab.SelectedGradient" StartPoint="0,0" EndPoint="0,1">
+	    <GradientStop Offset="0" Color="#FFFFF29D" />
+	    <GradientStop Offset="0.333" Color="#FFFFF29D" />
+	    <GradientStop Offset="0.667" Color="#FFFFF29D" />
+	    <GradientStop Offset="1" Color="#FFFFF29D" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.SelectedText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.FileTab.Text" Color="#FFFFFFFF" />
     <!--#endregion-->
