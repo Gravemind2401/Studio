@@ -122,7 +122,7 @@
     //item.Delete();
 #>
 <#+
-    string[] excludedResources = new[]
+	string[] excludedResources = new[]
     {
         @"ApplicationInsights",
         @"^Autos",
