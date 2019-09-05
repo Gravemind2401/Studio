@@ -254,6 +254,345 @@
 
     <!--#endregion-->
     
+    <!--#region Menu-->
+
+    <Style TargetType="Menu">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandShelf.HighlightGradient}" />
+        <Setter Property="Padding" Value="0,2" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Menu">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <StackPanel IsItemsHost="True" Orientation="Horizontal"
+                                    Margin="{TemplateBinding Padding}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
+        <Setter Property="Margin" Value="3,1,2,1" />
+        <Setter Property="Height" Value="1" />
+
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MenuSeparator}" />
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MenuSeparator}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
+                            <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.ColumnSpan="2" MinWidth="27" />
+                        <Border Grid.Column="2"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--header level item with no children-->
+    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}" TargetType="MenuItem">
+        <Border x:Name="Border" BorderThickness="1">
+            <ContentPresenter x:Name="Presenter" Margin="9,0,9,1"
+                    ContentSource="Header" RecognizesAccessKey="True"
+                    TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                    TextOptions.TextFormattingMode="Display" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextHover}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="MenuItem">
+        <Grid>
+            <Border x:Name="Border" BorderThickness="1">
+                <ContentPresenter x:Name="Presenter" Margin="9,0,9,1"
+                        ContentSource="Header" RecognizesAccessKey="True"
+                        TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                        TextOptions.TextFormattingMode="Display" />
+            </Border>
+            <Popup x:Name="Popup" Placement="Relative"
+                    IsOpen="{TemplateBinding IsSubmenuOpen}"
+                    AllowsTransparency="True" Focusable="False" 
+                    Grid.IsSharedSizeScope="True"
+                    PopupAnimation="None">
+                <StackPanel Orientation="Vertical">
+                    <DockPanel Panel.ZIndex="1" LastChildFill="False">
+                        <Border DockPanel.Dock="Left" SnapsToDevicePixels="True" 
+                                BorderThickness="1,1,1,0"
+                                BorderBrush="{DynamicResource Environment.CommandBar.MenuBorder}"
+                                Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}">
+                            <ContentPresenter Margin="9,0,9,2"
+                                    ContentSource="Header" RecognizesAccessKey="True"
+                                    TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                                    TextOptions.TextFormattingMode="Display" />
+                        </Border>
+                    </DockPanel>
+                    <Border ClipToBounds="True" Margin="0,-1,0,0">
+                        <Border x:Name="SubmenuBorder"
+                                Panel.ZIndex="0" Margin="0,0,3,3"
+                                SnapsToDevicePixels="True"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource Environment.CommandBar.MenuBorder}"
+                                Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
+                                    <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Margin="0,1,0,0" Grid.ColumnSpan="2"
+                                        VerticalAlignment="Stretch" MinWidth="27"
+                                        Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
+                                <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                                        KeyboardNavigation.DirectionalNavigation="Cycle" />
+                            </Grid>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.5" Direction="300" />
+                            </Border.Effect>
+                        </Border>
+                    </Border>
+                </StackPanel>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextHover}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--submenu item with no children-->
+    <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="MenuItem">
+        <Border x:Name="Border" Background="Transparent"
+                BorderThickness="1" SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupCheckBox" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupIcon" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition SharedSizeGroup="MenuPopupShortcut" />
+                    <ColumnDefinition Width="18" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
+                        Width="18" Height="18" BorderThickness="2" Margin="-3,0,0,0"
+                        Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
+                        BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
+                    <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
+                </Border>
+                <Border x:Name="IconBox" SnapsToDevicePixels="True"
+                        Grid.Column="1" Visibility="Visible">
+                    <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <ContentPresenter x:Name="Presenter" Grid.Column="2"
+                        Margin="6,3,36,2"
+                        ContentSource="Header" RecognizesAccessKey="True"
+                        TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                        TextOptions.TextFormattingMode="Display" />
+                <TextBlock x:Name="InputGestureText"
+                        Grid.Column="3" Margin="0,3,0,2"
+                        Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                        Text="{TemplateBinding InputGestureText}"
+                        TextOptions.TextFormattingMode="Display" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsCheckable" Value="True">
+                <Setter TargetName="CheckBox" Property="Visibility" Value="Hidden" />
+                <Setter TargetName="IconBox" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="CheckBox" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="CheckBox" Property="Background" Value="{DynamicResource Environment.CommandBar.HoverOverSelectedIcon}" />
+                <Setter TargetName="CheckBox" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.CheckBoxMouseOver}" />
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverForeground}" />
+                <Setter TargetName="InputGestureText" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverForeground}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="CheckBox" Property="Background" Value="{DynamicResource Environment.CommandBar.SelectedIconDisabled}" />
+                <Setter TargetName="CheckBox" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.CheckBoxDisabled}" />
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+                <Setter TargetName="InputGestureText" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="{x:Static MenuItem.SubmenuHeaderTemplateKey}" TargetType="MenuItem">
+        <Border x:Name="Border" Background="Transparent"
+                BorderThickness="1" SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupCheckBox" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupIcon" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition SharedSizeGroup="MenuPopupShortcut" />
+                    <ColumnDefinition Width="18" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
+                        Width="18" Height="18" BorderThickness="2" Margin="-3,0,0,0"
+                        Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
+                        BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
+                    <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
+                </Border>
+                <Border x:Name="IconBox" SnapsToDevicePixels="True"
+                        Grid.Column="1" Visibility="Visible">
+                    <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <ContentPresenter x:Name="Presenter" Grid.Column="2"
+                        Margin="6,3,36,2"
+                        ContentSource="Header" RecognizesAccessKey="True"
+                        TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                        TextOptions.TextFormattingMode="Display" />
+                <TextBlock x:Name="InputGestureText"
+                        Grid.Column="3" Margin="0,3,0,2"
+                        Foreground="{DynamicResource Environment.CommandBar.TextActive}"
+                        Text="{TemplateBinding InputGestureText}"
+                        TextOptions.TextFormattingMode="Display" />
+                <Path x:Name="Indicator" Grid.Column="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Fill="{DynamicResource Environment.CommandBar.MenuSubmenuGlyph}"
+                        Data="M0,0 L0,7 L4,3.5 Z" />
+                <Popup x:Name="Popup" Placement="Right"
+                        IsOpen="{TemplateBinding IsSubmenuOpen}"
+                        VerticalOffset="-1" HorizontalOffset="1"
+                        AllowsTransparency="True" Grid.IsSharedSizeScope="True"
+                        Focusable="False" PopupAnimation="None">
+                    <Border x:Name="SubmenuBorder"
+                            SnapsToDevicePixels="True"
+                            BorderThickness="1" Margin="0,0,3,3"
+                            BorderBrush="{DynamicResource Environment.CommandBar.MenuBorder}"
+                            Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
+                                <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.ColumnSpan="2" MinWidth="27"
+                                    VerticalAlignment="Stretch"
+                                    Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
+                            <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                                    KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Grid>
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.5" Direction="300" />
+                        </Border.Effect>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsCheckable" Value="True">
+                <Setter TargetName="CheckBox" Property="Visibility" Value="Hidden" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="CheckBox" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="CheckBox" Property="Background" Value="{DynamicResource Environment.CommandBar.HoverOverSelectedIcon}" />
+                <Setter TargetName="CheckBox" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.CheckBoxMouseOver}" />
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverForeground}" />
+                <Setter TargetName="InputGestureText" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverForeground}" />
+                <Setter TargetName="Indicator" Property="Fill" Value="{DynamicResource Environment.CommandBar.MenuMouseOverSubmenuGlyph}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverBackground}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MenuItemMouseOverBorder}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="CheckBox" Property="Background" Value="{DynamicResource Environment.CommandBar.SelectedIconDisabled}" />
+                <Setter TargetName="CheckBox" Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.CheckBoxDisabled}" />
+                <Setter TargetName="Presenter" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+                <Setter TargetName="InputGestureText" Property="TextBlock.Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+                <Setter TargetName="Indicator" Property="Fill" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="ContextMenu">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MenuBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <Border ClipToBounds="True" Grid.IsSharedSizeScope="True">
+                        <Border x:Name="Border" Panel.ZIndex="0" Margin="0,0,3,3"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
+                                    <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="2" MinWidth="27"
+                                        VerticalAlignment="Stretch"
+                                        Background="{DynamicResource DynamicResource Environment.CommandBar.MenuIconBackground}" />
+                                <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                                        KeyboardNavigation.DirectionalNavigation="Cycle" />
+                            </Grid>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.5" Direction="300" />
+                            </Border.Effect>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow" Value="False">
+                            <Setter TargetName="Border" Property="Margin" Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#endregion-->
+
     <!--#region ScrollViewer-->
 
     <Style x:Key="ScrollBarLineButton" TargetType="RepeatButton">

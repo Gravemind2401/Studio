@@ -27,7 +27,8 @@
             <MenuItem Header="File">
                 <MenuItem Header="New" />
                 <MenuItem Header="Open" />
-                <MenuItem Header="Close" />
+                <Separator />
+                <MenuItem Header="Close" IsEnabled="False" />
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo" />
@@ -38,10 +39,15 @@
                 <MenuItem Header="Settings" />
                 <MenuItem Header="Options">
                     <MenuItem Header="Option 1" />
-                    <MenuItem Header="Option 2" />
-                    <MenuItem Header="Option 3" />
+                    <Separator />
+                    <MenuItem Header="Option 2" IsCheckable="True" />
+                    <MenuItem Header="Option 3" IsCheckable="True" IsChecked="True" />
                 </MenuItem>
-                <MenuItem Header="Tool" />
+                <MenuItem Header="Tool Menu" IsEnabled="False">
+                    <MenuItem Header="Option 1" />
+                    <MenuItem Header="Option 1" />
+                    <MenuItem Header="Option 1" />
+                </MenuItem>
             </MenuItem>
         </Menu>
 
@@ -113,6 +119,35 @@
                         <ComboBoxItem Content="item 3" />
                     </ComboBox>
                 </StackPanel>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="File">
+                            <MenuItem Header="New" />
+                            <MenuItem Header="Open" />
+                            <Separator />
+                            <MenuItem Header="Close" IsEnabled="False" />
+                        </MenuItem>
+                        <MenuItem Header="Edit">
+                            <MenuItem Header="Undo" />
+                            <MenuItem Header="Redo" />
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Tools">
+                            <MenuItem Header="Settings" />
+                            <MenuItem Header="Options">
+                                <MenuItem Header="Option 1" />
+                                <Separator />
+                                <MenuItem Header="Option 2" IsCheckable="True" />
+                                <MenuItem Header="Option 3" IsCheckable="True" IsChecked="True" />
+                            </MenuItem>
+                            <MenuItem Header="Tool Menu" IsEnabled="False">
+                                <MenuItem Header="Option 1" />
+                                <MenuItem Header="Option 1" />
+                                <MenuItem Header="Option 1" />
+                            </MenuItem>
+                        </MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
             </Grid>
         </ScrollViewer>
     </Grid>
