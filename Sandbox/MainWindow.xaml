@@ -86,32 +86,34 @@
             </ToolBar>
         </ToolBarTray>
 
-        <Grid Grid.Row="2" Margin="5" Background="{DynamicResource Environment.EnvironmentBackgroundGradient}">
-            <StackPanel Width="300">
-                <s:SearchControl WatermarkText="Search..." />
-                <s:SearchControl IsEnabled="False" WatermarkText="Search..." />
-                <TextBox Text="enabled" />
-                <TextBox IsReadOnly="True" Text="readonly" />
-                <TextBox IsEnabled="False" Text="disabled" />
-                <Button Content="enabled" />
-                <Button Content="default" IsDefault="True" />
-                <Button Content="disabled" IsEnabled="False" />
-                <ComboBox>
-                    <ComboBoxItem Content="item 1" />
-                    <ComboBoxItem Content="item 2" />
-                    <ComboBoxItem Content="item 3" />
-                </ComboBox>
-                <ComboBox IsEditable="True">
-                    <ComboBoxItem Content="item 1" />
-                    <ComboBoxItem Content="item 2" />
-                    <ComboBoxItem Content="item 3" />
-                </ComboBox>
-                <ComboBox IsEnabled="False">
-                    <ComboBoxItem Content="item 1" IsSelected="True" />
-                    <ComboBoxItem Content="item 2" />
-                    <ComboBoxItem Content="item 3" />
-                </ComboBox>
-            </StackPanel>
-        </Grid>
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">
+            <Grid Margin="5" Background="{DynamicResource Environment.EnvironmentBackgroundGradient}" MinWidth="600" MinHeight="500">
+                <StackPanel Width="300">
+                    <s:SearchControl WatermarkText="Search..." />
+                    <s:SearchControl IsEnabled="False" WatermarkText="Search..." />
+                    <TextBox Text="enabled" />
+                    <TextBox IsReadOnly="True" Text="readonly" />
+                    <TextBox IsEnabled="False" Text="disabled" />
+                    <Button Content="enabled" />
+                    <Button Content="default" IsDefault="True" />
+                    <Button Content="disabled" IsEnabled="False" />
+                    <ComboBox>
+                        <ComboBoxItem Content="item 1" />
+                        <ComboBoxItem Content="item 2" />
+                        <ComboBoxItem Content="item 3" />
+                    </ComboBox>
+                    <ComboBox IsEditable="True">
+                        <ComboBoxItem Content="item 1" />
+                        <ComboBoxItem Content="item 2" />
+                        <ComboBoxItem Content="item 3" />
+                    </ComboBox>
+                    <ComboBox IsEnabled="False">
+                        <ComboBoxItem Content="item 1" IsSelected="True" />
+                        <ComboBoxItem Content="item 2" />
+                        <ComboBoxItem Content="item 3" />
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>
