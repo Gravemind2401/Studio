@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Studio;component/Styles/VS2015.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -168,13 +168,13 @@
     <SolidColorBrush x:Key="Environment.AutoHideResizeGrip" Color="#FFE8E8EC" />
     <SolidColorBrush x:Key="Environment.AutoHideResizeGripDisabled" Color="#FFE8E8EC" />
     <LinearGradientBrush x:Key="Environment.AutoHideTabBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF293955" />
-	    <GradientStop Offset="1" Color="#FF293955" />
+        <GradientStop Offset="0" Color="#FF293955" />
+        <GradientStop Offset="1" Color="#FF293955" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.AutoHideTabBorder" Color="#FF465A7D" />
     <LinearGradientBrush x:Key="Environment.AutoHideTabMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF293955" />
-	    <GradientStop Offset="1" Color="#FF293955" />
+        <GradientStop Offset="0" Color="#FF293955" />
+        <GradientStop Offset="1" Color="#FF293955" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.AutoHideTabMouseOverBorder" Color="#FF9BA7B7" />
     <SolidColorBrush x:Key="Environment.AutoHideTabMouseOverText" Color="#FFFFFFFF" />
@@ -215,10 +215,10 @@
     <SolidColorBrush x:Key="Environment.EditorExpansionText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.EnvironmentBackground" Color="#FF293955" />
     <LinearGradientBrush x:Key="Environment.EnvironmentBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF293955" />
-	    <GradientStop Offset="0.333" Color="#FF35496A" />
-	    <GradientStop Offset="0.667" Color="#FF35496A" />
-	    <GradientStop Offset="1" Color="#FF293955" />
+        <GradientStop Offset="0" Color="#FF293955" />
+        <GradientStop Offset="0.333" Color="#FF35496A" />
+        <GradientStop Offset="0.667" Color="#FF35496A" />
+        <GradientStop Offset="1" Color="#FF293955" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.EnvironmentBackgroundTexture1" Color="#FF293955" />
     <SolidColorBrush x:Key="Environment.EnvironmentBackgroundTexture2" Color="#FF35496A" />
@@ -269,9 +269,9 @@
     <SolidColorBrush x:Key="Environment.ThreeDLightShadow" Color="#00000016" />
     <SolidColorBrush x:Key="Environment.ThreeDShadow" Color="#00000010" />
     <LinearGradientBrush x:Key="Environment.VerticalResizeGrip" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#00000000" />
-	    <GradientStop Offset="0.5" Color="#00000000" />
-	    <GradientStop Offset="1" Color="#00000000" />
+        <GradientStop Offset="0" Color="#00000000" />
+        <GradientStop Offset="0.5" Color="#00000000" />
+        <GradientStop Offset="1" Color="#00000000" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.Window" Color="#00000005" />
     <SolidColorBrush x:Key="Environment.WindowFrame" Color="#00000006" />
@@ -305,17 +305,17 @@
     <SolidColorBrush x:Key="Environment.ComboBox.MouseDownGlyph" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.ComboBox.MouseDownText" Color="#FF000000" />
     <LinearGradientBrush x:Key="Environment.ComboBox.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFCFCFC" />
-	    <GradientStop Offset="0.333" Color="#FFFCFCFC" />
-	    <GradientStop Offset="0.667" Color="#FFFCFCFC" />
-	    <GradientStop Offset="1" Color="#FFFCFCFC" />
+        <GradientStop Offset="0" Color="#FFFCFCFC" />
+        <GradientStop Offset="0.333" Color="#FFFCFCFC" />
+        <GradientStop Offset="0.667" Color="#FFFCFCFC" />
+        <GradientStop Offset="1" Color="#FFFCFCFC" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.ComboBox.MouseOverBorder" Color="#FFE5C365" />
     <SolidColorBrush x:Key="Environment.ComboBox.MouseOverGlyph" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.ComboBox.MouseOverText" Color="#FF000000" />
     <LinearGradientBrush x:Key="Environment.ComboBox.PopupBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFEFEFEF" />
-	    <GradientStop Offset="1" Color="#FFEFEFEF" />
+        <GradientStop Offset="0" Color="#FFEFEFEF" />
+        <GradientStop Offset="1" Color="#FFEFEFEF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.ComboBox.PopupBorder" Color="#FF9BA7B7" />
     <SolidColorBrush x:Key="Environment.ComboBox.Selection" Color="#FF007ACC" />
@@ -330,17 +330,17 @@
     <SolidColorBrush x:Key="Environment.CommandBar.DragHandle" Color="#FF60728C" />
     <SolidColorBrush x:Key="Environment.CommandBar.DragHandleShadow" Color="#FFBCC7D8" />
     <LinearGradientBrush x:Key="Environment.CommandBar.Gradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFCFD6E5" />
-	    <GradientStop Offset="0.5" Color="#FFCFD6E5" />
-	    <GradientStop Offset="1" Color="#FFCFD6E5" />
+        <GradientStop Offset="0" Color="#FFCFD6E5" />
+        <GradientStop Offset="0.5" Color="#FFCFD6E5" />
+        <GradientStop Offset="1" Color="#FFCFD6E5" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.Hover" Color="#FFFDF4BF" />
     <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelected" Color="#FFFFF29D" />
     <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelectedIcon" Color="#FFFFFCF4" />
     <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelectedIconBorder" Color="#FFE5C365" />
     <LinearGradientBrush x:Key="Environment.CommandBar.MenuBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFEAF0FF" />
-	    <GradientStop Offset="1" Color="#FFEAF0FF" />
+        <GradientStop Offset="0" Color="#FFEAF0FF" />
+        <GradientStop Offset="1" Color="#FFEAF0FF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.MenuBorder" Color="#FF9BA7B7" />
     <SolidColorBrush x:Key="Environment.CommandBar.MenuGlyph" Color="#FF1B293E" />
@@ -365,31 +365,31 @@
     <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkText" Color="#FF717171" />
     <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkTextHover" Color="#FF717171" />
     <LinearGradientBrush x:Key="Environment.CommandBar.MouseDownBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.5" Color="#FFFFF29D" />
-	    <GradientStop Offset="1" Color="#FFFFF29D" />
+        <GradientStop Offset="0" Color="#FFFFF29D" />
+        <GradientStop Offset="0.5" Color="#FFFFF29D" />
+        <GradientStop Offset="1" Color="#FFFFF29D" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.MouseDownBorder" Color="#FFE5C365" />
     <LinearGradientBrush x:Key="Environment.CommandBar.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.333" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.667" Color="#FFFDF4BF" />
-	    <GradientStop Offset="1" Color="#FFFDF4BF" />
+        <GradientStop Offset="0" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.333" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.667" Color="#FFFDF4BF" />
+        <GradientStop Offset="1" Color="#FFFDF4BF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.MouseOverUnfocused" Color="#FFFDF4BF" />
     <SolidColorBrush x:Key="Environment.CommandBar.OptionsBackground" Color="#FFDCE0EC" />
     <SolidColorBrush x:Key="Environment.CommandBar.OptionsGlyph" Color="#FF1B293E" />
     <LinearGradientBrush x:Key="Environment.CommandBar.OptionsMouseDownBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.5" Color="#FFFFF29D" />
-	    <GradientStop Offset="1" Color="#FFFFF29D" />
+        <GradientStop Offset="0" Color="#FFFFF29D" />
+        <GradientStop Offset="0.5" Color="#FFFFF29D" />
+        <GradientStop Offset="1" Color="#FFFFF29D" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.OptionsMouseDownGlyph" Color="#FF1B293E" />
     <LinearGradientBrush x:Key="Environment.CommandBar.OptionsMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.333" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.667" Color="#FFFDF4BF" />
-	    <GradientStop Offset="1" Color="#FFFDF4BF" />
+        <GradientStop Offset="0" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.333" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.667" Color="#FFFDF4BF" />
+        <GradientStop Offset="1" Color="#FFFDF4BF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.CommandBar.OptionsMouseOverGlyph" Color="#FF1B293E" />
     <SolidColorBrush x:Key="Environment.CommandBar.Selected" Color="#FFFDF4BF" />
@@ -416,14 +416,14 @@
 
     <!--#region CommandShelf-->
     <LinearGradientBrush x:Key="Environment.CommandShelf.BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFD6DBE9" />
-	    <GradientStop Offset="0.5" Color="#FFD6DBE9" />
-	    <GradientStop Offset="1" Color="#FFD6DBE9" />
+        <GradientStop Offset="0" Color="#FFD6DBE9" />
+        <GradientStop Offset="0.5" Color="#FFD6DBE9" />
+        <GradientStop Offset="1" Color="#FFD6DBE9" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="Environment.CommandShelf.HighlightGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFD6DBE9" />
-	    <GradientStop Offset="0.5" Color="#FFD6DBE9" />
-	    <GradientStop Offset="1" Color="#FFD6DBE9" />
+        <GradientStop Offset="0" Color="#FFD6DBE9" />
+        <GradientStop Offset="0.5" Color="#FFD6DBE9" />
+        <GradientStop Offset="1" Color="#FFD6DBE9" />
     </LinearGradientBrush>
     <!--#endregion-->
 
@@ -431,14 +431,14 @@
     <SolidColorBrush x:Key="Environment.DockTarget.Background" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.DockTarget.Border" Color="#FF636871" />
     <LinearGradientBrush x:Key="Environment.DockTarget.ButtonBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFF5F8FB" />
-	    <GradientStop Offset="1" Color="#FFDEE2E9" />
+        <GradientStop Offset="0" Color="#FFF5F8FB" />
+        <GradientStop Offset="1" Color="#FFDEE2E9" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.DockTarget.ButtonBorder" Color="#FF8A919C" />
     <SolidColorBrush x:Key="Environment.DockTarget.GlyphArrow" Color="#FF445879" />
     <LinearGradientBrush x:Key="Environment.DockTarget.GlyphBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDE8A7" />
-	    <GradientStop Offset="1" Color="#FFF7C570" />
+        <GradientStop Offset="0" Color="#FFFDE8A7" />
+        <GradientStop Offset="1" Color="#FFF7C570" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.DockTarget.GlyphBorder" Color="#FF445879" />
     <!--#endregion-->
@@ -460,17 +460,17 @@
     <SolidColorBrush x:Key="Environment.DropDown.MouseDownGlyph" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.DropDown.MouseDownText" Color="#FF000000" />
     <LinearGradientBrush x:Key="Environment.DropDown.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFCFCFC" />
-	    <GradientStop Offset="0.333" Color="#FFFCFCFC" />
-	    <GradientStop Offset="0.667" Color="#FFFCFCFC" />
-	    <GradientStop Offset="1" Color="#FFFCFCFC" />
+        <GradientStop Offset="0" Color="#FFFCFCFC" />
+        <GradientStop Offset="0.333" Color="#FFFCFCFC" />
+        <GradientStop Offset="0.667" Color="#FFFCFCFC" />
+        <GradientStop Offset="1" Color="#FFFCFCFC" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.DropDown.MouseOverBorder" Color="#FFE5C365" />
     <SolidColorBrush x:Key="Environment.DropDown.MouseOverGlyph" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.DropDown.MouseOverText" Color="#FF000000" />
     <LinearGradientBrush x:Key="Environment.DropDown.PopupBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFEFEFEF" />
-	    <GradientStop Offset="1" Color="#FFEFEFEF" />
+        <GradientStop Offset="0" Color="#FFEFEFEF" />
+        <GradientStop Offset="1" Color="#FFEFEFEF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.DropDown.PopupBorder" Color="#FF9BA7B7" />
     <SolidColorBrush x:Key="Environment.DropDown.Text" Color="#FF000000" />
@@ -530,8 +530,8 @@
     <SolidColorBrush x:Key="Environment.FileTab.HotBorder" Color="#FF5B7199" />
     <SolidColorBrush x:Key="Environment.FileTab.HotGlyph" Color="#FFCED4DD" />
     <LinearGradientBrush x:Key="Environment.FileTab.HotGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF5B7199" />
-	    <GradientStop Offset="1" Color="#FF5B7199" />
+        <GradientStop Offset="0" Color="#FF5B7199" />
+        <GradientStop Offset="1" Color="#FF5B7199" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.HotText" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveBorder" Color="#FF4D6082" />
@@ -539,18 +539,18 @@
     <SolidColorBrush x:Key="Environment.FileTab.InactiveDocumentBorderEdge" Color="#FF4D6082" />
     <SolidColorBrush x:Key="Environment.FileTab.InactiveGlyph" Color="#FFCED4DD" />
     <LinearGradientBrush x:Key="Environment.FileTab.InactiveGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF4D6082" />
-	    <GradientStop Offset="1" Color="#FF4D6082" />
+        <GradientStop Offset="0" Color="#FF4D6082" />
+        <GradientStop Offset="1" Color="#FF4D6082" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.InactiveText" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderBackground" Color="#FFCED4DF" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderEdge" Color="#FFC0C9D9" />
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveGlyph" Color="#FF5F6673" />
     <LinearGradientBrush x:Key="Environment.FileTab.LastActiveGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFD5DAE3" />
-	    <GradientStop Offset="0.333" Color="#FFD5DAE3" />
-	    <GradientStop Offset="0.667" Color="#FFD5DAE3" />
-	    <GradientStop Offset="1" Color="#FFD5DAE3" />
+        <GradientStop Offset="0" Color="#FFD5DAE3" />
+        <GradientStop Offset="0.333" Color="#FFD5DAE3" />
+        <GradientStop Offset="0.667" Color="#FFD5DAE3" />
+        <GradientStop Offset="1" Color="#FFD5DAE3" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.LastActiveText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHover" Color="#FF68B4FF" />
@@ -568,10 +568,10 @@
     <SolidColorBrush x:Key="Environment.FileTab.SelectedBackground" Color="#FF293955" />
     <SolidColorBrush x:Key="Environment.FileTab.SelectedBorder" Color="#FFFFF29D" />
     <LinearGradientBrush x:Key="Environment.FileTab.SelectedGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.333" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.667" Color="#FFFFF29D" />
-	    <GradientStop Offset="1" Color="#FFFFF29D" />
+        <GradientStop Offset="0" Color="#FFFFF29D" />
+        <GradientStop Offset="0.333" Color="#FFFFF29D" />
+        <GradientStop Offset="0.667" Color="#FFFFF29D" />
+        <GradientStop Offset="1" Color="#FFFFF29D" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.FileTab.SelectedText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.FileTab.Text" Color="#FFFFFFFF" />
@@ -686,10 +686,10 @@
     <SolidColorBrush x:Key="Environment.SearchBox.Background" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.SearchBox.Border" Color="#FF8591A2" />
     <LinearGradientBrush x:Key="Environment.SearchBox.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.333" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.667" Color="#FFFDF4BF" />
-	    <GradientStop Offset="1" Color="#FFFDF4BF" />
+        <GradientStop Offset="0" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.333" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.667" Color="#FFFDF4BF" />
+        <GradientStop Offset="1" Color="#FFFDF4BF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.SearchBox.MouseOverBorder" Color="#FFE5C365" />
     <SolidColorBrush x:Key="Environment.SearchBox.PressedBackground" Color="#FFFFF29D" />
@@ -719,18 +719,18 @@
     <SolidColorBrush x:Key="Environment.TitleBar.Active" Color="#FFFFF29D" />
     <SolidColorBrush x:Key="Environment.TitleBar.ActiveBorder" Color="#FFFFF29D" />
     <LinearGradientBrush x:Key="Environment.TitleBar.ActiveGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.333" Color="#FFFFF29D" />
-	    <GradientStop Offset="0.667" Color="#FFFFF29D" />
-	    <GradientStop Offset="1" Color="#FFFFF29D" />
+        <GradientStop Offset="0" Color="#FFFFF29D" />
+        <GradientStop Offset="0.333" Color="#FFFFF29D" />
+        <GradientStop Offset="0.667" Color="#FFFFF29D" />
+        <GradientStop Offset="1" Color="#FFFFF29D" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.TitleBar.ActiveText" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.TitleBar.DragHandle" Color="#FF4D6082" />
     <SolidColorBrush x:Key="Environment.TitleBar.DragHandleActive" Color="#FFFFF29D" />
     <SolidColorBrush x:Key="Environment.TitleBar.Inactive" Color="#FF4D6082" />
     <LinearGradientBrush x:Key="Environment.TitleBar.InactiveGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF4D6082" />
-	    <GradientStop Offset="1" Color="#FF4D6082" />
+        <GradientStop Offset="0" Color="#FF4D6082" />
+        <GradientStop Offset="1" Color="#FF4D6082" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.TitleBar.InactiveText" Color="#FFFFFFFF" />
     <!--#endregion-->
@@ -750,16 +750,16 @@
     <SolidColorBrush x:Key="Environment.Toolbox.GradientLight" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.Toolbox.HeadingAccent" Color="#FFCED4DF" />
     <LinearGradientBrush x:Key="Environment.Toolbox.Heading" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFF0F0F0" />
-	    <GradientStop Offset="1" Color="#FFF0F0F0" />
+        <GradientStop Offset="0" Color="#FFF0F0F0" />
+        <GradientStop Offset="1" Color="#FFF0F0F0" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.Toolbox.IconHighlight" Color="#FFF7F7FF" />
     <SolidColorBrush x:Key="Environment.Toolbox.IconShadow" Color="#FFA0A0A0" />
     <LinearGradientBrush x:Key="Environment.Toolbox.SelectedHeading" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFFFBF0" />
-	    <GradientStop Offset="0.333" Color="#FFFFF7DA" />
-	    <GradientStop Offset="0.667" Color="#FFFFF2CB" />
-	    <GradientStop Offset="1" Color="#FFFFF2CB" />
+        <GradientStop Offset="0" Color="#FFFFFBF0" />
+        <GradientStop Offset="0.333" Color="#FFFFF7DA" />
+        <GradientStop Offset="0.667" Color="#FFFFF2CB" />
+        <GradientStop Offset="1" Color="#FFFFF2CB" />
     </LinearGradientBrush>
     <!--#endregion-->
 
@@ -789,8 +789,8 @@
     <SolidColorBrush x:Key="Environment.ToolWindow.ButtonInactiveGlyph" Color="#FFCED4DD" />
     <SolidColorBrush x:Key="Environment.ToolWindow.ContentGrid" Color="#FFEEEEF2" />
     <LinearGradientBrush x:Key="Environment.ToolWindow.ContentTabGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFBFCFD" />
-	    <GradientStop Offset="1" Color="#FFFBFCFD" />
+        <GradientStop Offset="0" Color="#FFFBFCFD" />
+        <GradientStop Offset="1" Color="#FFFBFCFD" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameBackground" Color="#FF293955" />
     <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameForeground" Color="#FFFFFFFF" />
@@ -798,12 +798,12 @@
     <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameInactiveForeground" Color="#99FFFFFF" />
     <SolidColorBrush x:Key="Environment.ToolWindow.TabBorder" Color="#FF4B5C74" />
     <LinearGradientBrush x:Key="Environment.ToolWindow.TabGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF4D6082" />
-	    <GradientStop Offset="1" Color="#FF4D6082" />
+        <GradientStop Offset="0" Color="#FF4D6082" />
+        <GradientStop Offset="1" Color="#FF4D6082" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="Environment.ToolWindow.TabMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FF5B7199" />
-	    <GradientStop Offset="1" Color="#FF5B7199" />
+        <GradientStop Offset="0" Color="#FF5B7199" />
+        <GradientStop Offset="1" Color="#FF5B7199" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.ToolWindow.TabMouseOverBorder" Color="#FF5B7199" />
     <SolidColorBrush x:Key="Environment.ToolWindow.TabMouseOverText" Color="#FFFFFFFF" />
@@ -923,10 +923,10 @@
     <!--#region Popup-->
     <SolidColorBrush x:Key="SearchControl.Popup.Border" Color="#FFCCCEDB" />
     <LinearGradientBrush x:Key="SearchControl.Popup.ButtonMouseDownBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFE5C365" />
-	    <GradientStop Offset="0.333" Color="#FFE5C365" />
-	    <GradientStop Offset="0.667" Color="#FFE5C365" />
-	    <GradientStop Offset="1" Color="#FFE5C365" />
+        <GradientStop Offset="0" Color="#FFE5C365" />
+        <GradientStop Offset="0.333" Color="#FFE5C365" />
+        <GradientStop Offset="0.667" Color="#FFE5C365" />
+        <GradientStop Offset="1" Color="#FFE5C365" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="SearchControl.Popup.ButtonMouseDownBorder" Color="#FFE5C365" />
     <SolidColorBrush x:Key="SearchControl.Popup.ButtonMouseDownText" Color="#FF1E1E1E" />
@@ -937,32 +937,32 @@
     <SolidColorBrush x:Key="SearchControl.Popup.CheckboxMouseOverText" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="SearchControl.Popup.CheckboxText" Color="#FF1E1E1E" />
     <LinearGradientBrush x:Key="SearchControl.Popup.ControlMouseDownBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.333" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.667" Color="#FFFDF4BF" />
-	    <GradientStop Offset="1" Color="#FFFDF4BF" />
+        <GradientStop Offset="0" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.333" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.667" Color="#FFFDF4BF" />
+        <GradientStop Offset="1" Color="#FFFDF4BF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="SearchControl.Popup.ControlMouseDownBorder" Color="#FFFDF4BF" />
     <LinearGradientBrush x:Key="SearchControl.Popup.ControlMouseOverBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.333" Color="#FFFDF4BF" />
-	    <GradientStop Offset="0.667" Color="#FFFDF4BF" />
-	    <GradientStop Offset="1" Color="#FFFDF4BF" />
+        <GradientStop Offset="0" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.333" Color="#FFFDF4BF" />
+        <GradientStop Offset="0.667" Color="#FFFDF4BF" />
+        <GradientStop Offset="1" Color="#FFFDF4BF" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="SearchControl.Popup.ControlMouseOverBorder" Color="#FFFDF4BF" />
     <LinearGradientBrush x:Key="SearchControl.Popup.ItemsListBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFE7E8EC" />
-	    <GradientStop Offset="1" Color="#FFE7E8EC" />
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="SearchControl.Popup.ItemText" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="SearchControl.Popup.MouseOverItemText" Color="#FF1E1E1E" />
     <LinearGradientBrush x:Key="SearchControl.Popup.SectionBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFE7E8EC" />
-	    <GradientStop Offset="1" Color="#FFE7E8EC" />
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SearchControl.Popup.SectionHeaderGradient" StartPoint="0,0" EndPoint="0,1">
-	    <GradientStop Offset="0" Color="#FFE7E8EC" />
-	    <GradientStop Offset="1" Color="#FFE7E8EC" />
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="SearchControl.Popup.SectionHeaderSeparator" Color="#FFCCCEDB" />
     <SolidColorBrush x:Key="SearchControl.Popup.SectionHeaderText" Color="#FF717171" />
