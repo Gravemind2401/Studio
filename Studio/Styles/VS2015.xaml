@@ -115,6 +115,35 @@
         </Viewbox>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="ToolBarDragHandle" TargetType="Thumb">
+        <Viewbox Width="5" Height="18">
+            <Rectangle Width="5" Height="18">
+                <Rectangle.Fill>
+                    <VisualBrush TileMode="Tile"
+                            Viewport="0,0,4,4" ViewportUnits="Absolute"
+                            Viewbox="0,0,4,4" ViewboxUnits="Absolute">
+                        <VisualBrush.Visual>
+                            <Image RenderOptions.EdgeMode="Aliased" SnapsToDevicePixels="True">
+                                <Image.Source>
+                                    <DrawingImage>
+                                        <DrawingImage.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Thumb}}"
+                                                                     Geometry="M0,0 H1 V1 H0 Z M2,2 H3 V3 H2 Z" />
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingImage.Drawing>
+                                    </DrawingImage>
+                                </Image.Source>
+                            </Image>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Viewbox>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="SearchAcceptGlyph">
         <Viewbox Width="16" Height="16">
             <Rectangle Width="16" Height="16">
@@ -428,6 +457,207 @@
                 <Setter Property="Foreground" Value="{DynamicResource Environment.ComboBox.ItemTextInactive}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!--#endregion-->
+    
+    <!--#region ToolBar-->
+
+    <Style TargetType="ToolBarTray">
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandShelf.BackgroundGradient}" />
+        <Style.Triggers>
+            <Trigger Property="IsLocked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.Gradient}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToolBar">
+        <Style.Resources>
+            <Style x:Key="ToolBarThumbStyle" TargetType="Thumb">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Cursor" Value="SizeAll" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.DragHandle}" />
+                <Setter Property="Template" Value="{StaticResource ToolBarDragHandle}" />
+            </Style>
+            <Style x:Key="ToolBarOverflowButtonStyle" TargetType="ToggleButton">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.OptionsGlyph}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.OptionsBackground}" />
+                <Setter Property="BorderThickness" Value="0" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.OptionsMouseOverBackground}" />
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.OptionsMouseOverGlyph}" />
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.OptionsMouseDownBackground}" />
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.OptionsMouseDownGlyph}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+        
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.Gradient}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.ToolBarBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="9,1,-9,1" />
+        <Setter Property="Padding" Value="1,0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolBar">
+                    <DockPanel Background="{TemplateBinding BorderBrush}">
+                        <ToggleButton x:Name="OverflowToggle" DockPanel.Dock="Right" ClickMode="Press"
+                                IsEnabled="{TemplateBinding HasOverflowItems}"
+                                Style="{StaticResource ToolBarOverflowButtonStyle}"
+                                IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Path Margin="1,3" VerticalAlignment="Bottom"
+                                  Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}"
+                                  Data="M0,0 H6 V1 H0 Z M0,3 L3,6 L6,3 Z" />
+                        </ToggleButton>
+                        <Popup PlacementTarget="{Binding ElementName=OverflowToggle}"
+                               AllowsTransparency="True" Placement="Bottom"
+                               StaysOpen="False" Focusable="False"
+                               HorizontalOffset="-6" VerticalOffset="1"
+                               IsOpen="{Binding IsOverflowOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Border ClipToBounds="True" Padding="0,0,5,5">
+                                <Border BorderThickness="1" Margin="0,0,2,0"
+                                        Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}"
+                                        BorderBrush="{DynamicResource Environment.CommandBar.MenuBorder}">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.5" Direction="300" />
+                                    </Border.Effect>
+                                    <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel"
+                                            Margin="2" WrapWidth="200"
+                                            Focusable="True" FocusVisualStyle="{x:Null}"
+                                            KeyboardNavigation.TabNavigation="Cycle"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                </Border>
+                            </Border>
+                        </Popup>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <DockPanel>
+                                <Thumb x:Name="ToolBarThumb" Style="{StaticResource ToolBarThumbStyle}" Width="5" Margin="2,3" />
+                                <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="True" Margin="{TemplateBinding Padding}" />
+                            </DockPanel>
+                        </Border>
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasOverflowItems" Value="False">
+                            <Setter TargetName="OverflowToggle" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsOverflowOpen" Value="True">
+                            <Setter TargetName="ToolBarThumb" Property="IsEnabled" Value="False" />
+                        </Trigger>
+                        <Trigger Property="ToolBarTray.IsLocked" Value="True">
+                            <Setter TargetName="ToolBarThumb" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="ToolBarTray.IsLocked" Value="True">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="5,2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+        <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextActive}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="3" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextHover}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.Border}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextMouseDown}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MouseDownBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MouseDownBorder}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" TargetType="ToggleButton">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+        <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextActive}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="3" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextHover}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.Border}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextMouseDown}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MouseDownBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MouseDownBorder}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.Selected}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.SelectedBorder}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.HoverOverSelectedIcon}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.HoverOverSelectedIconBorder}" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Static ToolBar.ComboBoxStyleKey}" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    
+    <Style x:Key="{x:Static ToolBar.SeparatorStyleKey}" TargetType="Separator">
+        <Setter Property="Margin" Value="3,2" />
+        <Setter Property="Width" Value="2" />
+
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1,0,0,0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.ToolBarSeparator}" />
+        <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.ToolBarSeparatorHighlight}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!--#endregion-->
