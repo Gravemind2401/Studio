@@ -1234,32 +1234,34 @@
 
     <!--#region Custom Controls-->
 
-    <Style x:Key="SearchControl.ActionButtonStyle" TargetType="Button">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonMouseOverGlyph}" />
-                <Setter Property="Background" Value="{DynamicResource SearchControl.ActionButtonMouseOver}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource SearchControl.ActionButtonMouseOverBorder}" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonMouseDownGlyph}" />
-                <Setter Property="Background" Value="{DynamicResource SearchControl.ActionButtonMouseDown}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource SearchControl.ActionButtonMouseDownBorder}" />
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonDisabledGlyph}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <Style TargetType="c:SearchControl">
+        <Style.Resources>
+            <Style x:Key="ActionButtonStyle" TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonMouseOverGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource SearchControl.ActionButtonMouseOver}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource SearchControl.ActionButtonMouseOverBorder}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonMouseDownGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource SearchControl.ActionButtonMouseDown}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource SearchControl.ActionButtonMouseDownBorder}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{DynamicResource SearchControl.ActionButtonDisabledGlyph}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
@@ -1325,7 +1327,7 @@
 
         <Setter Property="AcceptButtonStyle">
             <Setter.Value>
-                <Style TargetType="Button" BasedOn="{StaticResource SearchControl.ActionButtonStyle}">
+                <Style TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
                     <Setter Property="Foreground" Value="{DynamicResource SearchControl.SearchGlyph}" />
                     <Style.Triggers>
                         <MultiDataTrigger>
@@ -1349,7 +1351,7 @@
 
         <Setter Property="CancelButtonStyle">
             <Setter.Value>
-                <Style TargetType="Button" BasedOn="{StaticResource SearchControl.ActionButtonStyle}">
+                <Style TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
                     <Setter Property="Foreground" Value="{DynamicResource SearchControl.ClearGlyph}" />
                     <Style.Triggers>
                         <MultiDataTrigger>
