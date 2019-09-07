@@ -40,12 +40,10 @@
                 <MenuItem Header="Options">
                     <MenuItem Header="Option 1" />
                     <Separator />
-                    <MenuItem Header="Option 2" IsCheckable="True" />
-                    <MenuItem Header="Option 3" IsCheckable="True" IsChecked="True" />
+                    <MenuItem Header="Checkable 1" IsCheckable="True" />
+                    <MenuItem Header="Checkable 2" IsCheckable="True" IsChecked="True" />
                 </MenuItem>
-                <MenuItem Header="Tool Menu" IsEnabled="False">
-                    <MenuItem Header="Option 1" />
-                    <MenuItem Header="Option 1" />
+                <MenuItem Header="disabled" IsEnabled="False">
                     <MenuItem Header="Option 1" />
                 </MenuItem>
             </MenuItem>
@@ -54,40 +52,40 @@
         <ToolBarTray Grid.Row="1">
             <ToolBar>
                 <Button Content="enabled" />
-                <Button Content="disabled" IsEnabled="True" />
+                <Button Content="disabled" IsEnabled="False" />
+                <ToggleButton Content="toggle" />
+                <Separator />
                 <ComboBox MinWidth="100">
                     <ComboBoxItem Content="item 1" />
                     <ComboBoxItem Content="item 2" />
                     <ComboBoxItem Content="item 3" />
                 </ComboBox>
+                <Separator />
                 <ComboBox IsEditable="True" MinWidth="100">
-                    <ComboBoxItem Content="item 1" />
+                    <ComboBoxItem Content="editable" />
                     <ComboBoxItem Content="item 2" />
                     <ComboBoxItem Content="item 3" />
                 </ComboBox>
                 <ComboBox IsEnabled="False" MinWidth="100">
-                    <ComboBoxItem Content="item 1" IsSelected="True" />
-                    <ComboBoxItem Content="item 2" />
-                    <ComboBoxItem Content="item 3" />
+                    <ComboBoxItem Content="disabled" IsSelected="True" />
                 </ComboBox>
             </ToolBar>
             <ToolBar>
                 <Button Content="enabled" />
-                <Button Content="disabled" IsEnabled="True" />
+                <Button Content="disabled" IsEnabled="False" />
                 <ComboBox MinWidth="100">
                     <ComboBoxItem Content="item 1" />
                     <ComboBoxItem Content="item 2" />
                     <ComboBoxItem Content="item 3" />
                 </ComboBox>
+                <Separator />
                 <ComboBox IsEditable="True" MinWidth="100">
                     <ComboBoxItem Content="item 1" />
                     <ComboBoxItem Content="item 2" />
                     <ComboBoxItem Content="item 3" />
                 </ComboBox>
                 <ComboBox IsEnabled="False" MinWidth="100">
-                    <ComboBoxItem Content="item 1" IsSelected="True" />
-                    <ComboBoxItem Content="item 2" />
-                    <ComboBoxItem Content="item 3" />
+                    <ComboBoxItem Content="disabled" IsSelected="True" />
                 </ComboBox>
             </ToolBar>
         </ToolBarTray>
@@ -109,14 +107,12 @@
                         <ComboBoxItem Content="item 3" />
                     </ComboBox>
                     <ComboBox IsEditable="True">
-                        <ComboBoxItem Content="item 1" />
+                        <ComboBoxItem Content="editable" IsSelected="True" />
                         <ComboBoxItem Content="item 2" />
                         <ComboBoxItem Content="item 3" />
                     </ComboBox>
                     <ComboBox IsEnabled="False">
-                        <ComboBoxItem Content="item 1" IsSelected="True" />
-                        <ComboBoxItem Content="item 2" />
-                        <ComboBoxItem Content="item 3" />
+                        <ComboBoxItem Content="disabled" IsSelected="True" />
                     </ComboBox>
                 </StackPanel>
                 <Grid.ContextMenu>
