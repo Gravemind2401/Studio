@@ -105,7 +105,7 @@
                     <Button Content="disabled" IsEnabled="False" />
                     <ComboBox>
                         <ComboBoxItem Content="item 1" />
-                        <ComboBoxItem Content="item 2" />
+                        <ComboBoxItem Content="item 2" IsEnabled="False" />
                         <ComboBoxItem Content="item 3" />
                     </ComboBox>
                     <ComboBox IsEditable="True">
