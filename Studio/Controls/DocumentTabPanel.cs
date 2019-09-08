@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+namespace Studio.Controls
+{
+    public class DocumentTabPanel : TabPanel
+    {
+        public static readonly DependencyProperty IsPinnedProperty =
+            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
+
+        public static bool GetIsPinned(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsPinnedProperty);
+        }
+
+        public static void SetIsPinned(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsPinnedProperty, value);
+        }
+
+        public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
+
+        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty PinOnNewLineProperty =
+            DependencyProperty.Register(nameof(PinOnNewLine), typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(true));
+
+        public bool HasOverflowItems
+        {
+            get { return (bool)GetValue(HasOverflowItemsProperty); }
+            private set { SetValue(HasOverflowItemsPropertyKey, value); }
+        }
+
+        public bool PinOnNewLine
+        {
+            get { return (bool)GetValue(PinOnNewLineProperty); }
+            set { SetValue(PinOnNewLineProperty, value); }
+        }
+
+        private int CalculateRowCount(Size constraint)
+        {
+            int rowCount = 1;
+            double currentOffset = 0;
+
+            var pinned = InternalChildren.OfType<UIElement>().Where(t => GetIsPinned(t));
+            foreach (var item in pinned)
+            {
+                if (currentOffset > 0 && currentOffset + item.DesiredSize.Width > constraint.Width)
+                {
+                    currentOffset = 0;
+                    rowCount++;
+                }
+                currentOffset += item.DesiredSize.Width;
+            }
+
+            if (pinned.Any() && PinOnNewLine)
+                rowCount++;
+
+            return rowCount;
+        }
+
+        private IEnumerable<UIElement> GetItemsOnRow(Size constraint, int rowIndex)
+        {
+            int rowNum = 0;
+            double currentOffset = 0;
+            var pinned = InternalChildren.OfType<UIElement>().Where(t => GetIsPinned(t));
+            var notPinned = InternalChildren.OfType<UIElement>().Except(pinned);
+
+            foreach (var item in pinned)
+            {
+                if (currentOffset > 0 && currentOffset + item.DesiredSize.Width > constraint.Width)
+                {
+                    currentOffset = 0;
+                    rowNum++;
+                }
+                currentOffset += item.DesiredSize.Width;
+                if (rowNum == rowIndex) yield return item;
+            }
+
+            if (pinned.Any() && PinOnNewLine)
+            {
+                rowNum++;
+                currentOffset = 0;
+            }
+
+            foreach (var item in notPinned)
+            {
+                if (currentOffset > 0 && currentOffset + item.DesiredSize.Width > constraint.Width)
+                {
+                    HasOverflowItems = true;
+                    if (rowIndex == -1)
+                    {
+                        yield return item;
+                        continue;
+                    }
+                    else yield break;
+                }
+
+                currentOffset += item.DesiredSize.Width;
+
+                if (rowNum == rowIndex)
+                    yield return item;
+            }
+
+            HasOverflowItems = false;
+        }
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            foreach (var child in InternalChildren.OfType<UIElement>())
+                child.Measure(constraint);
+
+            var result = new Size();
+            var rowCount = CalculateRowCount(constraint);
+            for (int i = 0; i < rowCount; i++)
+            {
+                var items = GetItemsOnRow(constraint, i).ToList();
+                result.Width = Math.Max(result.Width, items.Sum(e => e.DesiredSize.Width));
+                result.Height += items.Max(e => e.DesiredSize.Height);
+            }
+
+            return result;
+        }
+
+        protected override Size ArrangeOverride(Size arrangeSize)
+        {
+            var offset = new Point();
+
+            var rowCount = CalculateRowCount(arrangeSize);
+            for (int i = -1; i < rowCount; i++)
+            {
+                var items = GetItemsOnRow(arrangeSize, i).ToList();
+                foreach (var item in items)
+                {
+                    if (i >= 0)
+                    {
+                        item.Arrange(new Rect(offset, item.DesiredSize));
+                        offset.X += item.DesiredSize.Width;
+                    }
+                    else item.Arrange(new Rect());
+                }
+
+                if (i >= 0 && items.Count > 0)
+                {
+                    offset.X = 0;
+                    offset.Y += items.Max(e => e.DesiredSize.Height);
+                }
+            }
+
+            return arrangeSize;
+        }
+    }
+}

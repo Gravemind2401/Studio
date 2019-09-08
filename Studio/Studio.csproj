@@ -44,7 +44,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Commands.cs" />
+    <Compile Include="Controls\DocumentWell.cs" />
     <Compile Include="Controls\SearchControl.cs" />
+    <Compile Include="Controls\TabWellBase.cs" />
+    <Compile Include="Controls\TabWellItem.cs" />
+    <Compile Include="Controls\DocumentTabPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
