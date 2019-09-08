@@ -30,6 +30,10 @@ namespace Studio.Controls
 
         protected TabWellBase() : base()
         {
+            CommandBindings.Add(new CommandBinding(Commands.TabMouseDownCommand, TabMouseDownCommandExecuted));
+            CommandBindings.Add(new CommandBinding(Commands.TabMouseMoveCommand, TabMouseMoveCommandExecuted));
+            CommandBindings.Add(new CommandBinding(Commands.TabMouseUpCommand, TabMouseUpCommandExecuted));
+            CommandBindings.Add(new CommandBinding(Commands.TabLostMouseCaptureCommand, TabLostMouseCaptureCommandExecuted));
             CommandBindings.Add(new CommandBinding(Commands.CloseTabCommand, CloseTabCommandExecuted));
         }
 
@@ -43,6 +47,7 @@ namespace Studio.Controls
             return item is TabWellItem;
         }
 
+        #region Command Handlers
         private void CloseTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var tab = e.Parameter as TabWellItem;
@@ -56,5 +61,99 @@ namespace Studio.Controls
 
             Items.Remove(item);
         }
+
+        private void TabMouseDownCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var tab = (TabWellItem)e.OriginalSource;
+            var mouseArgs = (MouseButtonEventArgs)e.Parameter;
+
+            if (mouseArgs.ChangedButton == MouseButton.Left)
+            {
+                SwapThreshold = 0;
+                tab.CaptureMouse();
+            }
+
+            e.Handled = true;
+        }
+
+        private void TabMouseUpCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var tab = (TabWellItem)e.OriginalSource;
+            var mouseArgs = (MouseButtonEventArgs)e.Parameter;
+
+            if (mouseArgs.ChangedButton != MouseButton.Left || !tab.IsMouseCaptured) return;
+
+            SwapThreshold = 0;
+            tab.ReleaseMouseCapture();
+            e.Handled = true;
+        }
+
+        private void TabMouseMoveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var tab = (TabWellItem)e.OriginalSource;
+            var mouseArgs = (MouseEventArgs)e.Parameter;
+
+            if (!tab.IsMouseCaptured) return;
+            var item = ItemContainerGenerator.ItemFromContainer(tab);
+            var index = Items.IndexOf(item);
+            var pos = mouseArgs.GetPosition(tab);
+
+            var offset = mouseArgs.GetPosition(this);
+            var detachBounds = new Rect(
+                pos.X - offset.X,
+                -DetachThreshold,
+                this.ActualWidth,
+                tab.ActualHeight + DetachThreshold * 2
+            );
+
+            if (!detachBounds.Contains(pos))
+            {
+                tab.ReleaseMouseCapture();
+                System.Diagnostics.Debugger.Break();
+                return;
+            }
+
+            if (pos.X > 0 && pos.X < tab.ActualWidth) SwapThreshold = 0;
+
+            var isPinned = DocumentTabPanel.GetIsPinned(tab);
+
+            if (pos.X < -SwapThreshold && index > 0)
+            {
+                var prevTab = (FrameworkElement)ItemContainerGenerator.ContainerFromIndex(index - 1);
+                if (DocumentTabPanel.GetIsPinned(prevTab) == isPinned)
+                {
+                    SwapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
+                    DetachThreshold = MaxDetachThreshold;
+
+                    Items.Remove(item);
+                    Items.Insert(index - 1, item);
+
+                    tab = (TabWellItem)ItemContainerGenerator.ContainerFromIndex(index - 1);
+                }
+            }
+            else if (pos.X > tab.ActualWidth + SwapThreshold && index < Items.Count - 1)
+            {
+                var nextTab = (FrameworkElement)ItemContainerGenerator.ContainerFromIndex(index + 1);
+                if (DocumentTabPanel.GetIsPinned(nextTab) == isPinned)
+                {
+                    SwapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
+                    DetachThreshold = MaxDetachThreshold;
+
+                    Items.Remove(item);
+                    Items.Insert(index + 1, item);
+
+                    tab = (TabWellItem)ItemContainerGenerator.ContainerFromIndex(index + 1);
+                }
+            }
+
+            SelectedItem = item;
+            tab.CaptureMouse();
+        }
+
+        private void TabLostMouseCaptureCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            DetachThreshold = MinDetachThreshold;
+        } 
+        #endregion
     }
 }
