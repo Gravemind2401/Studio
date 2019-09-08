@@ -40,22 +40,15 @@ namespace Studio.Controls
             obj.SetValue(HasOverflowItemsPropertyKey, value);
         }
 
-        public static readonly DependencyProperty PinOnNewLineProperty =
-            DependencyProperty.Register(nameof(PinOnNewLine), typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(true));
-
-        public bool PinOnNewLine
+        private DocumentWell GetAncestorControl()
         {
-            get { return (bool)GetValue(PinOnNewLineProperty); }
-            set { SetValue(PinOnNewLineProperty, value); }
-        }
-
-        private TabWellBase GetAncestorControl()
-        {
-            return this.FindVisualAncestor<TabWellBase>();
+            return this.FindVisualAncestor<DocumentWell>();
         }
 
         private int GetRowCount(Size constraint)
         {
+            var host = GetAncestorControl();
+
             int rowCount = 1;
             double currentOffset = 0;
 
@@ -70,7 +63,7 @@ namespace Studio.Controls
                 currentOffset += item.DesiredSize.Width;
             }
 
-            if (pinned.Any() && PinOnNewLine)
+            if (pinned.Any() && host?.PinOnSeparateRow == true)
                 rowCount++;
 
             return rowCount;
@@ -96,7 +89,7 @@ namespace Studio.Controls
                 if (rowNum == rowIndex) yield return item;
             }
 
-            if (pinned.Any() && PinOnNewLine)
+            if (pinned.Any() && host?.PinOnSeparateRow == true)
             {
                 rowNum++;
                 currentOffset = 0;
@@ -139,6 +132,8 @@ namespace Studio.Controls
                 result.Height += items.Max(e => e.DesiredSize.Height);
             }
 
+            result.Height += rowCount - 1; //1 pixel gap between each row
+
             return result;
         }
 
@@ -163,7 +158,7 @@ namespace Studio.Controls
                 if (i >= 0 && items.Count > 0)
                 {
                     offset.X = 0;
-                    offset.Y += items.Max(e => e.DesiredSize.Height);
+                    offset.Y += items.Max(e => e.DesiredSize.Height) + 1;
                 }
             }
 

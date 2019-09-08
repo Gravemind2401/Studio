@@ -1581,7 +1581,7 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="DocumentTabStyle" TargetType="c:TabWellItem">
-                <Setter Property="Padding" Value="3,1" />
+                <Setter Property="Padding" Value="3,1,3,3" />
                 <Setter Property="BorderThickness" Value="0,2,0,0" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -1707,6 +1707,9 @@
             </Style>
         </Style.Resources>
 
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.Border}" />
+
         <Setter Property="ItemContainerStyle" Value="{StaticResource DocumentTabStyle}" />
         <Setter Property="OverflowItemStyle">
             <Setter.Value>
@@ -1725,7 +1728,7 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="c:DocumentWell">
@@ -1734,8 +1737,9 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Border>
-                            <Grid>
+                        <Border x:Name="ItemsPanelBorder" BorderThickness="0,0,0,2"
+                                BorderBrush="{DynamicResource Environment.FileTab.InactiveDocumentBorderBackground}">
+                            <Grid ClipToBounds="True">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -1745,14 +1749,15 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <ItemsPresenter Name="ItemsPresenter" Grid.Row="1"
+                                <ItemsPresenter x:Name="ItemsPresenter"
+                                    Grid.Row="1" Margin="0,0,0,-2"
                                     ScrollViewer.CanContentScroll="False"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                     ScrollViewer.PanningMode="HorizontalOnly" />
 
                                 <Border x:Name="proxyContainer" Grid.Row="1" Grid.Column="1"
-                                        DataContext="{Binding RelativeSource={RelativeSource AncestorType=TabControl}}"> 
+                                        DataContext="{Binding RelativeSource={RelativeSource AncestorType=TabControl}}">
                                     <Border.Resources>
                                         <c:BindingProxy x:Key="tabHostProxy" Context="{Binding}" />
                                     </Border.Resources>
@@ -1762,7 +1767,7 @@
                                         <ToggleButton.Resources>
                                             <c:BindingProxy x:Key="toggleProxy" Context="{Binding}" />
                                         </ToggleButton.Resources>
-                                        
+
                                         <ContentControl x:Name="OverflowButtonContent" Template="{StaticResource DocWellOverflowGlyph}" />
 
                                         <ToggleButton.ContextMenu>
@@ -1791,6 +1796,9 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="True">
+                            <Setter TargetName="ItemsPanelBorder" Property="BorderBrush" Value="{DynamicResource Environment.FileTab.DocumentBorderBackground}" />
+                        </Trigger>
                         <Trigger Property="c:DocumentTabPanel.HasOverflowItems" Value="True">
                             <Setter TargetName="OverflowButtonContent" Property="Template" Value="{StaticResource DocWellOverflowGlyph2}" />
                         </Trigger>
