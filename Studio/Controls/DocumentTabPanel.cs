@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,18 +26,22 @@ namespace Studio.Controls
         }
 
         public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttachedReadOnly("HasOverflowItems", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
 
         public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
 
+        public static bool GetHasOverflowItems(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(HasOverflowItemsProperty);
+        }
+
+        private static void SetHasOverflowItems(DependencyObject obj, bool value)
+        {
+            obj.SetValue(HasOverflowItemsPropertyKey, value);
+        }
+
         public static readonly DependencyProperty PinOnNewLineProperty =
             DependencyProperty.Register(nameof(PinOnNewLine), typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(true));
-
-        public bool HasOverflowItems
-        {
-            get { return (bool)GetValue(HasOverflowItemsProperty); }
-            private set { SetValue(HasOverflowItemsPropertyKey, value); }
-        }
 
         public bool PinOnNewLine
         {
@@ -44,7 +49,12 @@ namespace Studio.Controls
             set { SetValue(PinOnNewLineProperty, value); }
         }
 
-        private int CalculateRowCount(Size constraint)
+        private TabWellBase GetAncestorControl()
+        {
+            return this.FindVisualAncestor<TabWellBase>();
+        }
+
+        private int GetRowCount(Size constraint)
         {
             int rowCount = 1;
             double currentOffset = 0;
@@ -68,6 +78,8 @@ namespace Studio.Controls
 
         private IEnumerable<UIElement> GetItemsOnRow(Size constraint, int rowIndex)
         {
+            var host = GetAncestorControl();
+
             int rowNum = 0;
             double currentOffset = 0;
             var pinned = InternalChildren.OfType<UIElement>().Where(t => GetIsPinned(t));
@@ -94,7 +106,8 @@ namespace Studio.Controls
             {
                 if (currentOffset > 0 && currentOffset + item.DesiredSize.Width > constraint.Width)
                 {
-                    HasOverflowItems = true;
+                    if (host != null) SetHasOverflowItems(host, true);
+
                     if (rowIndex == -1)
                     {
                         yield return item;
@@ -109,7 +122,7 @@ namespace Studio.Controls
                     yield return item;
             }
 
-            HasOverflowItems = false;
+            if (host != null) SetHasOverflowItems(host, false);
         }
 
         protected override Size MeasureOverride(Size constraint)
@@ -118,7 +131,7 @@ namespace Studio.Controls
                 child.Measure(constraint);
 
             var result = new Size();
-            var rowCount = CalculateRowCount(constraint);
+            var rowCount = GetRowCount(constraint);
             for (int i = 0; i < rowCount; i++)
             {
                 var items = GetItemsOnRow(constraint, i).ToList();
@@ -133,7 +146,7 @@ namespace Studio.Controls
         {
             var offset = new Point();
 
-            var rowCount = CalculateRowCount(arrangeSize);
+            var rowCount = GetRowCount(arrangeSize);
             for (int i = -1; i < rowCount; i++)
             {
                 var items = GetItemsOnRow(arrangeSize, i).ToList();

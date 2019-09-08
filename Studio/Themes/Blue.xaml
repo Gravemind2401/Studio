@@ -199,14 +199,6 @@
     <SolidColorBrush x:Key="Environment.DesignerWatermark" Color="#FF808080" />
     <SolidColorBrush x:Key="Environment.DialogBackground" Color="#0000000F" />
     <SolidColorBrush x:Key="Environment.DialogForeground" Color="#00000012" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonBackground" Color="#FF2F405E" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonGlyph" Color="#FFCED4DD" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseDownBackground" Color="#FFFFE8A6" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseDownBorder" Color="#FFE5C365" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseDownGlyph" Color="#FF000000" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseOverBackground" Color="#FFFFFCF4" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseOverBorder" Color="#FFE5C365" />
-    <SolidColorBrush x:Key="Environment.DocWellOverflowButtonMouseOverGlyph" Color="#FF000000" />
     <SolidColorBrush x:Key="Environment.DropShadowBackground" Color="#72000000" />
     <SolidColorBrush x:Key="Environment.EditorAdditionalContentBorder" Color="#FFCFD6E5" />
     <SolidColorBrush x:Key="Environment.EditorExpansionBorder" Color="#FFC0A776" />
@@ -441,6 +433,17 @@
         <GradientStop Offset="1" Color="#FFF7C570" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Environment.DockTarget.GlyphBorder" Color="#FF445879" />
+    <!--#endregion-->
+
+    <!--#region DocWellOverflowButton-->
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.Background" Color="#FF2F405E" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.Glyph" Color="#FFCED4DD" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownBackground" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverBackground" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverGlyph" Color="#FF000000" />
     <!--#endregion-->
 
     <!--#region DropDown-->

@@ -12,6 +12,7 @@ namespace Studio.Controls
     {
         public static readonly RoutedCommand PinTabCommand = new RoutedCommand(nameof(PinTabCommand), typeof(ICommandSource));
         public static readonly RoutedCommand CloseTabCommand = new RoutedCommand(nameof(CloseTabCommand), typeof(ICommandSource));
+        public static readonly RoutedCommand SelectTabCommand = new RoutedCommand(nameof(SelectTabCommand), typeof(ICommandSource));
 
         internal static readonly RoutedCommand TabMouseDownCommand = new RoutedCommand(nameof(TabMouseDownCommand), typeof(ICommandSource));
         internal static readonly RoutedCommand TabMouseMoveCommand = new RoutedCommand(nameof(TabMouseMoveCommand), typeof(ICommandSource));

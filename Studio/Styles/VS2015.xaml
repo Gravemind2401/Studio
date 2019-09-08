@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:c="clr-namespace:Studio.Controls">
 
     <!--#region Icon Templates-->
@@ -182,6 +183,30 @@
                 </Rectangle.Fill>
             </Rectangle>
         </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DocWellOverflowGlyph">
+        <Canvas SnapsToDevicePixels="True"
+                UseLayoutRounding="True"
+                Width="12" Height="12">
+            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M2,6 L10,6 L6,10 Z" />
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DocWellOverflowGlyph2">
+        <Canvas SnapsToDevicePixels="True"
+                UseLayoutRounding="True"
+                Width="12" Height="12">
+            <Path Canvas.Left="1" Canvas.Top="1" RenderOptions.EdgeMode="Aliased"
+                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M2,2 L9,2 L9,3 L2,3 Z" />
+            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M2,6 L10,6 L6,10 Z" />
+        </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="TabPinGlyph">
@@ -1017,7 +1042,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.ColumnSpan="2" MinWidth="27"
                                         VerticalAlignment="Stretch"
-                                        Background="{DynamicResource DynamicResource Environment.CommandBar.MenuIconBackground}" />
+                                        Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
                                 <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
                                         KeyboardNavigation.DirectionalNavigation="Cycle" />
                             </Grid>
@@ -1445,7 +1470,7 @@
 
     <Style TargetType="c:DocumentWell">
         <Style.Resources>
-            <Style x:Key="TabButton" TargetType="Button">
+            <Style x:Key="TabButtonStyle" TargetType="Button">
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="3,0,0,0" />
                 <Setter Property="BorderThickness" Value="1" />
@@ -1555,7 +1580,7 @@
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="DocumentTab" TargetType="c:TabWellItem">
+            <Style x:Key="DocumentTabStyle" TargetType="c:TabWellItem">
                 <Setter Property="Padding" Value="3,1" />
                 <Setter Property="BorderThickness" Value="0,2,0,0" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -1571,13 +1596,13 @@
                                 <DockPanel Margin="{TemplateBinding Padding}">
                                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                        <Button x:Name="PinButton" Style="{StaticResource TabButton}"
+                                        <Button x:Name="PinButton" Style="{StaticResource TabButtonStyle}"
                                                 Template="{StaticResource ButtonBaseTemplate}"
                                                 Command="{TemplateBinding TogglePinStatusCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                                             <ContentControl x:Name="PinButtonContent" Template="{StaticResource TabPinGlyph}" />
                                         </Button>
-                                        <Button x:Name="CloseButton" Style="{StaticResource TabButton}"
+                                        <Button x:Name="CloseButton" Style="{StaticResource TabButtonStyle}"
                                                 Template="{StaticResource ButtonBaseTemplate}"
                                                 Command="{TemplateBinding CloseCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
@@ -1652,14 +1677,51 @@
                     </MultiTrigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="OverflowButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Margin" Value="2,2,0,3" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+
+                <Setter Property="Foreground" Value="{DynamicResource Environment.DocWellOverflowButton.Glyph}" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.DocWellOverflowButton.MouseOverGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.DocWellOverflowButton.MouseOverBackground}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.DocWellOverflowButton.MouseOverBorder}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownBackground}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownBorder}" />
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownBackground}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.DocWellOverflowButton.MouseDownBorder}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </Style.Resources>
-        
-        <Setter Property="ItemContainerStyle" Value="{StaticResource DocumentTab}" />
+
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DocumentTabStyle}" />
+        <Setter Property="OverflowItemStyle">
+            <Setter.Value>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="Command" Value="{Binding DataContext.OverflowItemSelectedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                    <Setter Property="CommandParameter" Value="{Binding}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
 
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <c:DocumentTabPanel />
+                    <c:DocumentTabPanel IsItemsHost="True" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -1683,17 +1745,36 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <!--<ScrollViewer Grid.Row="0" Grid.ColumnSpan="2"
-                                        VerticalScrollBarVisibility="Disabled"
-                                        HorizontalScrollBarVisibility="Hidden">
-                                    <DockPanel IsItemsHost="True" LastChildFill="False" />
-                                </ScrollViewer>-->
-
                                 <ItemsPresenter Name="ItemsPresenter" Grid.Row="1"
                                     ScrollViewer.CanContentScroll="False"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                     ScrollViewer.PanningMode="HorizontalOnly" />
+
+                                <Border x:Name="proxyContainer" Grid.Row="1" Grid.Column="1"
+                                        DataContext="{Binding RelativeSource={RelativeSource AncestorType=TabControl}}"> 
+                                    <Border.Resources>
+                                        <c:BindingProxy x:Key="tabHostProxy" Context="{Binding}" />
+                                    </Border.Resources>
+                                    <ToggleButton Style="{StaticResource OverflowButtonStyle}"
+                                            DataContext="{Binding RelativeSource={RelativeSource Self}}"
+                                            Template="{StaticResource ButtonBaseTemplate}">
+                                        <ToggleButton.Resources>
+                                            <c:BindingProxy x:Key="toggleProxy" Context="{Binding}" />
+                                        </ToggleButton.Resources>
+                                        
+                                        <ContentControl x:Name="OverflowButtonContent" Template="{StaticResource DocWellOverflowGlyph}" />
+
+                                        <ToggleButton.ContextMenu>
+                                            <ContextMenu Placement="Bottom"
+                                                    DataContext="{Binding Context, Source={StaticResource tabHostProxy}}"
+                                                    PlacementTarget="{Binding Context, Source={StaticResource toggleProxy}}"
+                                                    IsOpen="{Binding Context.IsChecked, Source={StaticResource toggleProxy}}"
+                                                    ItemsSource="{Binding Context.Items, Source={StaticResource tabHostProxy}}"
+                                                    ItemContainerStyle="{Binding Context.OverflowItemStyle, Source={StaticResource tabHostProxy}}" />
+                                        </ToggleButton.ContextMenu>
+                                    </ToggleButton>
+                                </Border>
                             </Grid>
                         </Border>
                         <Border Name="ContentPanel" Grid.Row="1"
@@ -1709,6 +1790,11 @@
                                     Content="{TemplateBinding SelectedContent}" />
                         </Border>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="c:DocumentTabPanel.HasOverflowItems" Value="True">
+                            <Setter TargetName="OverflowButtonContent" Property="Template" Value="{StaticResource DocWellOverflowGlyph2}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
