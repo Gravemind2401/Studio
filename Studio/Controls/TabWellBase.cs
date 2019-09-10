@@ -62,6 +62,7 @@ namespace Studio.Controls
             Items.Remove(item);
         }
 
+        //internal command - OriginalSource is TabWellItem, Parameter is MouseButtonEventArgs
         private void TabMouseDownCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var tab = (TabWellItem)e.OriginalSource;
@@ -76,6 +77,7 @@ namespace Studio.Controls
             e.Handled = true;
         }
 
+        //internal command - OriginalSource is TabWellItem, Parameter is MouseButtonEventArgs
         private void TabMouseUpCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var tab = (TabWellItem)e.OriginalSource;
@@ -88,12 +90,14 @@ namespace Studio.Controls
             e.Handled = true;
         }
 
+        //internal command - OriginalSource is TabWellItem, Parameter is MouseEventArgs
         private void TabMouseMoveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var tab = (TabWellItem)e.OriginalSource;
             var mouseArgs = (MouseEventArgs)e.Parameter;
 
             if (!tab.IsMouseCaptured) return;
+
             var item = ItemContainerGenerator.ItemFromContainer(tab);
             var index = Items.IndexOf(item);
             var pos = mouseArgs.GetPosition(tab);
@@ -116,11 +120,14 @@ namespace Studio.Controls
             if (pos.X > 0 && pos.X < tab.ActualWidth) SwapThreshold = 0;
 
             var isPinned = DocumentTabPanel.GetIsPinned(tab);
+            var grouped = Items.OfType<object>()
+                .Select(i => ItemContainerGenerator.ContainerFromItem(i))
+                .Where(c => DocumentTabPanel.GetIsPinned(c) == isPinned);
 
             if (pos.X < -SwapThreshold && index > 0)
             {
-                var prevTab = (FrameworkElement)ItemContainerGenerator.ContainerFromIndex(index - 1);
-                if (DocumentTabPanel.GetIsPinned(prevTab) == isPinned)
+                var prevTab = grouped.TakeWhile(c => c != tab).LastOrDefault() as FrameworkElement;
+                if (prevTab != null)
                 {
                     SwapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
                     DetachThreshold = MaxDetachThreshold;
@@ -133,8 +140,8 @@ namespace Studio.Controls
             }
             else if (pos.X > tab.ActualWidth + SwapThreshold && index < Items.Count - 1)
             {
-                var nextTab = (FrameworkElement)ItemContainerGenerator.ContainerFromIndex(index + 1);
-                if (DocumentTabPanel.GetIsPinned(nextTab) == isPinned)
+                var nextTab = grouped.SkipWhile(c => c != tab).Skip(1).FirstOrDefault() as FrameworkElement;
+                if (nextTab != null)
                 {
                     SwapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
                     DetachThreshold = MaxDetachThreshold;
@@ -150,10 +157,11 @@ namespace Studio.Controls
             tab.CaptureMouse();
         }
 
+        //internal command - OriginalSource is TabWellItem, Parameter is MouseEventArgs
         private void TabLostMouseCaptureCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             DetachThreshold = MinDetachThreshold;
-        } 
+        }
         #endregion
     }
 }

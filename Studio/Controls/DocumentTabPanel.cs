@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace Studio.Controls
 {
@@ -23,6 +24,7 @@ namespace Studio.Controls
         public static void SetIsPinned(DependencyObject obj, bool value)
         {
             obj.SetValue(IsPinnedProperty, value);
+            (VisualTreeHelper.GetParent(obj) as DocumentTabPanel)?.InvalidateVisual();
         }
 
         public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =

@@ -12,7 +12,6 @@ namespace Studio.Controls
     [StyleTypedProperty(Property = nameof(OverflowItemStyle), StyleTargetType = typeof(MenuItem))]
     public class DocumentWell : TabWellBase
     {
-        private int pinnedCount = 0;
 
         public static readonly DependencyProperty OverflowItemStyleProperty =
             DependencyProperty.Register(nameof(OverflowItemStyle), typeof(Style), typeof(DocumentWell), new PropertyMetadata(null));
@@ -52,18 +51,7 @@ namespace Studio.Controls
             var item = e.Parameter as DependencyObject;
             if (item == null || !Items.Contains(item)) return;
 
-            var selected = SelectedItem;
-            var isPinned = !DocumentTabPanel.GetIsPinned(item);
-            DocumentTabPanel.SetIsPinned(item, isPinned);
-
-            if (!isPinned) pinnedCount--;
-
-            Items.Remove(item);
-            Items.Insert(pinnedCount, item);
-
-            if (isPinned) pinnedCount++;
-
-            SelectedItem = selected;
+            DocumentTabPanel.SetIsPinned(item, !DocumentTabPanel.GetIsPinned(item));
         }
 
         private void SelectTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
