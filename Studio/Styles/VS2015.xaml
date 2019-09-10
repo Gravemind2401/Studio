@@ -1468,7 +1468,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="c:DocumentWell">
+    <Style x:Key="{x:Static c:DocumentWell.DocumentTabStyleKey}" TargetType="c:TabWellItem">
         <Style.Resources>
             <Style x:Key="TabButtonStyle" TargetType="Button">
                 <Setter Property="Padding" Value="0" />
@@ -1488,7 +1488,7 @@
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.ButtonSelectedActiveGlyph}" />
                     </MultiDataTrigger>
-                    
+                            
                     <!--selected, active, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
@@ -1521,7 +1521,7 @@
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.ButtonSelectedInactiveGlyph}" />
                     </MultiDataTrigger>
-                    
+                            
                     <!--selected, inactive, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
@@ -1533,7 +1533,7 @@
                         <Setter Property="Background" Value="{DynamicResource Environment.FileTab.ButtonHoverSelectedInactive}" />
                         <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.ButtonHoverSelectedInactiveBorder}" />
                     </MultiDataTrigger>
-                    
+                            
                     <!--selected, inactive, pressed-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
@@ -1580,103 +1580,107 @@
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="DocumentTabStyle" TargetType="c:TabWellItem">
-                <Setter Property="Padding" Value="3,1,3,3" />
-                <Setter Property="BorderThickness" Value="0,2,0,0" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style.Resources>
+                
+        <Setter Property="Padding" Value="3,1,3,3" />
+        <Setter Property="BorderThickness" Value="0,2,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
 
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="c:TabWellItem">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                <DockPanel Margin="{TemplateBinding Padding}">
-                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
-                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                        <Button x:Name="PinButton" Style="{StaticResource TabButtonStyle}"
-                                                Template="{StaticResource ButtonBaseTemplate}"
-                                                Command="{TemplateBinding TogglePinStatusCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                            <ContentControl x:Name="PinButtonContent" Template="{StaticResource TabPinGlyph}" />
-                                        </Button>
-                                        <Button x:Name="CloseButton" Style="{StaticResource TabButtonStyle}"
-                                                Template="{StaticResource ButtonBaseTemplate}"
-                                                Command="{TemplateBinding CloseCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                            <ContentControl Template="{StaticResource TabCloseGlyph}" />
-                                        </Button>
-                                    </StackPanel>
-                                    <ContentPresenter Name="PART_Container" Margin="1,0"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            TextBlock.Foreground="{TemplateBinding Foreground}"
-                                            TextOptions.TextFormattingMode="Display"
-                                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                                            Content="{TemplateBinding Header}" />
-                                </DockPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsSelected" Value="False" />
-                                        <Condition Property="IsMouseOver" Value="False" />
-                                    </MultiTrigger.Conditions>
-                                    <Setter TargetName="PinButton" Property="Visibility" Value="Hidden" />
-                                    <Setter TargetName="CloseButton" Property="Visibility" Value="Hidden" />
-                                </MultiTrigger>
-                                <Trigger Property="c:DocumentTabPanel.IsPinned" Value="True">
-                                    <Setter TargetName="PinButton" Property="Visibility" Value="Visible" />
-                                    <Setter TargetName="PinButtonContent" Property="Template" Value="{StaticResource TabUnpinGlyph}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:TabWellItem">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <DockPanel Margin="{TemplateBinding Padding}">
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Button x:Name="PinButton" Style="{StaticResource TabButtonStyle}"
+                                        Template="{StaticResource ButtonBaseTemplate}"
+                                        Command="{TemplateBinding TogglePinStatusCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ContentControl x:Name="PinButtonContent" Template="{StaticResource TabPinGlyph}" />
+                                </Button>
+                                <Button x:Name="CloseButton" Style="{StaticResource TabButtonStyle}"
+                                        Template="{StaticResource ButtonBaseTemplate}"
+                                        Command="{TemplateBinding CloseCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ContentControl Template="{StaticResource TabCloseGlyph}" />
+                                </Button>
+                            </StackPanel>
+                            <ContentPresenter Name="PART_Container" Margin="1,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Header}" />
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="False" />
+                                <Condition Property="IsMouseOver" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PinButton" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="CloseButton" Property="Visibility" Value="Hidden" />
+                        </MultiTrigger>
+                        <Trigger Property="c:DocumentTabPanel.IsPinned" Value="True">
+                            <Setter TargetName="PinButton" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PinButtonContent" Property="Template" Value="{StaticResource TabUnpinGlyph}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
 
-                <!--unselected-->
-                <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.Text}" />
-                <Setter Property="Background" Value="{DynamicResource Environment.FileTab.Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.Border}" />
+        <!--unselected-->
+        <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.Text}" />
+        <Setter Property="Background" Value="{DynamicResource Environment.FileTab.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.Border}" />
 
-                <Style.Triggers>
-                    <!--selected, active-->
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
-                        </MultiDataTrigger.Conditions>
-                        <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.SelectedText}" />
-                        <Setter Property="Background" Value="{DynamicResource Environment.FileTab.SelectedGradient}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.SelectedBorder}" />
-                    </MultiDataTrigger>
+        <Style.Triggers>
+            <!--selected, active-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.SelectedText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.FileTab.SelectedGradient}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.SelectedBorder}" />
+            </MultiDataTrigger>
 
-                    <!--selected, inactive-->
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
-                        </MultiDataTrigger.Conditions>
-                        <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.InactiveText}" />
-                        <Setter Property="Background" Value="{DynamicResource Environment.FileTab.InactiveGradient}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.InactiveBorder}" />
-                    </MultiDataTrigger>
+            <!--selected, inactive-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.InactiveText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.FileTab.InactiveGradient}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.InactiveBorder}" />
+            </MultiDataTrigger>
 
-                    <!--unselected, hovered-->
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="IsSelected" Value="False" />
-                            <Condition Property="IsMouseOver" Value="True" />
-                        </MultiTrigger.Conditions>
-                        <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.HotText}" />
-                        <Setter Property="Background" Value="{DynamicResource Environment.FileTab.HotGradient}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.HotBorder}" />
-                    </MultiTrigger>
-                </Style.Triggers>
-            </Style>
+            <!--unselected, hovered-->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="False" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.HotText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.FileTab.HotGradient}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.FileTab.HotBorder}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="c:DocumentWell">
+        <Style.Resources>
             <Style x:Key="OverflowButtonStyle" TargetType="ToggleButton">
                 <Setter Property="Margin" Value="2,2,0,3" />
                 <Setter Property="Padding" Value="0" />
@@ -1710,7 +1714,7 @@
         <Setter Property="BorderThickness" Value="1,0,1,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.Border}" />
 
-        <Setter Property="ItemContainerStyle" Value="{StaticResource DocumentTabStyle}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static c:DocumentWell.DocumentTabStyleKey}}" />
         <Setter Property="OverflowItemStyle">
             <Setter.Value>
                 <Style TargetType="MenuItem">
