@@ -120,16 +120,16 @@ namespace Studio.Controls
             if (host != null) SetHasOverflowItems(host, false);
         }
 
-        protected override Size MeasureOverride(Size constraint)
+        protected override Size MeasureOverride(Size availableSize)
         {
             foreach (var child in InternalChildren.OfType<UIElement>())
-                child.Measure(constraint);
+                child.Measure(availableSize);
 
             var result = new Size();
-            var rowCount = GetRowCount(constraint);
+            var rowCount = GetRowCount(availableSize);
             for (int i = 0; i < rowCount; i++)
             {
-                var items = GetItemsOnRow(constraint, i).ToList();
+                var items = GetItemsOnRow(availableSize, i).ToList();
                 result.Width = Math.Max(result.Width, items.Sum(e => e.DesiredSize.Width));
                 result.Height += items.Max(e => e.DesiredSize.Height);
             }
@@ -139,14 +139,14 @@ namespace Studio.Controls
             return result;
         }
 
-        protected override Size ArrangeOverride(Size arrangeSize)
+        protected override Size ArrangeOverride(Size finalSize)
         {
             var offset = new Point();
 
-            var rowCount = GetRowCount(arrangeSize);
+            var rowCount = GetRowCount(finalSize);
             for (int i = -1; i < rowCount; i++)
             {
-                var items = GetItemsOnRow(arrangeSize, i).ToList();
+                var items = GetItemsOnRow(finalSize, i).ToList();
                 foreach (var item in items)
                 {
                     if (i >= 0)
@@ -164,7 +164,7 @@ namespace Studio.Controls
                 }
             }
 
-            return arrangeSize;
+            return finalSize;
         }
     }
 }
