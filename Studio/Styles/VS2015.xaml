@@ -472,6 +472,9 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.DropDown.Glyph}" />
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Separator" Property="Background" Value="{DynamicResource Environment.DropDown.ButtonMouseOverSeparator}" />
                             <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.DropDown.MouseOverGlyph}" />
@@ -1577,7 +1580,7 @@
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
-                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.ButtonDownSelectedInactiveGlyph}" />
                         <Setter Property="Background" Value="{DynamicResource Environment.FileTab.ButtonDownSelectedInactive}" />
@@ -1914,7 +1917,7 @@
             <!--selected, inactive-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabSelectedText}" />
