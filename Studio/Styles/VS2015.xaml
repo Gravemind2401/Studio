@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:c="clr-namespace:Studio.Controls">
+                    xmlns:c="clr-namespace:Studio.Controls"
+                    xmlns:u="clr-namespace:Studio.Utilities">
 
     <!--#region Icon Templates-->
     <ControlTemplate x:Key="ScrollArrowLeftGlyph">
@@ -116,33 +117,31 @@
         </Viewbox>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ToolBarDragHandle" TargetType="Thumb">
-        <Viewbox Width="5" Height="18">
-            <Rectangle Width="5" Height="18">
-                <Rectangle.Fill>
-                    <VisualBrush TileMode="Tile"
-                            Viewport="0,0,4,4" ViewportUnits="Absolute"
-                            Viewbox="0,0,4,4" ViewboxUnits="Absolute">
-                        <VisualBrush.Visual>
-                            <Image RenderOptions.EdgeMode="Aliased" SnapsToDevicePixels="True">
-                                <Image.Source>
-                                    <DrawingImage>
-                                        <DrawingImage.Drawing>
-                                            <DrawingGroup>
-                                                <DrawingGroup.Children>
-                                                    <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Thumb}}"
-                                                                     Geometry="M0,0 H1 V1 H0 Z M2,2 H3 V3 H2 Z" />
-                                                </DrawingGroup.Children>
-                                            </DrawingGroup>
-                                        </DrawingImage.Drawing>
-                                    </DrawingImage>
-                                </Image.Source>
-                            </Image>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        </Viewbox>
+    <ControlTemplate x:Key="DragHandleTemplate" TargetType="Thumb">
+        <Rectangle>
+            <Rectangle.Fill>
+                <VisualBrush TileMode="Tile"
+                        Viewport="0,0,4,4" ViewportUnits="Absolute"
+                        Viewbox="0,0,4,4" ViewboxUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Image RenderOptions.EdgeMode="Aliased" SnapsToDevicePixels="True">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Thumb}}"
+                                                                 Geometry="M0,0 H1 V1 H0 Z M2,2 H3 V3 H2 Z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </ControlTemplate>
 
     <ControlTemplate x:Key="SearchAcceptGlyph">
@@ -244,6 +243,40 @@
                       StrokeStartLineCap="Square" StrokeEndLineCap="Square"
                       Data="M3,3 L10,10 M10,3 L3,10" />
             </Grid>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ToolPinGlyph">
+        <Canvas SnapsToDevicePixels="True"
+                RenderOptions.EdgeMode="Aliased"
+                UseLayoutRounding="True"
+                Width="13" Height="13">
+            <Path Canvas.Left="1" Canvas.Top="1"
+                  Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M4,7 L4,1 L8,1 L8,7 L7,7 L7,2 M3,7 L 9,7 M6,7 L6,11" />
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ToolUnpinGlyph">
+        <Canvas SnapsToDevicePixels="True"
+                RenderOptions.EdgeMode="Aliased"
+                UseLayoutRounding="True"
+                Width="13" Height="13">
+            <Path Canvas.Left="1" Canvas.Top="1"
+                  Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M1,6 L5,6 M5,3 L5,9 M5,4 L11,4 L11,8 L5,8 L5,7 L11,7" />
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ToolMenuGlyph">
+        <Canvas SnapsToDevicePixels="True"
+                UseLayoutRounding="True"
+                Width="13" Height="13">
+            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                  StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  Data="M2,4 L10,4 L6,8 Z" />
         </Canvas>
     </ControlTemplate>
     <!--#endregion-->
@@ -542,7 +575,10 @@
                 <Setter Property="Cursor" Value="SizeAll" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.DragHandle}" />
-                <Setter Property="Template" Value="{StaticResource ToolBarDragHandle}" />
+                <Setter Property="Template" Value="{StaticResource DragHandleTemplate}" />
+                <Setter Property="Width" Value="5" />
+                <Setter Property="Height" Value="18" />
+                <Setter Property="Margin" Value="2,3" />
             </Style>
             <Style x:Key="ToolBarOverflowButtonStyle" TargetType="ToggleButton">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -564,8 +600,9 @@
                 </Style.Triggers>
             </Style>
         </Style.Resources>
-        
+
         <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.Gradient}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.ToolBarBorder}" />
@@ -609,7 +646,7 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <DockPanel>
-                                <Thumb x:Name="ToolBarThumb" Style="{StaticResource ToolBarThumbStyle}" Width="5" Margin="2,3" />
+                                <Thumb x:Name="ToolBarThumb" Style="{StaticResource ToolBarThumbStyle}" />
                                 <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="True" Margin="{TemplateBinding Padding}" />
                             </DockPanel>
                         </Border>
@@ -1468,6 +1505,7 @@
         </Style.Triggers>
     </Style>
 
+    <!--#region DocumentWell-->
     <Style x:Key="{x:Static c:DocumentWell.DocumentTabStyleKey}" TargetType="c:TabWellItem">
         <Style.Resources>
             <Style x:Key="TabButtonStyle" TargetType="Button">
@@ -1811,6 +1849,236 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->
+    
+    <!--#region ToolWell-->
+    <Style x:Key="{x:Static c:ToolWell.ToolTabStyleKey}" TargetType="c:TabWellItem">
+        <Style.Resources>
+            <u:ToolTabMarginConverter x:Key="marginConverter" />
+            <u:ToolTabBorderThicknessConverter x:Key="borderConverter" />
+        </Style.Resources>
+        
+        <Setter Property="Padding" Value="5,2,4,1" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:TabWellItem">
+                    <Border x:Name="OuterBorder" Margin="0" BorderThickness="0"
+                            BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=c:ToolWell}}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <ContentPresenter Name="PART_Container" Margin="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Header}" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="OuterBorder" Property="Margin"
+                                    Value="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType=TabControl}, Converter={StaticResource marginConverter}}" />
+                            <Setter TargetName="OuterBorder" Property="BorderThickness"
+                                    Value="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType=TabControl}, Converter={StaticResource borderConverter}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <!--unselected-->
+        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabText}" />
+        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.TabGradient}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.TabBorder}" />
+
+        <Style.Triggers>
+            <!--selected, active-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabSelectedActiveText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.TabSelectedTab}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.TabSelectedBorder}" />
+            </MultiDataTrigger>
+
+            <!--selected, inactive-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabSelectedText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.TabSelectedTab}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.TabSelectedBorder}" />
+            </MultiDataTrigger>
+
+            <!--unselected, hovered-->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="False" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabMouseOverText}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.TabMouseOverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.TabMouseOverBorder}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="c:ToolWell">
+        <Style.Resources>
+            <Style x:Key="CaptionButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="0,0,1,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <!--inactive-->
+                <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonInactiveGlyph}" />
+
+                <Style.Triggers>
+                    <!--active-->
+                    <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonActiveGlyph}" />
+                    </DataTrigger>
+
+                    <!--active, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonHoverActiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.ButtonHoverActive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.ButtonHoverActiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--active, pressed-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonDownActiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.ButtonDown}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.ButtonDownBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--inactive, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonHoverInactiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.ButtonHoverInactive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.ButtonHoverInactiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--inactive, pressed-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonDownInactiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.ButtonDown}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.ButtonDownBorder}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource Environment.ToolWindow.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Environment.ToolWindow.Border}" />
+
+        <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Static c:ToolWell.ToolTabStyleKey}}" />
+        
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <c:ToolTabPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ToolWell">
+                    <DockPanel LastChildFill="True">
+                        <ItemsPresenter x:Name="ItemsPresenter"
+                                DockPanel.Dock="Bottom" Panel.ZIndex="1"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.PanningMode="HorizontalOnly"
+                                ScrollViewer.CanContentScroll="False" />
+                        <Border Panel.ZIndex="0"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <DockPanel LastChildFill="True">
+                                <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" LastChildFill="True"
+                                           Background="{DynamicResource Environment.TitleBar.InactiveGradient}">
+                                    <ContentPresenter x:Name="TitleBarContent" DockPanel.Dock="Left" 
+                                            Margin="4,2,4,3" VerticalAlignment="Center"
+                                            Content="{TemplateBinding Caption}"
+                                            TextBlock.Foreground="{DynamicResource Environment.TitleBar.InactiveText}" />
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="3">
+                                        <Button Style="{StaticResource CaptionButtonStyle}"
+                                                Template="{StaticResource ButtonBaseTemplate}">
+                                            <ContentControl Template="{StaticResource ToolMenuGlyph}" />
+                                        </Button>
+                                        <Button Style="{StaticResource CaptionButtonStyle}"
+                                                Template="{StaticResource ButtonBaseTemplate}">
+                                            <ContentControl Template="{StaticResource ToolPinGlyph}" />
+                                        </Button>
+                                        <Button Style="{StaticResource CaptionButtonStyle}"
+                                                Template="{StaticResource ButtonBaseTemplate}">
+                                            <ContentControl Template="{StaticResource TabCloseGlyph}" />
+                                        </Button>
+                                    </StackPanel>
+                                    <Thumb x:Name="TitleBarGrip" Margin="2,0"
+                                           Height="5" VerticalAlignment="Center" 
+                                           SnapsToDevicePixels="True" UseLayoutRounding="True"
+                                           Template="{StaticResource DragHandleTemplate}"
+                                           Foreground="{DynamicResource Environment.TitleBar.DragHandle}" />
+                                </DockPanel>
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Content="{TemplateBinding SelectedContent}" />
+                            </DockPanel>
+                        </Border>
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="True">
+                            <Setter TargetName="TitleBar" Property="Background" Value="{DynamicResource Environment.TitleBar.ActiveGradient}" />
+                            <Setter TargetName="TitleBarContent" Property="TextBlock.Foreground" Value="{DynamicResource Environment.TitleBar.ActiveText}" />
+                            <Setter TargetName="TitleBarGrip" Property="Foreground" Value="{DynamicResource Environment.TitleBar.DragHandleActive}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
     
     <!--#endregion-->
 
