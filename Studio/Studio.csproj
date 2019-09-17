@@ -57,6 +57,7 @@
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\ToolTabBorderThicknessConverter.cs" />
     <Compile Include="Utilities\ToolTabMarginConverter.cs" />
+    <Compile Include="Utilities\TreeViewItemMarginConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Themes\Themes.tt">

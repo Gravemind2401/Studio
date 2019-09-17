@@ -115,11 +115,6 @@
     }
 
     manager.Process();
-
-    //var provider = (IServiceProvider)Host;
-    //var dte = (EnvDTE.DTE)provider.GetService(typeof(EnvDTE.DTE));
-    //var item = dte.Solution.FindProjectItem(Path.GetFileNameWithoutExtension(Host.TemplateFile) + ".xaml");
-    //item.Delete();
 #>
 <#+
     string[] excludedResources = new[]
