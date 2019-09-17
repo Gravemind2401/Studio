@@ -13,5 +13,11 @@ namespace Sandbox
     /// </summary>
     public partial class App : Application
     {
+        internal static App Instance { get; private set; }
+
+        public App() : base()
+        {
+            Instance = this;
+        }
     }
 }

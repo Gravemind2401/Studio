@@ -6,15 +6,8 @@
         xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
         xmlns:local="clr-namespace:Sandbox"
         mc:Ignorable="d" Background="{DynamicResource Environment.EnvironmentBackground}"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="720" Width="1280">
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Studio;component/Themes/Blue.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,6 +40,7 @@
                     <MenuItem Header="Option 1" />
                 </MenuItem>
             </MenuItem>
+            <MenuItem x:Name="ThemesMenu" Header="Themes" />
         </Menu>
 
         <ToolBarTray Grid.Row="1">

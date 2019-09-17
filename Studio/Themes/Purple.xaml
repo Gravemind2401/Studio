@@ -1,0 +1,1004 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Studio;component/Styles/VS2015.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--#region Command Window-->
+
+    <SolidColorBrush x:Key="CommandWindow.InactiveSelectedTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="CommandWindow.InactiveSelectedTextForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="CommandWindow.PlainTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="CommandWindow.PlainTextForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="CommandWindow.SelectedTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="CommandWindow.SelectedTextForeground" Color="#00000000" />
+
+    <!--#endregion-->
+
+    <!--#region CommonControls-->
+
+    <SolidColorBrush x:Key="CommonControls.FocusVisualBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="CommonControls.FocusVisualForeground" Color="#FF000000" />
+
+    <!--#region Button-->
+    <SolidColorBrush x:Key="CommonControls.Button.Background" Color="#FFECECF0" />
+    <SolidColorBrush x:Key="CommonControls.Button.Foreground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.Button.Border" Color="#FFCCCEDB" />
+    <SolidColorBrush x:Key="CommonControls.Button.BorderDisabled" Color="#FFCCCEDB" />
+    <SolidColorBrush x:Key="CommonControls.Button.BorderFocused" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="CommonControls.Button.BorderHover" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="CommonControls.Button.BorderPressed" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="CommonControls.Button.DisabledBackground" Color="#FFF5F5F5" />
+    <SolidColorBrush x:Key="CommonControls.Button.DisabledForeground" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.Button.FocusedBackground" Color="#FFC9DEF5" />
+    <SolidColorBrush x:Key="CommonControls.Button.FocusedForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.Button.HoverBackground" Color="#FFC9DEF5" />
+    <SolidColorBrush x:Key="CommonControls.Button.HoverForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.Button.PressedBackground" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="CommonControls.Button.PressedForeground" Color="#FFFFFFFF" />
+    <!--#endregion-->
+
+    <!--#region CheckBox-->
+    <SolidColorBrush x:Key="CommonControls.CheckBox.Background" Color="#FFFEFEFE" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BackgroundDisabled" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BackgroundFocused" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BackgroundHover" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BackgroundPressed" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.Border" Color="#FF717171" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BorderDisabled" Color="#FFC6C6C6" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BorderFocused" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BorderHover" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.BorderPressed" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.Glyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.GlyphDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.GlyphFocused" Color="#FF424242" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.GlyphHover" Color="#FF424242" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.GlyphPressed" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.Text" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.TextDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.TextFocused" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.TextHover" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="CommonControls.CheckBox.TextPressed" Color="#FF1E1E1E" />
+    <!--#endregion-->
+
+    <!--#region ComboBox-->
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Background" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BackgroundDisabled" Color="#FFDFE7F3" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BackgroundFocused" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BackgroundHover" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BackgroundPressed" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Border" Color="#FF8591A2" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BorderDisabled" Color="#FFA4ADBA" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BorderFocused" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BorderHover" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.BorderPressed" Color="#FFE5C364" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Glyph" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphBackground" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphBackgroundDisabled" Color="#FFD5DCE8" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphBackgroundFocused" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphBackgroundHover" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphBackgroundPressed" Color="#FFE5C364" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphFocused" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphHover" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.GlyphPressed" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListBackground" Color="#FFEFEFEF" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListBackgroundShadow" Color="#19000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListBorder" Color="#FF9BA7B7" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListItemBackgroundHover" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListItemBorderHover" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListItemText" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.ListItemTextHover" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Selection" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Separator" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.SeparatorDisabled" Color="#FFD5DCE8" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.SeparatorFocused" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.SeparatorHover" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.SeparatorPressed" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.Text" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.TextDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.TextFocused" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.TextHover" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.TextInputSelection" Color="#66007ACC" />
+    <SolidColorBrush x:Key="CommonControls.ComboBox.TextPressed" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#region InnerTab-->
+    <SolidColorBrush x:Key="CommonControls.InnerTab.ActiveBackground" Color="#FFDFE5F3" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.ActiveBorder" Color="#FFDFE5F3" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.ActiveText" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveBorder" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveHoverBackground" Color="#FFFFF29D" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveHoverBorder" Color="#FFFFF29D" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveHoverText" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.InnerTab.InactiveText" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#region TextBox-->
+    <SolidColorBrush x:Key="CommonControls.TextBox.Background" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.BackgroundDisabled" Color="#FFDFE7F3" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.BackgroundFocused" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.Border" Color="#FF8591A2" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.BorderDisabled" Color="#FFA4ADBA" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.BorderFocused" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.Text" Color="#FF000000" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.TextDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="CommonControls.TextBox.TextFocused" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region Dialogs and Tool Windows-->
+
+    <SolidColorBrush x:Key="DialogsandToolWindows.ToolTipBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="DialogsandToolWindows.ToolTipForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="DialogsandToolWindows.ToolTipBorderBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="DialogsandToolWindows.ToolTipBorderForeground" Color="#00000000" />
+
+    <!--#endregion-->
+
+    <!--#region Environment-->
+
+    <SolidColorBrush x:Key="Environment.AccentBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.AccentDark" Color="#FFC0A776" />
+    <SolidColorBrush x:Key="Environment.AccentLight" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.AccentMedium" Color="#FFFFECB5" />
+    <SolidColorBrush x:Key="Environment.AccentPale" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipBackground" Color="#FF525252" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipBorder" Color="#FF525252" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipDisabledBackground" Color="#80525252" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipDisabledForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.AccessKeyToolTipDisabledBorder" Color="#80525252" />
+    <SolidColorBrush x:Key="Environment.ActiveBorder" Color="#0000000A" />
+    <SolidColorBrush x:Key="Environment.ActiveCaption" Color="#00000002" />
+    <SolidColorBrush x:Key="Environment.AppWorkspace" Color="#0000000C" />
+    <SolidColorBrush x:Key="Environment.AutoHideResizeGrip" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.AutoHideResizeGripDisabled" Color="#FFE8E8EC" />
+    <LinearGradientBrush x:Key="Environment.AutoHideTabBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF392955" />
+        <GradientStop Offset="1" Color="#FF392955" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.AutoHideTabBorder" Color="#FF5A467D" />
+    <LinearGradientBrush x:Key="Environment.AutoHideTabMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF392955" />
+        <GradientStop Offset="1" Color="#FF392955" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.AutoHideTabMouseOverBorder" Color="#FFA59BB7" />
+    <SolidColorBrush x:Key="Environment.AutoHideTabMouseOverText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.AutoHideTabText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Background" Color="#00000001" />
+    <SolidColorBrush x:Key="Environment.ButtonFace" Color="#0000000F" />
+    <SolidColorBrush x:Key="Environment.ButtonHighlight" Color="#00000014" />
+    <SolidColorBrush x:Key="Environment.ButtonShadow" Color="#00000010" />
+    <SolidColorBrush x:Key="Environment.ButtonText" Color="#00000012" />
+    <SolidColorBrush x:Key="Environment.CaptionText" Color="#00000009" />
+    <SolidColorBrush x:Key="Environment.ControlEditHintText" Color="#FFA0A0A0" />
+    <SolidColorBrush x:Key="Environment.ControlEditRequiredBackground" Color="#FFFFFAC8" />
+    <SolidColorBrush x:Key="Environment.ControlEditRequiredHintText" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="Environment.ControlLinkText" Color="#FF0066CC" />
+    <SolidColorBrush x:Key="Environment.ControlLinkTextHover" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.ControlLinkTextPressed" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.ControlOutline" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.Dark" Color="#00CCCEDB" />
+    <SolidColorBrush x:Key="Environment.DesignerBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.DesignerSelectionDots" Color="#FF716F64" />
+    <SolidColorBrush x:Key="Environment.DesignerTray" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.DesignerWatermark" Color="#FF808080" />
+    <SolidColorBrush x:Key="Environment.DialogBackground" Color="#0000000F" />
+    <SolidColorBrush x:Key="Environment.DialogForeground" Color="#00000012" />
+    <SolidColorBrush x:Key="Environment.DropShadowBackground" Color="#72000000" />
+    <SolidColorBrush x:Key="Environment.EditorAdditionalContentBorder" Color="#FFCFD6E5" />
+    <SolidColorBrush x:Key="Environment.EditorExpansionBorder" Color="#FFC0A776" />
+    <SolidColorBrush x:Key="Environment.EditorExpansionFill" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.EditorExpansionLink" Color="#FF0066CC" />
+    <SolidColorBrush x:Key="Environment.EditorExpansionText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.EnvironmentBackground" Color="#FF392955" />
+    <LinearGradientBrush x:Key="Environment.EnvironmentBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF392955" />
+        <GradientStop Offset="0.333" Color="#FF48356A" />
+        <GradientStop Offset="0.667" Color="#FF48356A" />
+        <GradientStop Offset="1" Color="#FF392955" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.EnvironmentBackgroundTexture1" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.EnvironmentBackgroundTexture2" Color="#FF48356A" />
+    <SolidColorBrush x:Key="Environment.GrayText" Color="#00000011" />
+    <SolidColorBrush x:Key="Environment.GridHeadingBackground" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Environment.GridHeadingText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.GridLine" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Environment.Highlight" Color="#0000000D" />
+    <SolidColorBrush x:Key="Environment.HighlightText" Color="#0000000E" />
+    <SolidColorBrush x:Key="Environment.HorizontalResizeGrip" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.IconActionFill" Color="#FF00529B" />
+    <SolidColorBrush x:Key="Environment.IconGeneralFill" Color="#FF424242" />
+    <SolidColorBrush x:Key="Environment.IconGeneralStroke" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.InactiveBorder" Color="#0000000B" />
+    <SolidColorBrush x:Key="Environment.InactiveCaption" Color="#00000003" />
+    <SolidColorBrush x:Key="Environment.InactiveCaptionText" Color="#00000013" />
+    <SolidColorBrush x:Key="Environment.InfoBackground" Color="#00000018" />
+    <SolidColorBrush x:Key="Environment.InfoText" Color="#00000017" />
+    <SolidColorBrush x:Key="Environment.Light" Color="#00F6F6F6" />
+    <SolidColorBrush x:Key="Environment.LightCaption" Color="#001E1E1E" />
+    <SolidColorBrush x:Key="Environment.MdiClientBorder" Color="#FFB1A8C2" />
+    <SolidColorBrush x:Key="Environment.Medium" Color="#00EFEFF2" />
+    <SolidColorBrush x:Key="Environment.Menu" Color="#00000004" />
+    <SolidColorBrush x:Key="Environment.MenuText" Color="#00000007" />
+    <SolidColorBrush x:Key="Environment.PageContentExpanderChevron" Color="#FF5F4A84" />
+    <SolidColorBrush x:Key="Environment.PageContentExpanderSeparator" Color="#FFB1A8C2" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderBody" Color="#FFF2F4F8" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderChevron" Color="#FF5F4A84" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderHeader" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderHeaderHover" Color="#FFFFF3CD" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderHeaderPressed" Color="#FFFFECB5" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderSeparator" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.PageSideBarExpanderText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ScreenTipBackground" Color="#FFFFFFE1" />
+    <SolidColorBrush x:Key="Environment.ScreenTipBorder" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ScreenTipText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ScrollBar" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.Snaplines" Color="#FF4169E1" />
+    <SolidColorBrush x:Key="Environment.SnaplinesPadding" Color="#FF96A9DD" />
+    <SolidColorBrush x:Key="Environment.SnaplinesTextBaseline" Color="#FFE122DF" />
+    <SolidColorBrush x:Key="Environment.SortBackground" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Environment.SortText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.SplashScreenBorder" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.TaskListGridLines" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Environment.ThreeDDarkShadow" Color="#00000015" />
+    <SolidColorBrush x:Key="Environment.ThreeDFace" Color="#0000000F" />
+    <SolidColorBrush x:Key="Environment.ThreeDHighlight" Color="#00000014" />
+    <SolidColorBrush x:Key="Environment.ThreeDLightShadow" Color="#00000016" />
+    <SolidColorBrush x:Key="Environment.ThreeDShadow" Color="#00000010" />
+    <LinearGradientBrush x:Key="Environment.VerticalResizeGrip" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#00000000" />
+        <GradientStop Offset="0.5" Color="#00000000" />
+        <GradientStop Offset="1" Color="#00000000" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.Window" Color="#00000005" />
+    <SolidColorBrush x:Key="Environment.WindowFrame" Color="#00000006" />
+    <SolidColorBrush x:Key="Environment.WindowText" Color="#00000008" />
+
+    <!--#region ComboBox-->
+    <SolidColorBrush x:Key="Environment.ComboBox.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ComboBox.Border" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ButtonMouseDownBackground" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ButtonMouseDownSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ButtonMouseOverBackground" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ButtonMouseOverSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.DisabledBackground" Color="#FFDCD5E8" />
+    <SolidColorBrush x:Key="Environment.ComboBox.DisabledBorder" Color="#FFACA4BA" />
+    <SolidColorBrush x:Key="Environment.ComboBox.DisabledGlyph" Color="#FFACA4BA" />
+    <SolidColorBrush x:Key="Environment.ComboBox.DisabledText" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedBackground" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedButtonBackground" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedButtonSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ComboBox.FocusedText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ComboBox.Glyph" Color="#FF271B3E" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ItemMouseOverBackground" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ItemMouseOverBorder" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ItemMouseOverText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ItemText" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.ComboBox.ItemTextInactive" Color="#FF808080" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseDownBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseDownText" Color="#FF000000" />
+    <LinearGradientBrush x:Key="Environment.ComboBox.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFFFFF" />
+        <GradientStop Offset="0.333" Color="#FFFFFFFF" />
+        <GradientStop Offset="0.667" Color="#FFFFFFFF" />
+        <GradientStop Offset="1" Color="#FFFFFFFF" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseOverBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseOverGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ComboBox.MouseOverText" Color="#FF000000" />
+    <LinearGradientBrush x:Key="Environment.ComboBox.PopupBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFEBE9EE" />
+        <GradientStop Offset="1" Color="#FFEBE9EE" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.ComboBox.PopupBorder" Color="#FFA59BB7" />
+    <SolidColorBrush x:Key="Environment.ComboBox.Selection" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Environment.ComboBox.Text" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#region CommandBar-->
+    <SolidColorBrush x:Key="Environment.CommandBar.Border" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.CommandBar.CheckBox" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.CheckBoxDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.CommandBar.CheckBoxMouseOver" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.DragHandle" Color="#FF70608C" />
+    <SolidColorBrush x:Key="Environment.CommandBar.DragHandleShadow" Color="#FFC6BCD8" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.Gradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFD2C9E1" />
+        <GradientStop Offset="0.5" Color="#FFD2C9E1" />
+        <GradientStop Offset="1" Color="#FFD2C9E1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.Hover" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelected" Color="#FFFFECB5" />
+    <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelectedIcon" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.CommandBar.HoverOverSelectedIconBorder" Color="#FFE5C365" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.MenuBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFEBE9EE" />
+        <GradientStop Offset="1" Color="#FFEBE9EE" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuBorder" Color="#FFA9A9A9" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuGlyph" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuGroupHeaderLinkText" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuGroupHeaderLinkTextHover" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuIconBackground" Color="#FFEBE9EE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuItemMouseOverBackground" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuItemMouseOverForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuItemMouseOverBorder" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuLinkText" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuLinkTextHover" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuMouseDownGlyph" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuMouseOverGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuMouseOverSeparator" Color="#FFD1CCDB" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuMouseOverSubmenuGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuScrollGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuSeparator" Color="#FFC3BECB" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuSubmenuGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuSubmenuGlyphHover" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkLinkText" Color="#FF717171" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkLinkTextHover" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkText" Color="#FF717171" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MenuWatermarkTextHover" Color="#FF717171" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.MouseDownBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFE8A6" />
+        <GradientStop Offset="0.5" Color="#FFFFE8A6" />
+        <GradientStop Offset="1" Color="#FFFFE8A6" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.MouseDownBorder" Color="#FFE5C365" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.333" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.667" Color="#FFFFF0D0" />
+        <GradientStop Offset="1" Color="#FFFFF0D0" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.MouseOverUnfocused" Color="#FFFEFEFE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.OptionsBackground" Color="#FFDCD5E8" />
+    <SolidColorBrush x:Key="Environment.CommandBar.OptionsGlyph" Color="#FF271B3E" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.OptionsMouseDownBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFE8A6" />
+        <GradientStop Offset="0.5" Color="#FFFFE8A6" />
+        <GradientStop Offset="1" Color="#FFFFE8A6" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.OptionsMouseDownGlyph" Color="#FF271B3E" />
+    <LinearGradientBrush x:Key="Environment.CommandBar.OptionsMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.333" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.667" Color="#FFFFF0D0" />
+        <GradientStop Offset="1" Color="#FFFFF0D0" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.CommandBar.OptionsMouseOverGlyph" Color="#FF271B3E" />
+    <SolidColorBrush x:Key="Environment.CommandBar.Selected" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SelectedBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SelectedIcon" Color="#FFE9ECEE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SelectedIconBorder" Color="#FFE9ECEE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SelectedIconDisabled" Color="#FFE9ECEE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SelectedIconDisabledBorder" Color="#FFE9ECEE" />
+    <SolidColorBrush x:Key="Environment.CommandBar.Shadow" Color="#FFD2C9E1" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SplitButtonGlyph" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SplitButtonMouseDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SplitButtonMouseOverGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.SplitButtonSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextActive" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextHover" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextHoverOverSelected" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextInactive" Color="#FF808080" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextMouseDown" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.TextSelected" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.CommandBar.ToolBarBorder" Color="#FFDCD5E8" />
+    <SolidColorBrush x:Key="Environment.CommandBar.ToolBarSeparator" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.CommandBar.ToolBarSeparatorHighlight" Color="#FFD2C9E1" />
+    <!--#endregion-->
+
+    <!--#region CommandShelf-->
+    <LinearGradientBrush x:Key="Environment.CommandShelf.BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFD3CAE2" />
+        <GradientStop Offset="0.5" Color="#FFD3CAE2" />
+        <GradientStop Offset="1" Color="#FFD3CAE2" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Environment.CommandShelf.HighlightGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFD3CAE2" />
+        <GradientStop Offset="0.5" Color="#FFD3CAE2" />
+        <GradientStop Offset="1" Color="#FFD3CAE2" />
+    </LinearGradientBrush>
+    <!--#endregion-->
+
+    <!--#region DockTarget-->
+    <SolidColorBrush x:Key="Environment.DockTarget.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.DockTarget.Border" Color="#FF686371" />
+    <LinearGradientBrush x:Key="Environment.DockTarget.ButtonBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFF7F5FB" />
+        <GradientStop Offset="1" Color="#FFE2DEE9" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.DockTarget.ButtonBorder" Color="#FF8A919C" />
+    <SolidColorBrush x:Key="Environment.DockTarget.GlyphArrow" Color="#FF574479" />
+    <LinearGradientBrush x:Key="Environment.DockTarget.GlyphBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFDE8A7" />
+        <GradientStop Offset="1" Color="#FFF7C570" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.DockTarget.GlyphBorder" Color="#FF574479" />
+    <!--#endregion-->
+
+    <!--#region DocWellOverflowButton-->
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.Background" Color="#FF402F5E" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.Glyph" Color="#FFD3CEDD" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownBackground" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverBackground" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DocWellOverflowButton.MouseOverGlyph" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#region DropDown-->
+    <SolidColorBrush x:Key="Environment.DropDown.Background" Color="#FFF1F3F8" />
+    <SolidColorBrush x:Key="Environment.DropDown.Border" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.DropDown.ButtonMouseDownBackground" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="Environment.DropDown.ButtonMouseDownSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DropDown.ButtonMouseOverBackground" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.DropDown.ButtonMouseOverSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DropDown.DisabledBackground" Color="#FFDCD5E8" />
+    <SolidColorBrush x:Key="Environment.DropDown.DisabledBorder" Color="#FFACA4BA" />
+    <SolidColorBrush x:Key="Environment.DropDown.DisabledGlyph" Color="#FFACA4BA" />
+    <SolidColorBrush x:Key="Environment.DropDown.DisabledText" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.DropDown.Glyph" Color="#FF271B3E" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseDownBackground" Color="#FFF1F3F8" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseDownText" Color="#FF000000" />
+    <LinearGradientBrush x:Key="Environment.DropDown.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFF1F3F8" />
+        <GradientStop Offset="0.333" Color="#FFF1F3F8" />
+        <GradientStop Offset="0.667" Color="#FFF1F3F8" />
+        <GradientStop Offset="1" Color="#FFF1F3F8" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.DropDown.MouseOverBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseOverGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.DropDown.MouseOverText" Color="#FF000000" />
+    <LinearGradientBrush x:Key="Environment.DropDown.PopupBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFEBE9EE" />
+        <GradientStop Offset="1" Color="#FFEBE9EE" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.DropDown.PopupBorder" Color="#FFA59BB7" />
+    <SolidColorBrush x:Key="Environment.DropDown.Text" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#region FileTab-->
+    <SolidColorBrush x:Key="Environment.FileTab.Background" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.Border" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownInactive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedActive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedInactive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonDownSelectedInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedActive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonHoverSelectedInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownInactive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedActive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedInactive" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalDownSelectedInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverGlyph" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedActive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalHoverSelectedInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalInactiveGlyph" Color="#FFCED4DD" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalSelectedActiveGlyph" Color="#FFD0E6F5" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonProvisionalSelectedInactiveGlyph" Color="#FFCED4DD" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonSelectedActiveGlyph" Color="#FF75633D" />
+    <SolidColorBrush x:Key="Environment.FileTab.ButtonSelectedInactiveGlyph" Color="#FFD3CEDD" />
+    <SolidColorBrush x:Key="Environment.FileTab.ChannelBackground" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.DocumentBorderBackground" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.FileTab.DocumentBorderHighlight" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.DocumentBorderShadow" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.GradientDark" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.FileTab.GradientLight" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.FileTab.HotBorder" Color="#FF5A4B74" />
+    <SolidColorBrush x:Key="Environment.FileTab.HotGlyph" Color="#FFD3CEDD" />
+    <LinearGradientBrush x:Key="Environment.FileTab.HotGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF5A4B74" />
+        <GradientStop Offset="1" Color="#FF5A4B74" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.FileTab.HotText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.InactiveBorder" Color="#FF604D82" />
+    <SolidColorBrush x:Key="Environment.FileTab.InactiveDocumentBorderBackground" Color="#FF523D77" />
+    <SolidColorBrush x:Key="Environment.FileTab.InactiveDocumentBorderEdge" Color="#FF4A366F" />
+    <SolidColorBrush x:Key="Environment.FileTab.InactiveGlyph" Color="#FFD3CEDD" />
+    <LinearGradientBrush x:Key="Environment.FileTab.InactiveGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF604D82" />
+        <GradientStop Offset="1" Color="#FF604D82" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.FileTab.InactiveText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderBackground" Color="#FFD4CEDF" />
+    <SolidColorBrush x:Key="Environment.FileTab.LastActiveDocumentBorderEdge" Color="#FFC9C0D9" />
+    <SolidColorBrush x:Key="Environment.FileTab.LastActiveGlyph" Color="#FF665F73" />
+    <LinearGradientBrush x:Key="Environment.FileTab.LastActiveGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFDAD5E3" />
+        <GradientStop Offset="0.333" Color="#FFDAD5E3" />
+        <GradientStop Offset="0.667" Color="#FFDAD5E3" />
+        <GradientStop Offset="1" Color="#FFDAD5E3" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.FileTab.LastActiveText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHover" Color="#FFE4913B" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHoverBorder" Color="#FFE4913B" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalHoverForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalInactive" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalInactiveBorder" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalInactiveForeground" Color="#FFCED4DD" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedActive" Color="#FFD87A1D" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedActiveBorder" Color="#FFD87A1D" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedActiveForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedInactive" Color="#FF604D82" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedInactiveBorder" Color="#FF604D82" />
+    <SolidColorBrush x:Key="Environment.FileTab.ProvisionalSelectedInactiveForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.FileTab.SelectedBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.FileTab.SelectedBorder" Color="#FFFFF0D0" />
+    <LinearGradientBrush x:Key="Environment.FileTab.SelectedGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.333" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.667" Color="#FFFFF0D0" />
+        <GradientStop Offset="1" Color="#FFFFF0D0" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.FileTab.SelectedText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.FileTab.Text" Color="#FFFFFFFF" />
+    <!--#endregion-->
+
+    <!--#region MainWindow-->
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveBuildingBorder" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveCaptionBackground" Color="#FFD3CAE2" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveCaptionForeground" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveDefaultBorder" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconBuilding" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconDefault" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconNoSolution" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveNoSolutionBorder" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonActiveBorder" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonDown" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverActive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonHoverInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonInactiveBorder" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ButtonInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveBorder" Color="#FF999999" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveCaptionBackground" Color="#FFD3CAE2" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveCaptionForeground" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconBuilding" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconDefault" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconNoSolution" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ResizeGripTexture1" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ResizeGripTexture2" Color="#7F000000" />
+    <!--#endregion-->
+
+    <!--#region Panel-->
+    <SolidColorBrush x:Key="Environment.Panel.Border" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.Panel.DisabledHyperlinkInsideSelectionActiveBackground" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.Panel.DisabledHyperlinkInsideSelectionActiveForeground" Color="#FFD0D0D0" />
+    <SolidColorBrush x:Key="Environment.Panel.DisabledHyperlinkInsideSelectionInactiveBackground" Color="#FFCCCED8" />
+    <SolidColorBrush x:Key="Environment.Panel.DisabledHyperlinkInsideSelectionInactiveForeground" Color="#FF636363" />
+    <SolidColorBrush x:Key="Environment.Panel.GradientDark" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.Panel.GradientLight" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Panel.HoverOverCloseBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.Panel.HoverOverCloseFill" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.Panel.Hyperlink" Color="#FF0066CC" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkDisabled" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkHover" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkInsideSelection" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkInsideSelectionActiveBackground" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkInsideSelectionActiveForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkInsideSelectionInactiveBackground" Color="#FFCCCEDB" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkInsideSelectionInactiveForeground" Color="#FF0066CC" />
+    <SolidColorBrush x:Key="Environment.Panel.HyperlinkPressed" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="Environment.Panel.Separator" Color="#FFB1A8C2" />
+    <SolidColorBrush x:Key="Environment.Panel.SubGroupSeparator" Color="#FFB1A8C2" />
+    <SolidColorBrush x:Key="Environment.Panel.Text" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.Panel.TitleBar" Color="#FFD3CDDF" />
+    <SolidColorBrush x:Key="Environment.Panel.TitleBarText" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Environment.Panel.TitleBarUnselected" Color="#FFC6BCD8" />
+    <!--#endregion-->
+
+    <!--#region RaftedWindow-->
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconBuilding" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconDefault" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconNoSolution" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonActiveBorder" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonActiveGlyph" Color="#FFD3CEDD" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonDown" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonDownGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverActive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonHoverInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonInactiveBorder" Color="#00000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonInactiveGlyph" Color="#FFD3CEDD" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconBuilding" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconDefault" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconNoSolution" Color="#FFFFFFFF" />
+    <!--#endregion-->
+
+    <!--#region ScrollBar-->
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowBackground" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowDisabledBackground" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowGlyph" Color="#FF868999" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowGlyphDisabled" Color="#FFCACBD3" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowGlyphMouseOver" Color="#FF1C97EA" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowGlyphPressed" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowMouseOverBackground" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ArrowPressedBackground" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.Background" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.Border" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.DisabledBackground" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbBackground" Color="#FFD0D1D7" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbBorder" Color="#FFD0D1D7" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbDisabled" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbGlyph" Color="#FFD0D1D7" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbGlyphMouseOverBorder" Color="#FF888888" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbGlyphPressedBorder" Color="#FF6A6A6A" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbMouseOverBackground" Color="#FF888888" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbMouseOverBorder" Color="#FF888888" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbPressedBackground" Color="#FF6A6A6A" />
+    <SolidColorBrush x:Key="Environment.ScrollBar.ThumbPressedBorder" Color="#FF6A6A6A" />
+    <!--#endregion-->
+
+    <!--#region SearchBox-->
+    <SolidColorBrush x:Key="Environment.SearchBox.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.SearchBox.Border" Color="#FF8F85A2" />
+    <LinearGradientBrush x:Key="Environment.SearchBox.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFFCF4" />
+        <GradientStop Offset="0.333" Color="#FFFFF3CD" />
+        <GradientStop Offset="0.667" Color="#FFFFECB5" />
+        <GradientStop Offset="1" Color="#FFFFECB5" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.SearchBox.MouseOverBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.SearchBox.PressedBackground" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.SearchBox.PressedBorder" Color="#FFE5C365" />
+    <!--#endregion-->
+
+    <!--#region SideBar-->
+    <SolidColorBrush x:Key="Environment.SideBar.Background" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.SideBar.GradientDark" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.SideBar.GradientLight" Color="#FFE1DEE7" />
+    <SolidColorBrush x:Key="Environment.SideBar.Text" Color="#FF1B293E" />
+    <!--#endregion-->
+
+    <!--#region StatusBar-->
+    <SolidColorBrush x:Key="Environment.StatusBar.BuildingBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.StatusBar.BuildingForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.StatusBar.DefaultBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.StatusBar.DefaultForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.StatusBar.HighlightBackground" Color="#4C000000" />
+    <SolidColorBrush x:Key="Environment.StatusBar.HighlightForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.StatusBar.NoSolutionBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.StatusBar.NoSolutionForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.StatusBar.Text" Color="#FFFFFFFF" />
+    <!--#endregion-->
+
+    <!--#region TitleBar-->
+    <SolidColorBrush x:Key="Environment.TitleBar.Active" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.TitleBar.ActiveBorder" Color="#FFFFF0D0" />
+    <LinearGradientBrush x:Key="Environment.TitleBar.ActiveGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.333" Color="#FFFFF0D0" />
+        <GradientStop Offset="0.667" Color="#FFFFF0D0" />
+        <GradientStop Offset="1" Color="#FFFFF0D0" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.TitleBar.ActiveText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.TitleBar.DragHandle" Color="#FF604D82" />
+    <SolidColorBrush x:Key="Environment.TitleBar.DragHandleActive" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="Environment.TitleBar.Inactive" Color="#FF604D82" />
+    <LinearGradientBrush x:Key="Environment.TitleBar.InactiveGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF604D82" />
+        <GradientStop Offset="1" Color="#FF523D77" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.TitleBar.InactiveText" Color="#FFFFFFFF" />
+    <!--#endregion-->
+
+    <!--#region Toolbox-->
+    <SolidColorBrush x:Key="Environment.Toolbox.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Toolbox.ContentBackground" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Environment.Toolbox.ContentForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Environment.Toolbox.ContentMouseOverBackground" Color="#FFFEFEFE" />
+    <SolidColorBrush x:Key="Environment.Toolbox.ContentMouseOverForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Environment.Toolbox.DisabledContentBackground" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Environment.Toolbox.DisabledContentForeground" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.Toolbox.DisabledContentMouseOverBackground" Color="#FFFEFEFE" />
+    <SolidColorBrush x:Key="Environment.Toolbox.DisabledContentMouseOverForeground" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="Environment.Toolbox.Divider" Color="#FF8F85A2" />
+    <SolidColorBrush x:Key="Environment.Toolbox.GradientDark" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Toolbox.GradientLight" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.Toolbox.HeadingAccent" Color="#FFD4CEDF" />
+    <LinearGradientBrush x:Key="Environment.Toolbox.Heading" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFF0F0F0" />
+        <GradientStop Offset="1" Color="#FFF0F0F0" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.Toolbox.IconHighlight" Color="#FFF7F7FF" />
+    <SolidColorBrush x:Key="Environment.Toolbox.IconShadow" Color="#FFA0A0A0" />
+    <LinearGradientBrush x:Key="Environment.Toolbox.SelectedHeading" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFFFBF0" />
+        <GradientStop Offset="0.333" Color="#FFFFF7DA" />
+        <GradientStop Offset="0.667" Color="#FFFFF2CB" />
+        <GradientStop Offset="1" Color="#FFFFF2CB" />
+    </LinearGradientBrush>
+    <!--#endregion-->
+
+    <!--#region ToolTip-->
+    <SolidColorBrush x:Key="Environment.ToolTip.Background" Color="#FFE9E7EC" />
+    <SolidColorBrush x:Key="Environment.ToolTip.Foreground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Environment.ToolTip.Border" Color="#FFD1CCDB" />
+    <SolidColorBrush x:Key="Environment.ToolTip.HintText" Color="#FF717171" />
+    <!--#endregion-->
+
+    <!--#region ToolWindow-->
+    <SolidColorBrush x:Key="Environment.ToolWindow.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.Border" Color="#FFB1A8C2" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonActiveGlyph" Color="#FF75633D" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonDown" Color="#FFFFE8A6" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonDownActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonDownInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverActive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverActiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverActiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverInactive" Color="#FFFFFCF4" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverInactiveBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonHoverInactiveGlyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonInactive" Color="#FF402F5E" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonInactiveBorder" Color="#FF7E7096" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ButtonInactiveGlyph" Color="#FFD3CEDD" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.ContentGrid" Color="#FFEEEEF2" />
+    <LinearGradientBrush x:Key="Environment.ToolWindow.ContentTabGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFFBFCFD" />
+        <GradientStop Offset="1" Color="#FFE1DEE7" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameInactiveBackground" Color="#FF392955" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.FloatingFrameInactiveForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabBorder" Color="#FF6E5996" />
+    <LinearGradientBrush x:Key="Environment.ToolWindow.TabGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF6E5996" />
+        <GradientStop Offset="1" Color="#FF6E5996" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Environment.ToolWindow.TabMouseOverBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF5A4B74" />
+        <GradientStop Offset="1" Color="#FF5A4B74" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabMouseOverBorder" Color="#FF5A4B74" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabMouseOverText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabSelectedActiveText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabSelectedBorder" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabSelectedTab" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabSelectedText" Color="#FF000000" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabSeparator" Color="#FF5A4B74" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.TabText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.ToolWindow.Text" Color="#FF000000" />
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region Find-->
+
+    <SolidColorBrush x:Key="Find.AlertBorder" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Find.DropDownMenuMouseDownBackground" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Find.DropDownMenuMouseDownForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Find.ErrorBorder" Color="#FFE51400" />
+    <SolidColorBrush x:Key="Find.UnfocusedDropdownBackground" Color="#FFEFEFF2" />
+    <SolidColorBrush x:Key="Find.UnfocusedDropdownForeground" Color="#FF717171" />
+
+    <!--#endregion-->
+
+    <!--#region Header-->
+
+    <SolidColorBrush x:Key="Header.DefaultBackground" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Header.DefaultForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Header.Glyph" Color="#FF717171" />
+    <SolidColorBrush x:Key="Header.MouseDownBackground" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="Header.MouseDownForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Header.MouseDownGlyph" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Header.MouseOverBackground" Color="#FFFEFEFE" />
+    <SolidColorBrush x:Key="Header.MouseOverForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Header.MouseOverGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="Header.SeparatorLine" Color="#FFCCCEDB" />
+
+    <!--#endregion-->
+
+    <!--#region Output Window-->
+
+    <SolidColorBrush x:Key="OutputWindow.CurrentListLocationBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.CurrentListLocationForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.InactiveSelectedTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.InactiveSelectedTextForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.PlainTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.PlainTextForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.SelectedTextBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.SelectedTextForeground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.urlformatBackground" Color="#00000000" />
+    <SolidColorBrush x:Key="OutputWindow.urlformatForeground" Color="#00000000" />
+
+    <!--#endregion-->
+
+    <!--#region Page Inspector-->
+
+    <SolidColorBrush x:Key="PageInspector.DynamicInspectionBorder" Color="#FFFF8027" />
+    <SolidColorBrush x:Key="PageInspector.SelectionFeedbackBackground" Color="#281382CE" />
+    <SolidColorBrush x:Key="PageInspector.SelectionFeedbackForeground" Color="#FF1382CE" />
+    <SolidColorBrush x:Key="PageInspector.StaticInspectionBorder" Color="#FF1382CE" />
+
+    <!--#endregion-->
+
+    <!--#region ProgressBar-->
+
+    <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="ProgressBar.IndicatorFill" Color="#FF007ACC" />
+
+    <!--#endregion-->
+
+    <!--#region SearchControl-->
+
+    <SolidColorBrush x:Key="SearchControl.ActionButtonDisabledGlyph" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseDown" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseDownBorder" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseDownGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseOver" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseOverBorder" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="SearchControl.ActionButtonMouseOverGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.ClearGlyph" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="SearchControl.DisabledBackground" Color="#FFEFEFF2" />
+    <SolidColorBrush x:Key="SearchControl.DisabledForeground" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="SearchControl.DisabledBorder" Color="#FFC6C6C6" />
+    <SolidColorBrush x:Key="SearchControl.DisabledDownButtonGlyph" Color="#FFA2A4A5" />
+    <SolidColorBrush x:Key="SearchControl.DropDownSeparator" Color="#00FFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.FocusedBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.FocusedForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.FocusedBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="SearchControl.FocusedClearGlyph" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="SearchControl.FocusedDropDownButton" Color="#FFFDF4BF" />
+    <SolidColorBrush x:Key="SearchControl.FocusedDropDownButtonBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="SearchControl.FocusedDropDownButtonGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.FocusedDropDownSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="SearchControl.FocusedSearchGlyph" Color="#FF717171" />
+    <SolidColorBrush x:Key="SearchControl.FocusedStopGlyph" Color="#FFE51400" />
+    <SolidColorBrush x:Key="SearchControl.MouseDownDropDownButton" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="SearchControl.MouseDownDropDownButtonBorder" Color="#FFFFE5A8" />
+    <SolidColorBrush x:Key="SearchControl.MouseDownDropDownButtonGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverBorder" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverClearGlyph" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverDropDownButton" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverDropDownButtonBorder" Color="#FFFFF0D0" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverDropDownButtonGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverDropDownSeparator" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverSearchGlyph" Color="#FF717171" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverStopGlyph" Color="#FFE51400" />
+    <SolidColorBrush x:Key="SearchControl.MouseOverWatermarkText" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.SearchActiveBackground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.SearchActiveForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.SearchGlyph" Color="#FF717171" />
+    <SolidColorBrush x:Key="SearchControl.Selection" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="SearchControl.StopGlyph" Color="#FFE51400" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedBackground" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedBorder" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedDropDownButton" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedDropDownButtonBorder" Color="#FFFCFCFC" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedDropDownButtonGlyph" Color="#FF717171" />
+    <SolidColorBrush x:Key="SearchControl.UnfocusedWatermarkText" Color="#FF717171" />
+
+    <!--#region Popup-->
+    <SolidColorBrush x:Key="SearchControl.Popup.Border" Color="#FFCCCEDB" />
+    <LinearGradientBrush x:Key="SearchControl.Popup.ButtonMouseDownBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FF007ACC" />
+        <GradientStop Offset="0.333" Color="#FF007ACC" />
+        <GradientStop Offset="0.667" Color="#FF007ACC" />
+        <GradientStop Offset="1" Color="#FF007ACC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SearchControl.Popup.ButtonMouseDownBorder" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="SearchControl.Popup.ButtonMouseDownText" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="SearchControl.Popup.ButtonMouseOverText" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="SearchControl.Popup.ButtonText" Color="#FF0E70C0" />
+    <SolidColorBrush x:Key="SearchControl.Popup.CheckboxCheckmark" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.Popup.CheckboxMouseDownText" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.Popup.CheckboxMouseOverText" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.Popup.CheckboxText" Color="#FF1E1E1E" />
+    <LinearGradientBrush x:Key="SearchControl.Popup.ControlMouseDownBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#D8FFFFFF" />
+        <GradientStop Offset="0.333" Color="#D8FFFFFF" />
+        <GradientStop Offset="0.667" Color="#D8FFFFFF" />
+        <GradientStop Offset="1" Color="#D8FFFFFF" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SearchControl.Popup.ControlMouseDownBorder" Color="#D8FFFFFF" />
+    <LinearGradientBrush x:Key="SearchControl.Popup.ControlMouseOverBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#D8FFFFFF" />
+        <GradientStop Offset="0.333" Color="#D8FFFFFF" />
+        <GradientStop Offset="0.667" Color="#D8FFFFFF" />
+        <GradientStop Offset="1" Color="#D8FFFFFF" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SearchControl.Popup.ControlMouseOverBorder" Color="#D8FFFFFF" />
+    <LinearGradientBrush x:Key="SearchControl.Popup.ItemsListBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SearchControl.Popup.ItemText" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="SearchControl.Popup.MouseOverItemText" Color="#FF1E1E1E" />
+    <LinearGradientBrush x:Key="SearchControl.Popup.SectionBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SearchControl.Popup.SectionHeaderGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FFE7E8EC" />
+        <GradientStop Offset="1" Color="#FFE7E8EC" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SearchControl.Popup.SectionHeaderSeparator" Color="#FFCCCEDB" />
+    <SolidColorBrush x:Key="SearchControl.Popup.SectionHeaderText" Color="#FF717171" />
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region TreeView-->
+
+    <SolidColorBrush x:Key="TreeView.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.Foreground" Color="#FF000000" />
+    <SolidColorBrush x:Key="TreeView.DragDropInsertionArrow" Color="#FFE51400" />
+    <SolidColorBrush x:Key="TreeView.DragDropInsertionArrowBorder" Color="#FF000000" />
+    <SolidColorBrush x:Key="TreeView.DragOverItemBackground" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="TreeView.DragOverItemForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.DragOverItemGlyph" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.DragOverItemGlyphMouseOver" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.FocusVisualBorder" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="TreeView.Glyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="TreeView.GlyphMouseOver" Color="#FF007ACC" />
+    <SolidColorBrush x:Key="TreeView.HighlightedSpanBackground" Color="#FFFDFBAC" />
+    <SolidColorBrush x:Key="TreeView.HighlightedSpanForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="TreeView.ValidationSquiggles" Color="#FFE51400" />
+
+    <!--#region SelectedItem-->
+    <SolidColorBrush x:Key="TreeView.SelectedItem.ActiveBackground" Color="#FF3399FF" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.ActiveForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.ActiveGlyph" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.ActiveGlyphMouseOver" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.InactiveBackground" Color="#FFE1E1E1" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.InactiveForeground" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.InactiveGlyph" Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="TreeView.SelectedItem.InactiveGlyphMouseOver" Color="#FF007ACC" />
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+</ResourceDictionary>
+        
