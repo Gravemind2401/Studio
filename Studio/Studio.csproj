@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Controls\BindingProxy.cs" />
     <Compile Include="Controls\Commands.cs" />
+    <Compile Include="Controls\DockManager.cs" />
     <Compile Include="Controls\DocumentWell.cs" />
     <Compile Include="Controls\SearchControl.cs" />
     <Compile Include="Controls\TabWellBase.cs" />

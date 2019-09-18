@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Studio.Controls
 {
@@ -17,6 +18,12 @@ namespace Studio.Controls
 
         public static readonly DependencyProperty ShowCaptionProperty =
             DependencyProperty.Register(nameof(ShowCaption), typeof(bool), typeof(ToolWell), new PropertyMetadata(true));
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        static ToolWell()
+        {
+            TabStripPlacementProperty.OverrideMetadata(typeof(ToolWell), new FrameworkPropertyMetadata(Dock.Bottom));
+        }
 
         public object Caption
         {

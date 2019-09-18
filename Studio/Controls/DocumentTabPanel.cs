@@ -14,7 +14,7 @@ namespace Studio.Controls
     public class DocumentTabPanel : TabPanel
     {
         public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false, IsPinnedChanged));
 
         public static bool GetIsPinned(DependencyObject obj)
         {
@@ -24,7 +24,11 @@ namespace Studio.Controls
         public static void SetIsPinned(DependencyObject obj, bool value)
         {
             obj.SetValue(IsPinnedProperty, value);
-            (VisualTreeHelper.GetParent(obj) as DocumentTabPanel)?.InvalidateVisual();
+        }
+
+        public static void IsPinnedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (VisualTreeHelper.GetParent(d) as DocumentTabPanel)?.InvalidateVisual();
         }
 
         public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =

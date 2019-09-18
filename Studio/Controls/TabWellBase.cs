@@ -17,17 +17,6 @@ namespace Studio.Controls
         private int DetachThreshold = MinDetachThreshold;
         private int SwapThreshold = 0;
 
-        private static readonly DependencyPropertyKey IsActivePropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsActive), typeof(bool), typeof(TabWellBase), new PropertyMetadata(true));
-
-        public static readonly DependencyProperty IsActiveProperty = IsActivePropertyKey.DependencyProperty;
-
-        public bool IsActive
-        {
-            get { return (bool)GetValue(IsActiveProperty); }
-            internal set { SetValue(IsActivePropertyKey, value); }
-        }
-
         protected TabWellBase() : base()
         {
             CommandBindings.Add(new CommandBinding(Commands.TabMouseDownCommand, TabMouseDownCommandExecuted));
@@ -45,6 +34,12 @@ namespace Studio.Controls
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is TabWellItem;
+        }
+
+        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+        {
+            DockManager.SetIsActive(this, true);
+            base.OnPreviewMouseDown(e);
         }
 
         #region Command Handlers
@@ -113,6 +108,7 @@ namespace Studio.Controls
             if (!detachBounds.Contains(pos))
             {
                 tab.ReleaseMouseCapture();
+                DocumentTabPanel.SetIsPinned(tab, false);
                 System.Diagnostics.Debugger.Break();
                 return;
             }

@@ -750,8 +750,6 @@
     
     <!--#endregion-->
     
-    <!--#endregion-->
-    
     <!--#region ToolBar-->
 
     <Style TargetType="ToolBarTray">
@@ -1716,7 +1714,7 @@
                     <!--selected, active-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.ButtonSelectedActiveGlyph}" />
@@ -1725,7 +1723,7 @@
                     <!--selected, active, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
@@ -1737,7 +1735,7 @@
                     <!--selected, active, pressed-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                             <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
@@ -1749,7 +1747,7 @@
                     <!--selected, inactive-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.ButtonSelectedInactiveGlyph}" />
@@ -1758,7 +1756,7 @@
                     <!--selected, inactive, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
@@ -1770,7 +1768,7 @@
                     <!--selected, inactive, pressed-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True" />
                             <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
@@ -1881,7 +1879,7 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                    <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.SelectedText}" />
                 <Setter Property="Background" Value="{DynamicResource Environment.FileTab.SelectedGradient}" />
@@ -1892,7 +1890,7 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
-                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                    <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Environment.FileTab.InactiveText}" />
                 <Setter Property="Background" Value="{DynamicResource Environment.FileTab.InactiveGradient}" />
@@ -2036,7 +2034,7 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsActive" Value="True">
+                        <Trigger Property="c:DockManager.IsActive" Value="True">
                             <Setter TargetName="ItemsPanelBorder" Property="BorderBrush" Value="{DynamicResource Environment.FileTab.DocumentBorderBackground}" />
                         </Trigger>
                         <Trigger Property="c:DocumentTabPanel.HasOverflowItems" Value="True">
@@ -2101,7 +2099,7 @@
             <!--selected, active-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                    <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabSelectedActiveText}" />
@@ -2112,7 +2110,7 @@
             <!--selected, inactive-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                    <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.TabSelectedText}" />
@@ -2148,14 +2146,14 @@
 
                 <Style.Triggers>
                     <!--active-->
-                    <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True">
+                    <DataTrigger Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True">
                         <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonActiveGlyph}" />
                     </DataTrigger>
 
                     <!--active, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonHoverActiveGlyph}" />
@@ -2166,7 +2164,7 @@
                     <!--active, pressed-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="True" />
                             <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonDownActiveGlyph}" />
@@ -2177,7 +2175,7 @@
                     <!--inactive, hovered-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonHoverInactiveGlyph}" />
@@ -2188,7 +2186,7 @@
                     <!--inactive, pressed-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
+                            <Condition Binding="{Binding Path=(c:DockManager.IsActive), RelativeSource={RelativeSource AncestorType=TabControl}}" Value="False" />
                             <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
                         </MultiDataTrigger.Conditions>
                         <Setter Property="Foreground" Value="{DynamicResource Environment.ToolWindow.ButtonDownInactiveGlyph}" />
@@ -2269,7 +2267,7 @@
                         </Border>
                     </DockPanel>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsActive" Value="True">
+                        <Trigger Property="c:DockManager.IsActive" Value="True">
                             <Setter TargetName="TitleBar" Property="Background" Value="{DynamicResource Environment.TitleBar.ActiveGradient}" />
                             <Setter TargetName="TitleBarContent" Property="TextBlock.Foreground" Value="{DynamicResource Environment.TitleBar.ActiveText}" />
                             <Setter TargetName="TitleBarGrip" Property="Foreground" Value="{DynamicResource Environment.TitleBar.DragHandleActive}" />
