@@ -90,7 +90,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="260" />
             </Grid.ColumnDefinitions>
-            <s:DocumentWell Grid.Column="0">
+            <s:DocumentWell Grid.Column="0" s:DockManager.IsActive="True">
                 <s:TabWellItem Header="Sandbox Area">
                     <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">
                         <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}" MinWidth="600" MinHeight="500">

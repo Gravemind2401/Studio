@@ -43,6 +43,10 @@ namespace Sandbox
                 };
                 ThemesMenu.Items.Add(item);
             }
+
+            var none = new MenuItem { Header = "(None)" };
+            none.Click += (s, args) => App.Instance.Resources.MergedDictionaries.Clear();
+            ThemesMenu.Items.Add(none);
         }
     }
 }
