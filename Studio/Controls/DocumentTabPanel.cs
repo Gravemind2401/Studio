@@ -126,6 +126,9 @@ namespace Studio.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
+            if (InternalChildren.Count == 0)
+                return availableSize;
+
             foreach (var child in InternalChildren.OfType<UIElement>())
                 child.Measure(availableSize);
 
@@ -145,6 +148,9 @@ namespace Studio.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
+            if (InternalChildren.Count == 0)
+                return finalSize;
+
             var offset = new Point();
 
             var rowCount = GetRowCount(finalSize);

@@ -17,7 +17,7 @@ namespace Studio.Controls
         private int DetachThreshold = MinDetachThreshold;
         private int SwapThreshold = 0;
 
-        protected TabWellBase() : base()
+        protected TabWellBase()
         {
             CommandBindings.Add(new CommandBinding(Commands.TabMouseDownCommand, TabMouseDownCommandExecuted));
             CommandBindings.Add(new CommandBinding(Commands.TabMouseMoveCommand, TabMouseMoveCommandExecuted));
