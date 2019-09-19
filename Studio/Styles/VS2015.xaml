@@ -2243,11 +2243,13 @@
                                             <ContentControl Template="{StaticResource ToolMenuGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
-                                                Template="{StaticResource ButtonBaseTemplate}">
+                                                Template="{StaticResource ButtonBaseTemplate}"
+                                                Command="{TemplateBinding TogglePinStatusCommand}">
                                             <ContentControl Template="{StaticResource ToolPinGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
-                                                Template="{StaticResource ButtonBaseTemplate}">
+                                                Template="{StaticResource ButtonBaseTemplate}"
+                                                Command="{TemplateBinding CloseCommand}">
                                             <ContentControl Template="{StaticResource TabCloseGlyph}" />
                                         </Button>
                                     </StackPanel>
