@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Studio.Utilities;
+using System.Collections;
 
 namespace Studio.Controls
 {
@@ -45,8 +47,7 @@ namespace Studio.Controls
         #region Command Handlers
         private void CloseTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var tab = e.Parameter as TabWellItem;
-            var item = tab == null ? e.Parameter : ItemContainerGenerator.ItemFromContainer(tab);
+            var item = ItemContainerGenerator.ItemFromContainer((e.OriginalSource as FrameworkElement)?.FindVisualAncestor<TabItem>());
 
             if (!Items.Contains(item))
                 return;
@@ -91,7 +92,7 @@ namespace Studio.Controls
             var tab = (TabWellItem)e.OriginalSource;
             var mouseArgs = (MouseEventArgs)e.Parameter;
 
-            if (!tab.IsMouseCaptured) return;
+            if (!tab.IsMouseCaptured || !tab.IsLoaded) return;
 
             var item = ItemContainerGenerator.ItemFromContainer(tab);
             var index = Items.IndexOf(item);
@@ -120,6 +121,7 @@ namespace Studio.Controls
                 .Select(i => ItemContainerGenerator.ContainerFromItem(i))
                 .Where(c => DocumentTabPanel.GetIsPinned(c) == isPinned);
 
+            var collection = ItemsSource as IList ?? Items as IList;
             if (pos.X < -SwapThreshold && index > 0)
             {
                 var prevTab = grouped.TakeWhile(c => c != tab).LastOrDefault() as FrameworkElement;
@@ -128,8 +130,8 @@ namespace Studio.Controls
                     SwapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
                     DetachThreshold = MaxDetachThreshold;
 
-                    Items.Remove(item);
-                    Items.Insert(index - 1, item);
+                    collection.Remove(item);
+                    collection.Insert(index - 1, item);
 
                     tab = (TabWellItem)ItemContainerGenerator.ContainerFromIndex(index - 1);
                 }
@@ -142,8 +144,8 @@ namespace Studio.Controls
                     SwapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
                     DetachThreshold = MaxDetachThreshold;
 
-                    Items.Remove(item);
-                    Items.Insert(index + 1, item);
+                    collection.Remove(item);
+                    collection.Insert(index + 1, item);
 
                     tab = (TabWellItem)ItemContainerGenerator.ContainerFromIndex(index + 1);
                 }

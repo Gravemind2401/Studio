@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,16 +51,15 @@ namespace Studio.Controls
 
         private void PinTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var item = e.Parameter as DependencyObject;
-            if (item == null || !Items.Contains(item)) return;
-
-            DocumentTabPanel.SetIsPinned(item, !DocumentTabPanel.GetIsPinned(item));
+            var container = (e.OriginalSource as FrameworkElement)?.FindVisualAncestor<TabItem>();
+            DocumentTabPanel.SetIsPinned(container, !DocumentTabPanel.GetIsPinned(container));
         }
 
         private void SelectTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (Items.Contains(e.Parameter))
-                SelectedItem = e.Parameter;
+            var item = ItemContainerGenerator.ItemFromContainer((e.OriginalSource as FrameworkElement)?.FindVisualAncestor<TabItem>());
+            if (Items.Contains(item))
+                SelectedItem = item;
         }
     }
 }

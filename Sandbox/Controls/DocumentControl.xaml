@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Sandbox.Controls.DocumentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
+             xmlns:local="clr-namespace:Sandbox"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500">
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}" MinWidth="600" MinHeight="500">
+            <StackPanel Width="300">
+                <s:SearchControl WatermarkText="Search..." />
+                <s:SearchControl IsEnabled="False" WatermarkText="Search..." />
+                <TextBox Text="enabled" />
+                <TextBox IsReadOnly="True" Text="readonly" />
+                <TextBox IsEnabled="False" Text="disabled" />
+                <Button Content="enabled" />
+                <Button Content="default" IsDefault="True" />
+                <Button Content="disabled" IsEnabled="False" />
+                <ComboBox>
+                    <ComboBoxItem Content="item 1" />
+                    <ComboBoxItem Content="item 2" IsEnabled="False" />
+                    <ComboBoxItem Content="item 3" />
+                </ComboBox>
+                <ComboBox IsEditable="True">
+                    <ComboBoxItem Content="editable" IsSelected="True" />
+                    <ComboBoxItem Content="item 2" />
+                    <ComboBoxItem Content="item 3" />
+                </ComboBox>
+                <ComboBox IsEnabled="False">
+                    <ComboBoxItem Content="disabled" IsSelected="True" />
+                </ComboBox>
+            </StackPanel>
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="File">
+                        <MenuItem Header="New" />
+                        <MenuItem Header="Open" />
+                        <Separator />
+                        <MenuItem Header="Close" IsEnabled="False" />
+                    </MenuItem>
+                    <MenuItem Header="Edit">
+                        <MenuItem Header="Undo" />
+                        <MenuItem Header="Redo" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Tools">
+                        <MenuItem Header="Settings" />
+                        <MenuItem Header="Options">
+                            <MenuItem Header="Option 1" />
+                            <Separator />
+                            <MenuItem Header="Option 2" IsCheckable="True" />
+                            <MenuItem Header="Option 3" IsCheckable="True" IsChecked="True" />
+                        </MenuItem>
+                        <MenuItem Header="Tool Menu" IsEnabled="False">
+                            <MenuItem Header="Option 1" />
+                            <MenuItem Header="Option 1" />
+                            <MenuItem Header="Option 1" />
+                        </MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </Grid.ContextMenu>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

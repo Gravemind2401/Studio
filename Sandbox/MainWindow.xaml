@@ -8,7 +8,7 @@
         mc:Ignorable="d" Background="{DynamicResource Environment.EnvironmentBackground}"
         Loaded="Window_Loaded"
         Title="MainWindow" Height="720" Width="1280">
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -84,7 +84,11 @@
             </ToolBar>
         </ToolBarTray>
 
-        <s:SplitPanel Margin="5" Grid.Row="2" Orientation="Horizontal" Panel2Size="260">
+        <ContentPresenter Margin="5" Grid.Row="2"
+                Content="{Binding Model}"
+                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
+        
+        <!--<s:SplitPanel Margin="5" Grid.Row="2" Orientation="Horizontal" Panel2Size="260">
             <s:SplitPanel.Panel1Content>
                 <s:DocumentWell Grid.Column="0" s:DockManager.IsActive="True">
                     <s:TabWellItem Header="Sandbox Area">
@@ -180,7 +184,6 @@
                     <s:TabWellItem Header="Item3" />
                 </s:ToolWell>
             </s:SplitPanel.Panel2Content>
-        </s:SplitPanel>
-
+        </s:SplitPanel>-->
     </Grid>
 </Window>

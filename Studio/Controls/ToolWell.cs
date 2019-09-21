@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,7 +71,7 @@ namespace Studio.Controls
 
         private void CloseToolCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Items.Remove(SelectedItem);
+            (ItemsSource as IList ?? Items as IList)?.Remove(SelectedItem);
         } 
         #endregion
     }

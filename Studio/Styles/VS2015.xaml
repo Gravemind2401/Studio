@@ -1831,13 +1831,13 @@
                                 <Button x:Name="PinButton" Style="{StaticResource TabButtonStyle}"
                                         Template="{StaticResource ButtonBaseTemplate}"
                                         Command="{TemplateBinding TogglePinStatusCommand}"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                        CommandParameter="{Binding}">
                                     <ContentControl x:Name="PinButtonContent" Template="{StaticResource TabPinGlyph}" />
                                 </Button>
                                 <Button x:Name="CloseButton" Style="{StaticResource TabButtonStyle}"
                                         Template="{StaticResource ButtonBaseTemplate}"
                                         Command="{TemplateBinding CloseCommand}"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                        CommandParameter="{Binding}">
                                     <ContentControl Template="{StaticResource TabCloseGlyph}" />
                                 </Button>
                             </StackPanel>

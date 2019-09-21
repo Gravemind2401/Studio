@@ -9,12 +9,6 @@ using System.Windows.Input;
 
 namespace Studio.Controls
 {
-    public enum TabItemType
-    {
-        Document,
-        Tool
-    }
-
     public class TabWellItem : TabItem
     {
         public static readonly DependencyProperty TogglePinStatusCommandProperty =
@@ -22,9 +16,6 @@ namespace Studio.Controls
 
         public static readonly DependencyProperty CloseCommandProperty =
             DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(TabWellItem), new PropertyMetadata(Commands.CloseTabCommand));
-
-        public static readonly DependencyProperty ItemTypeProperty =
-            DependencyProperty.Register(nameof(ItemType), typeof(TabItemType), typeof(TabWellItem), new PropertyMetadata(TabItemType.Document));
 
         public ICommand TogglePinStatusCommand
         {
@@ -36,12 +27,6 @@ namespace Studio.Controls
         {
             get { return (ICommand)GetValue(CloseCommandProperty); }
             set { SetValue(CloseCommandProperty, value); }
-        }
-
-        public TabItemType ItemType
-        {
-            get { return (TabItemType)GetValue(ItemTypeProperty); }
-            set { SetValue(ItemTypeProperty, value); }
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -58,7 +43,7 @@ namespace Studio.Controls
             if (e.ChangedButton == MouseButton.Middle)
             {
                 if (e.ButtonState == MouseButtonState.Pressed)
-                    CloseCommand?.TryExecute(this, this);
+                    CloseCommand?.TryExecute(DataContext ?? this, this);
             }
             else Commands.TabMouseDownCommand.TryExecute(e, this);
         }

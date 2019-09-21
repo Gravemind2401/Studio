@@ -1,6 +1,9 @@
 ﻿<Application x:Class="Sandbox.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
+             xmlns:m="clr-namespace:Sandbox.Models"
+             xmlns:u="clr-namespace:Sandbox.Utilities"
              xmlns:local="clr-namespace:Sandbox"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -8,6 +11,59 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Studio;component/Themes/Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <u:TabTreeTemplateSelector x:Key="tabTreeTemplateSelector" />
+
+            <DataTemplate x:Key="SplitPaneTemplate" DataType="m:SplitModel">
+                <s:SplitPanel
+                    Panel1Content="{Binding Item1}"
+                    Panel1Size="{Binding Item1Size}"
+                    Panel2Content="{Binding Item2}"
+                    Panel2Size="{Binding Item2Size}"
+                    ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="DocumentGroupTemplate" DataType="m:TabGroupModel">
+                <s:DocumentWell ItemsSource="{Binding Children}"
+                                s:DockManager.IsActive="{Binding IsActive}"
+                                SelectedItem="{Binding SelectedItem}"
+                                OverflowItemSelectedCommand="{Binding SelectItemCommand}">
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding Content}" />
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="s:TabWellItem" BasedOn="{StaticResource {x:Static s:DocumentWell.DocumentTabStyleKey}}">
+                            <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
+                            <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
+                            <Setter Property="Header" Value="{Binding Header}" />
+                            <Setter Property="s:DocumentTabPanel.IsPinned" Value="{Binding IsPinned}" />
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                </s:DocumentWell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ToolGroupTemplate" DataType="m:TabGroupModel">
+                <s:ToolWell ItemsSource="{Binding Children}"
+                            s:DockManager.IsActive="{Binding IsActive}"
+                            SelectedItem="{Binding SelectedItem}"
+                            Caption="{Binding SelectedItem.ToolTip}"
+                            CloseCommand="{Binding CloseTabCommand}">
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding Content}" />
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="s:TabWellItem" BasedOn="{StaticResource {x:Static s:ToolWell.ToolTabStyleKey}}">
+                            <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
+                            <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
+                            <Setter Property="Header" Value="{Binding Header}" />
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                </s:ToolWell>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
