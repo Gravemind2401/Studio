@@ -49,6 +49,7 @@
     <Compile Include="Controls\DockManager.cs" />
     <Compile Include="Controls\DocumentWell.cs" />
     <Compile Include="Controls\SearchControl.cs" />
+    <Compile Include="Controls\SplitPanel.cs" />
     <Compile Include="Controls\TabWellBase.cs" />
     <Compile Include="Controls\TabWellItem.cs" />
     <Compile Include="Controls\DocumentTabPanel.cs" />
