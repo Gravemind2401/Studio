@@ -12,22 +12,27 @@ namespace Studio.Controls
     {
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (InternalChildren.Count == 0)
-                return availableSize;
+            if (InternalChildren.Count <= 1)
+                return new Size(availableSize.Width, 0);
+
+            var maxWidth = availableSize.Width / InternalChildren.Count;
 
             foreach (var child in InternalChildren.OfType<UIElement>())
-                child.Measure(availableSize);
+                child.Measure(new Size(maxWidth, availableSize.Height));
 
-            var height = InternalChildren.OfType<UIElement>().Max(e => e.DesiredSize.Height);
-            var width = InternalChildren.OfType<UIElement>().Sum(e => e.DesiredSize.Width);
+            var actualHeight = InternalChildren.OfType<UIElement>().Max(e => e.DesiredSize.Height);
+            var actualWidth = InternalChildren.OfType<UIElement>().Sum(e => e.DesiredSize.Width);
 
-            return new Size(Math.Min(availableSize.Width, width), Math.Min(availableSize.Height, height));
+            return new Size(Math.Min(availableSize.Width, actualWidth), Math.Min(availableSize.Height, actualHeight));
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (InternalChildren.Count == 0)
+            if (InternalChildren.Count <= 1)
+            {
+                InternalChildren.OfType<UIElement>().FirstOrDefault()?.Arrange(new Rect());
                 return finalSize;
+            }
 
             var totalWidth = InternalChildren.OfType<UIElement>().Sum(e => e.DesiredSize.Width);
 
