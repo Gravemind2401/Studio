@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
              xmlns:local="clr-namespace:Sandbox.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <DockPanel LastChildFill="True">
+        <ToolBarTray x:Name="tray" DockPanel.Dock="Top" IsLocked="True">
+            <ToolBar>
+                <Button Content="button 1" />
+                <Separator />
+                <ToggleButton Content="toggle" />
+                <Separator />
+                <Button Content="button 2" />
+            </ToolBar>
+        </ToolBarTray>
+        <Grid DockPanel.Dock="Top" Background="{Binding Background, ElementName=tray}">
+            <s:SearchControl Margin="0,0,0,2" />
+        </Grid>
         <TreeView>
             <TreeViewItem Header="Item 1" />
             <TreeViewItem Header="Item 2">
@@ -27,5 +40,5 @@
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
-    </Grid>
+    </DockPanel>
 </UserControl>

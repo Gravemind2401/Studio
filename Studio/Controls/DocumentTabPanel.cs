@@ -13,24 +13,6 @@ namespace Studio.Controls
 {
     public class DocumentTabPanel : TabPanel
     {
-        public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false, IsPinnedChanged));
-
-        public static bool GetIsPinned(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsPinnedProperty);
-        }
-
-        public static void SetIsPinned(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsPinnedProperty, value);
-        }
-
-        public static void IsPinnedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (VisualTreeHelper.GetParent(d) as DocumentTabPanel)?.InvalidateVisual();
-        }
-
         public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
             DependencyProperty.RegisterAttachedReadOnly("HasOverflowItems", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
 
@@ -58,7 +40,7 @@ namespace Studio.Controls
             int rowCount = 1;
             double currentOffset = 0;
 
-            var pinned = InternalChildren.OfType<UIElement>().Where(t => GetIsPinned(t));
+            var pinned = InternalChildren.OfType<UIElement>().Where(t => DockManager.GetIsPinned(t));
             foreach (var item in pinned)
             {
                 if (currentOffset > 0 && currentOffset + item.DesiredSize.Width > constraint.Width)
@@ -81,7 +63,7 @@ namespace Studio.Controls
 
             int rowNum = 0;
             double currentOffset = 0;
-            var pinned = InternalChildren.OfType<UIElement>().Where(t => GetIsPinned(t));
+            var pinned = InternalChildren.OfType<UIElement>().Where(t => DockManager.GetIsPinned(t));
             var notPinned = InternalChildren.OfType<UIElement>().Except(pinned);
 
             foreach (var item in pinned)

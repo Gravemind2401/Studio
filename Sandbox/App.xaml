@@ -38,7 +38,7 @@
                             <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
                             <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
                             <Setter Property="Header" Value="{Binding Header}" />
-                            <Setter Property="s:DocumentTabPanel.IsPinned" Value="{Binding IsPinned}" />
+                            <Setter Property="s:DockManager.IsPinned" Value="{Binding IsPinned}" />
                         </Style>
                     </TabControl.ItemContainerStyle>
                 </s:DocumentWell>

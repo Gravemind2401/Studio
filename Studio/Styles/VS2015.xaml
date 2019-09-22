@@ -1860,7 +1860,7 @@
                             <Setter TargetName="PinButton" Property="Visibility" Value="Hidden" />
                             <Setter TargetName="CloseButton" Property="Visibility" Value="Hidden" />
                         </MultiTrigger>
-                        <Trigger Property="c:DocumentTabPanel.IsPinned" Value="True">
+                        <Trigger Property="c:DockManager.IsPinned" Value="True">
                             <Setter TargetName="PinButton" Property="Visibility" Value="Visible" />
                             <Setter TargetName="PinButtonContent" Property="Template" Value="{StaticResource TabUnpinGlyph}" />
                         </Trigger>

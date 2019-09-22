@@ -109,17 +109,17 @@ namespace Studio.Controls
             if (!detachBounds.Contains(pos))
             {
                 tab.ReleaseMouseCapture();
-                DocumentTabPanel.SetIsPinned(tab, false);
+                DockManager.SetIsPinned(tab, false);
                 System.Diagnostics.Debugger.Break();
                 return;
             }
 
             if (pos.X > 0 && pos.X < tab.ActualWidth) SwapThreshold = 0;
 
-            var isPinned = DocumentTabPanel.GetIsPinned(tab);
+            var isPinned = DockManager.GetIsPinned(tab);
             var grouped = Items.OfType<object>()
                 .Select(i => ItemContainerGenerator.ContainerFromItem(i))
-                .Where(c => DocumentTabPanel.GetIsPinned(c) == isPinned);
+                .Where(c => DockManager.GetIsPinned(c) == isPinned);
 
             var collection = ItemsSource as IList ?? Items as IList;
             if (pos.X < -SwapThreshold && index > 0)

@@ -52,7 +52,7 @@ namespace Studio.Controls
         private void PinTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var container = (e.OriginalSource as FrameworkElement)?.FindVisualAncestor<TabItem>();
-            DocumentTabPanel.SetIsPinned(container, !DocumentTabPanel.GetIsPinned(container));
+            DockManager.SetIsPinned(container, !DockManager.GetIsPinned(container));
         }
 
         private void SelectTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
