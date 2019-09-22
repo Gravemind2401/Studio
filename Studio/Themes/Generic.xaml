@@ -3,7 +3,7 @@
                     xmlns:c="clr-namespace:Studio.Controls"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <Style x:Key="{x:Static c:SplitPanel.SplitterStyleKey}" TargetType="GridSplitter" BasedOn="{StaticResource {x:Type GridSplitter}}">
+    <Style x:Key="{x:Static c:SplitContainer.SplitterStyleKey}" TargetType="GridSplitter" BasedOn="{StaticResource {x:Type GridSplitter}}">
         <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
         <Setter Property="ShowsPreview" Value="True" />
         <Setter Property="Background" Value="Transparent" />
@@ -11,13 +11,13 @@
         <Setter Property="MinHeight" Value="5" />
     </Style>
 
-    <Style TargetType="c:SplitPanel">
+    <Style TargetType="c:SplitContainer">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="c:SplitPanel">
+                <ControlTemplate TargetType="c:SplitContainer">
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="col1" />
@@ -36,7 +36,7 @@
                                 ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Content="{TemplateBinding Panel1Content}" />
-                        <GridSplitter x:Name="splitter" Style="{StaticResource {x:Static c:SplitPanel.SplitterStyleKey}}" />
+                        <GridSplitter x:Name="splitter" Style="{StaticResource {x:Static c:SplitContainer.SplitterStyleKey}}" />
                         <ContentPresenter x:Name="content2"
                                 Margin="{TemplateBinding Padding}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

@@ -8,43 +8,43 @@ using System.Windows.Controls;
 
 namespace Studio.Controls
 {
-    public class SplitPanel : Control
+    public class SplitContainer : Control
     {
         private static readonly object splitterStyleKey = new Guid("af6c117f-3b20-4be8-84e1-c9b71a190a90");
         public static object SplitterStyleKey => splitterStyleKey;
 
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(SplitPanel), new PropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(SplitContainer), new PropertyMetadata(Orientation.Horizontal));
 
         public static readonly DependencyProperty ContentTemplateProperty =
-            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(SplitPanel), new PropertyMetadata((DataTemplate)null));
+            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(SplitContainer), new PropertyMetadata((DataTemplate)null));
 
         public static readonly DependencyProperty ContentTemplateSelectorProperty =
-            DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(SplitPanel), new PropertyMetadata((DataTemplateSelector)null));
+            DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(SplitContainer), new PropertyMetadata((DataTemplateSelector)null));
 
         public static readonly DependencyProperty Panel1ContentProperty =
-            DependencyProperty.Register(nameof(Panel1Content), typeof(object), typeof(SplitPanel), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Panel1Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null));
 
         public static readonly DependencyProperty Panel2ContentProperty =
-           DependencyProperty.Register(nameof(Panel2Content), typeof(object), typeof(SplitPanel), new PropertyMetadata(null));
+           DependencyProperty.Register(nameof(Panel2Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null));
 
         public static readonly DependencyProperty Panel1MinSizeProperty =
-            DependencyProperty.Register(nameof(Panel1MinSize), typeof(double), typeof(SplitPanel), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(Panel1MinSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(0d));
 
         public static readonly DependencyProperty Panel1SizeProperty =
-            DependencyProperty.Register(nameof(Panel1Size), typeof(GridLength), typeof(SplitPanel), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
+            DependencyProperty.Register(nameof(Panel1Size), typeof(GridLength), typeof(SplitContainer), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
 
         public static readonly DependencyProperty Panel1MaxSizeProperty =
-            DependencyProperty.Register(nameof(Panel1MaxSize), typeof(double), typeof(SplitPanel), new PropertyMetadata(double.PositiveInfinity));
+            DependencyProperty.Register(nameof(Panel1MaxSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(double.PositiveInfinity));
 
         public static readonly DependencyProperty Panel2MinSizeProperty =
-            DependencyProperty.Register(nameof(Panel2MinSize), typeof(double), typeof(SplitPanel), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(Panel2MinSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(0d));
 
         public static readonly DependencyProperty Panel2SizeProperty =
-            DependencyProperty.Register(nameof(Panel2Size), typeof(GridLength), typeof(SplitPanel), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
+            DependencyProperty.Register(nameof(Panel2Size), typeof(GridLength), typeof(SplitContainer), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
 
         public static readonly DependencyProperty Panel2MaxSizeProperty =
-            DependencyProperty.Register(nameof(Panel2MaxSize), typeof(double), typeof(SplitPanel), new PropertyMetadata(double.PositiveInfinity));
+            DependencyProperty.Register(nameof(Panel2MaxSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(double.PositiveInfinity));
 
         public Orientation Orientation
         {
@@ -113,9 +113,9 @@ namespace Studio.Controls
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static SplitPanel()
+        static SplitContainer()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitPanel), new FrameworkPropertyMetadata(typeof(SplitPanel)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitContainer), new FrameworkPropertyMetadata(typeof(SplitContainer)));
         }
     }
 }

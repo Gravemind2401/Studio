@@ -15,7 +15,7 @@
             <u:TabTreeTemplateSelector x:Key="tabTreeTemplateSelector" />
 
             <DataTemplate x:Key="SplitPaneTemplate" DataType="m:SplitModel">
-                <s:SplitPanel
+                <s:SplitContainer Orientation="{Binding Orientation}"
                     Panel1Content="{Binding Item1}"
                     Panel1Size="{Binding Item1Size}"
                     Panel2Content="{Binding Item2}"
