@@ -14,7 +14,7 @@ namespace Sandbox.Utilities
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var element = container as FrameworkElement;
-            if (item is SplitModel)
+            if (item is SplitViewModel)
                 return element.FindResource("SplitPaneTemplate") as DataTemplate;
 
             var tabGroupModel = item as TabGroupModel;

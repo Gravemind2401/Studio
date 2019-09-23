@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
         xmlns:local="clr-namespace:Sandbox"
+        DataContext="{Binding Model, RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d" Background="{DynamicResource Environment.EnvironmentBackground}"
         Loaded="Window_Loaded"
         Title="MainWindow" Height="720" Width="1280">
@@ -83,11 +84,17 @@
                 </ComboBox>
             </ToolBar>
         </ToolBarTray>
+        <s:DockContainer Grid.Row="2" 
+                LeftItemsSource="{Binding LeftDockItems}"
+                TopItemsSource="{Binding TopDockItems}"
+                RightItemsSource="{Binding RightDockItems}"
+                BottomItemsSource="{Binding BottomDockItems}">
+            <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}">
+                <ContentPresenter Content="{Binding Content}"
+                        ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
+            </Grid>
+        </s:DockContainer>
 
-        <ContentPresenter Margin="5" Grid.Row="2"
-                Content="{Binding Model}"
-                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
-        
         <!--<s:SplitPanel Margin="5" Grid.Row="2" Orientation="Horizontal" Panel2Size="260">
             <s:SplitPanel.Panel1Content>
                 <s:DocumentWell Grid.Column="0" s:DockManager.IsActive="True">

@@ -1,5 +1,4 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Sandbox.Models
 {
-    public class TabGroupModel : BindableBase
+    public class TabGroupModel : ModelBase
     {
-        private ObservableCollection<TabModel> children;
+        private ObservableCollection<TabModel> children = new ObservableCollection<TabModel>();
         public ObservableCollection<TabModel> Children
         {
             get { return children; }
@@ -54,7 +53,7 @@ namespace Sandbox.Models
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             SelectItemCommand = new DelegateCommand<TabModel>(SelectItemExecuted);
-            Children = new ObservableCollection<TabModel>();
+            Subscribe(children);
         }
 
         private void CloseTabExecuted(TabModel item)
@@ -64,7 +63,17 @@ namespace Sandbox.Models
 
         private void TogglePinStatusExecuted(TabModel item)
         {
-            item.IsPinned = !item.IsPinned;
+            if (GroupType == TabUsage.Document)
+                item.IsPinned = !item.IsPinned;
+            else
+            {
+                var temp = ParentViewModel;
+                foreach (var c in Children.ToList())
+                {
+                    children.Remove(c);
+                    temp.LeftDockItems.Add(c);
+                }
+            }
         }
 
         private void SelectItemExecuted(TabModel item)
@@ -107,6 +116,9 @@ namespace Sandbox.Models
                 foreach (var tool in e.NewItems.OfType<TabModel>())
                     tool.Parent = this;
             }
+
+            if (GroupType == TabUsage.Tool && Children.Count == 0)
+                ParentModel.Remove(this);
         }
     }
 }

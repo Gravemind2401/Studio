@@ -20,6 +20,7 @@
                     Panel1Size="{Binding Item1Size}"
                     Panel2Content="{Binding Item2}"
                     Panel2Size="{Binding Item2Size}"
+                    Panel1MinSize="65" Panel2MinSize="65"
                     ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
             </DataTemplate>
             
@@ -49,7 +50,8 @@
                             s:DockManager.IsActive="{Binding IsActive}"
                             SelectedItem="{Binding SelectedItem}"
                             Caption="{Binding SelectedItem.ToolTip}"
-                            CloseCommand="{Binding CloseTabCommand}">
+                            CloseCommand="{Binding CloseTabCommand}"
+                            TogglePinStatusCommand="{Binding TogglePinStatusCommand}">
                     <TabControl.ContentTemplate>
                         <DataTemplate>
                             <ContentPresenter Content="{Binding Content}" />

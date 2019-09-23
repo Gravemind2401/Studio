@@ -1,20 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:c="clr-namespace:Studio.Controls"
+                    xmlns:u="clr-namespace:Studio.Utilities"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <Style x:Key="{x:Static c:SplitContainer.SplitterStyleKey}" TargetType="GridSplitter" BasedOn="{StaticResource {x:Type GridSplitter}}">
         <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
         <Setter Property="ShowsPreview" Value="True" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="MinWidth" Value="5" />
-        <Setter Property="MinHeight" Value="5" />
+        <Setter Property="MinWidth" Value="6" />
+        <Setter Property="MinHeight" Value="6" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <Style TargetType="c:SplitContainer">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="c:SplitContainer">
@@ -111,6 +116,100 @@
                             <Setter TargetName="content2" Property="Grid.RowSpan" Value="1" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="c:DockContainer">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <RotateTransform x:Key="transform" Angle="90" />
+                    </DataTemplate.Resources>
+                    <Button Name="btn" Content="{Binding}"
+                            TextOptions.TextFormattingMode="Display"
+                            DockPanel.Dock="{Binding (DockPanel.Dock), RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=btn, Path=(DockPanel.Dock)}" Value="Right">
+                            <Setter TargetName="btn" Property="LayoutTransform" Value="{StaticResource transform}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=btn, Path=(DockPanel.Dock)}" Value="Left">
+                            <Setter TargetName="btn" Property="LayoutTransform" Value="{StaticResource transform}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:DockContainer">
+                    <ControlTemplate.Resources>
+                        <u:DockToOrientationConverter x:Key="orientationConverter" />
+                        <u:ThicknessConverter x:Key="thicknessConverter" />
+                        <Style x:Key="containerStyle" TargetType="ItemsControl">
+                            <Setter Property="ItemTemplate" Value="{Binding ItemTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="ItemTemplateSelector" Value="{Binding ItemTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="ItemsPanel">
+                                <Setter.Value>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel IsItemsHost="True" Orientation="{Binding Path=(DockPanel.Dock), RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource orientationConverter}}" />
+                                    </ItemsPanelTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ControlTemplate.Resources>
+                    <DockPanel LastChildFill="True" 
+                               Background="{TemplateBinding Background}">
+                        <ItemsControl x:Name="TopDock" DockPanel.Dock="Top"
+                                      ItemsSource="{TemplateBinding TopItemsSource}"
+                                      Style="{StaticResource containerStyle}">
+                            <ItemsControl.Padding>
+                                <MultiBinding Converter="{StaticResource thicknessConverter}">
+                                    <Binding ElementName="LeftDock" Path="ActualWidth" />
+                                    <Binding />
+                                    <Binding ElementName="RightDock" Path="ActualWidth" />
+                                    <Binding />
+                                </MultiBinding>
+                            </ItemsControl.Padding>
+                        </ItemsControl>
+                        <ItemsControl x:Name="BottomDock" DockPanel.Dock="Bottom"
+                                      ItemsSource="{TemplateBinding BottomItemsSource}"
+                                      Style="{StaticResource containerStyle}">
+                            <ItemsControl.Padding>
+                                <MultiBinding Converter="{StaticResource thicknessConverter}">
+                                    <Binding ElementName="LeftDock" Path="ActualWidth" />
+                                    <Binding />
+                                    <Binding ElementName="RightDock" Path="ActualWidth" />
+                                    <Binding />
+                                </MultiBinding>
+                            </ItemsControl.Padding>
+                        </ItemsControl>
+                        <ItemsControl x:Name="LeftDock" DockPanel.Dock="Left"
+                                      ItemsSource="{TemplateBinding LeftItemsSource}"
+                                      Style="{StaticResource containerStyle}" />
+                        <ItemsControl x:Name="RightDock" DockPanel.Dock="Right"
+                                      ItemsSource="{TemplateBinding RightItemsSource}"
+                                      Style="{StaticResource containerStyle}" />
+                        <Grid>
+                            <Grid Panel.ZIndex="0">
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Content="{TemplateBinding Content}" />
+                            </Grid>
+                            <Grid Panel.ZIndex="1">
+                                
+                            </Grid>
+                        </Grid>
+                    </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -40,7 +40,6 @@ namespace Sandbox
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -65,7 +64,10 @@ namespace Sandbox
 
         private void CreateModel()
         {
-            var container = new SplitModel();
+            var model = new ViewModels.WindowViewModel
+            {
+                Content = new SplitViewModel()
+            };
 
             var item1 = new TabGroupModel(TabUsage.Document) { IsActive = true };
             for (int i = 0; i < 5; i++)
@@ -77,10 +79,25 @@ namespace Sandbox
                 });
             }
 
-            var item2 = new TabGroupModel(TabUsage.Tool);
+            model.Content.Item1 = item1;
+            model.Content.Item2 = new SplitViewModel
+            {
+                Orientation = Orientation.Vertical,
+                Item1 = GenerateToolGroup(),
+                Item2 = GenerateToolGroup()
+            };
+
+            model.Content.Item2Size = new GridLength(260);
+
+            Model = model;
+        }
+
+        private TabGroupModel GenerateToolGroup()
+        {
+            var item = new TabGroupModel(TabUsage.Tool);
             for (int i = 0; i < 3; i++)
             {
-                item2.Children.Add(new TabModel
+                item.Children.Add(new TabModel
                 {
                     Header = $"Tool Item {i}",
                     ToolTip = $"Tool Item {i} Long Name",
@@ -88,11 +105,7 @@ namespace Sandbox
                 });
             }
 
-            container.Item1 = item1;
-            container.Item2 = item2;
-            container.Item2Size = new GridLength(260);
-
-            Model = container;
+            return item;
         }
     }
 }

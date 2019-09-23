@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Controls\BindingProxy.cs" />
     <Compile Include="Controls\Commands.cs" />
+    <Compile Include="Controls\DockContainer.cs" />
     <Compile Include="Controls\DockManager.cs" />
     <Compile Include="Controls\DocumentWell.cs" />
     <Compile Include="Controls\SearchControl.cs" />
@@ -56,7 +57,9 @@
     <Compile Include="Controls\ToolTabPanel.cs" />
     <Compile Include="Controls\ToolWell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DockToOrientationConverter.cs" />
     <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Utilities\ThicknessConverter.cs" />
     <Compile Include="Utilities\ToolTabBorderThicknessConverter.cs" />
     <Compile Include="Utilities\ToolTabMarginConverter.cs" />
     <Compile Include="Utilities\TreeViewItemMarginConverter.cs" />
