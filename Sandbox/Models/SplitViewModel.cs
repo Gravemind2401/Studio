@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Sandbox.ViewModels;
 
 namespace Sandbox.Models
 {
@@ -17,15 +18,15 @@ namespace Sandbox.Models
             set { SetProperty(ref orientation, value); }
         }
 
-        private object item1;
-        public object Item1
+        private ModelBase item1;
+        public ModelBase Item1
         {
             get { return item1; }
             set { SetProperty(ref item1, value, OnItemChanged); }
         }
 
-        private object item2;
-        public object Item2
+        private ModelBase item2;
+        public ModelBase Item2
         {
             get { return item2; }
             set { SetProperty(ref item2, value, OnItemChanged); }
@@ -51,10 +52,10 @@ namespace Sandbox.Models
             Item2Size = new GridLength(1, GridUnitType.Star);
         }
 
-        private void OnItemChanged(object prev, object next)
+        private void OnItemChanged(ModelBase prev, ModelBase next)
         {
-            (prev as ModelBase)?.SetParent(null, null);
-            (next as ModelBase)?.SetParent(this, ParentViewModel);
+            prev?.SetParent(null, null);
+            next?.SetParent(this, ParentViewModel);
 
             if (ParentModel != null && next == null)
             {
@@ -66,7 +67,7 @@ namespace Sandbox.Models
             }
         }
 
-        public void Remove(object item)
+        public void Remove(ModelBase item)
         {
             if (Item1 == item)
                 Item1 = null;
@@ -74,12 +75,20 @@ namespace Sandbox.Models
                 Item2 = null;
         }
 
-        public void Replace(object prev, object next)
+        public void Replace(ModelBase prev, ModelBase next)
         {
             if (Item1 == prev)
                 Item1 = next;
             else if (Item2 == prev)
                 Item2 = next;
+        }
+
+        internal override void SetParent(SplitViewModel parentModel, WindowViewModel parentViewModel)
+        {
+            base.SetParent(parentModel, parentViewModel);
+
+            Item1?.SetParent(this, parentViewModel);
+            Item2?.SetParent(this, parentViewModel);
         }
     }
 }

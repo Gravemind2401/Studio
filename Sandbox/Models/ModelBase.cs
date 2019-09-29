@@ -15,14 +15,14 @@ namespace Sandbox.Models
         public SplitViewModel ParentModel
         {
             get { return parentModel; }
-            internal set { SetProperty(ref parentModel, value); }
+            private set { SetProperty(ref parentModel, value); }
         }
 
         private WindowViewModel parentViewModel;
         public WindowViewModel ParentViewModel
         {
             get { return parentViewModel; }
-            internal set { SetProperty(ref parentViewModel, value); }
+            private set { SetProperty(ref parentViewModel, value); }
         }
 
         protected bool SetProperty<T>(ref T storage, T value, Action<T, T> onChanged, [CallerMemberName]string propertyName = null)
@@ -36,14 +36,10 @@ namespace Sandbox.Models
             else return false;
         }
 
-        internal void SetParent(SplitViewModel parentModel, WindowViewModel parentViewModel)
+        internal virtual void SetParent(SplitViewModel parentModel, WindowViewModel parentViewModel)
         {
-            if ((ParentModel == null && ParentViewModel == null) || (parentModel == null && parentViewModel == null))
-            {
-                ParentModel = parentModel;
-                ParentViewModel = parentViewModel;
-            }
-            else throw new InvalidOperationException("Item already has a parent!");
+            ParentModel = parentModel;
+            ParentViewModel = parentViewModel;
         }
     }
 }
