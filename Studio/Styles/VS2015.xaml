@@ -1706,7 +1706,7 @@
                 <DataTemplate>
                     <DataTemplate.Resources>
                         <RotateTransform x:Key="transform" Angle="90" />
-                        <Style x:Key="dockButtonStyle" TargetType="Button">
+                        <Style x:Key="dockButtonStyle" TargetType="ToggleButton">
                             <Setter Property="Foreground" Value="{DynamicResource Environment.AutoHideTabText}" />
                             <Setter Property="Background" Value="{DynamicResource Environment.AutoHideTabBackground}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource Environment.AutoHideTabBorder}" />
@@ -1744,11 +1744,15 @@
                                     <Setter Property="Padding" Value="0,0,0,4" />
                                     <Setter Property="BorderThickness" Value="0,0,0,6" />
                                 </Trigger>
+                                <Trigger Property="Selector.IsSelected" Value="True">
+                                    <Setter Property="BorderBrush" Value="Red" />
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </DataTemplate.Resources>
-                    <Button Name="btn" Content="{Binding Header}"
+                    <ToggleButton Name="btn" Content="{Binding Header}"
                             TextOptions.TextFormattingMode="Display"
+                            IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
                             DockPanel.Dock="{Binding (DockPanel.Dock), RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                             Style="{StaticResource dockButtonStyle}" />
                     <DataTemplate.Triggers>

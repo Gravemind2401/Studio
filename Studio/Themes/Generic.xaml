@@ -19,7 +19,9 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        
+
+        <Setter Property="SplitterStyle" Value="{StaticResource {x:Static c:SplitContainer.SplitterStyleKey}}" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="c:SplitContainer">
@@ -38,19 +40,23 @@
                                 Margin="{TemplateBinding Padding}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Content="{TemplateBinding Panel1Content}" />
-                        <GridSplitter x:Name="splitter" Style="{StaticResource {x:Static c:SplitContainer.SplitterStyleKey}}" />
-                        <ContentPresenter x:Name="content2"
+                        <GridSplitter x:Name="splitter" Style="{TemplateBinding SplitterStyle}" />
+                        <ContentPresenter x:Name="content2" 
                                 Margin="{TemplateBinding Padding}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Content="{TemplateBinding Panel2Content}" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Panel1HasContent" Value="True">
+                            <Setter TargetName="content1" Property="ContentTemplate" Value="{Binding ContentTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="content1" Property="ContentTemplateSelector" Value="{Binding ContentTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="Panel2HasContent" Value="True">
+                            <Setter TargetName="content2" Property="ContentTemplate" Value="{Binding ContentTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="content2" Property="ContentTemplateSelector" Value="{Binding ContentTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Trigger>
                         <Trigger Property="Orientation" Value="Horizontal">
                             <Setter TargetName="col1" Property="MinWidth" Value="{Binding Panel1MinSize, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter TargetName="col1" Property="Width" Value="{Binding Panel1Size, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -124,15 +130,16 @@
     <Style TargetType="c:DockContainer">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-
+        
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
                     <DataTemplate.Resources>
                         <RotateTransform x:Key="transform" Angle="90" />
                     </DataTemplate.Resources>
-                    <Button Name="btn" Content="{Binding}"
+                    <ToggleButton Name="btn" Content="{Binding}"
                             TextOptions.TextFormattingMode="Display"
+                            IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
                             DockPanel.Dock="{Binding (DockPanel.Dock), RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=btn, Path=(DockPanel.Dock)}" Value="Right">
@@ -145,14 +152,35 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="c:DockContainer">
                     <ControlTemplate.Resources>
                         <u:DockToOrientationConverter x:Key="orientationConverter" />
                         <u:ThicknessConverter x:Key="thicknessConverter" />
-                        <Style x:Key="containerStyle" TargetType="ItemsControl">
+                        <Style x:Key="containerStyle" TargetType="ListBox">
+                            <Setter Property="Margin" Value="-1" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="SelectedItem" Value="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="SelectedValue" Value="{Binding SelectedValue, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="SelectedValuePath" Value="{Binding SelectedValuePath, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter Property="ItemTemplate" Value="{Binding ItemTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter Property="ItemTemplateSelector" Value="{Binding ItemTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter Property="ItemsPanel">
@@ -166,50 +194,66 @@
                     </ControlTemplate.Resources>
                     <DockPanel LastChildFill="True" 
                                Background="{TemplateBinding Background}">
-                        <ItemsControl x:Name="TopDock" DockPanel.Dock="Top"
-                                      ItemsSource="{TemplateBinding TopItemsSource}"
-                                      Style="{StaticResource containerStyle}">
-                            <ItemsControl.Padding>
+                        <ListBox x:Name="TopDock" DockPanel.Dock="Top"
+                                 ItemsSource="{TemplateBinding TopItemsSource}"
+                                 Style="{StaticResource containerStyle}"
+                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                 ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}">
+                            <ListBox.Padding>
                                 <MultiBinding Converter="{StaticResource thicknessConverter}">
                                     <Binding ElementName="LeftDock" Path="ActualWidth" />
                                     <Binding />
                                     <Binding ElementName="RightDock" Path="ActualWidth" />
                                     <Binding />
                                 </MultiBinding>
-                            </ItemsControl.Padding>
-                        </ItemsControl>
-                        <ItemsControl x:Name="BottomDock" DockPanel.Dock="Bottom"
-                                      ItemsSource="{TemplateBinding BottomItemsSource}"
-                                      Style="{StaticResource containerStyle}">
-                            <ItemsControl.Padding>
+                            </ListBox.Padding>
+                        </ListBox>
+                        <ListBox x:Name="BottomDock" DockPanel.Dock="Bottom"
+                                 ItemsSource="{TemplateBinding BottomItemsSource}"
+                                 Style="{StaticResource containerStyle}"
+                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                 ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}">
+                            <ListBox.Padding>
                                 <MultiBinding Converter="{StaticResource thicknessConverter}">
                                     <Binding ElementName="LeftDock" Path="ActualWidth" />
                                     <Binding />
                                     <Binding ElementName="RightDock" Path="ActualWidth" />
                                     <Binding />
                                 </MultiBinding>
-                            </ItemsControl.Padding>
-                        </ItemsControl>
-                        <ItemsControl x:Name="LeftDock" DockPanel.Dock="Left"
-                                      ItemsSource="{TemplateBinding LeftItemsSource}"
-                                      Style="{StaticResource containerStyle}" />
-                        <ItemsControl x:Name="RightDock" DockPanel.Dock="Right"
-                                      ItemsSource="{TemplateBinding RightItemsSource}"
-                                      Style="{StaticResource containerStyle}" />
+                            </ListBox.Padding>
+                        </ListBox>
+                        <ListBox x:Name="LeftDock" DockPanel.Dock="Left"
+                                 ItemsSource="{TemplateBinding LeftItemsSource}"
+                                 Style="{StaticResource containerStyle}"
+                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                 ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}" />
+                        <ListBox x:Name="RightDock" DockPanel.Dock="Right"
+                                 ItemsSource="{TemplateBinding RightItemsSource}"
+                                 Style="{StaticResource containerStyle}"
+                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                 ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}" />
                         <Grid>
                             <Grid Panel.ZIndex="0">
-                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                <ContentPresenter x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}"
                                         Content="{TemplateBinding Content}" />
                             </Grid>
-                            <Grid Panel.ZIndex="1">
-                                
+                            <Grid x:Name="popover" Panel.ZIndex="1" Visibility="Collapsed">
+                                <ContentPresenter Content="{TemplateBinding SelectedItem}"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding SelectedContentTemplateSelector}" />
                             </Grid>
                         </Grid>
                     </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasSelection" Value="True">
+                            <Setter TargetName="popover" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

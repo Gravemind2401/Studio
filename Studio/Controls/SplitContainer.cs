@@ -23,10 +23,19 @@ namespace Studio.Controls
             DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(SplitContainer), new PropertyMetadata((DataTemplateSelector)null));
 
         public static readonly DependencyProperty Panel1ContentProperty =
-            DependencyProperty.Register(nameof(Panel1Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Panel1Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null, PanelContentChanged));
 
         public static readonly DependencyProperty Panel2ContentProperty =
-           DependencyProperty.Register(nameof(Panel2Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Panel2Content), typeof(object), typeof(SplitContainer), new PropertyMetadata(null, PanelContentChanged));
+
+        private static void PanelContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var c = (SplitContainer)d;
+            if (e.Property == Panel1ContentProperty)
+                c.CoerceValue(Panel1HasContentProperty);
+            else if (e.Property == Panel2ContentProperty)
+                c.CoerceValue(Panel2HasContentProperty);
+        }
 
         public static readonly DependencyProperty Panel1MinSizeProperty =
             DependencyProperty.Register(nameof(Panel1MinSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(0d));
@@ -45,6 +54,29 @@ namespace Studio.Controls
 
         public static readonly DependencyProperty Panel2MaxSizeProperty =
             DependencyProperty.Register(nameof(Panel2MaxSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(double.PositiveInfinity));
+
+        public static readonly DependencyProperty SplitterStyleProperty =
+            DependencyProperty.Register(nameof(SplitterStyle), typeof(Style), typeof(SplitContainer), new PropertyMetadata((Style)null));
+
+        public static readonly DependencyPropertyKey Panel1HasContentPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(Panel1HasContent), typeof(bool), typeof(SplitContainer), new PropertyMetadata(false, null, CoercePanel1HasContent));
+
+        public static readonly DependencyProperty Panel1HasContentProperty = Panel1HasContentPropertyKey.DependencyProperty;
+
+        private static object CoercePanel1HasContent(DependencyObject d, object baseValue)
+        {
+            return ((SplitContainer)d).Panel1Content != null;
+        }
+
+        public static readonly DependencyPropertyKey Panel2HasContentPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(Panel2HasContent), typeof(bool), typeof(SplitContainer), new PropertyMetadata(false, null, CoercePanel2HasContent));
+
+        public static readonly DependencyProperty Panel2HasContentProperty = Panel2HasContentPropertyKey.DependencyProperty;
+
+        private static object CoercePanel2HasContent(DependencyObject d, object baseValue)
+        {
+            return ((SplitContainer)d).Panel2Content != null;
+        }
 
         public Orientation Orientation
         {
@@ -110,6 +142,22 @@ namespace Studio.Controls
         {
             get { return (double)GetValue(Panel2MaxSizeProperty); }
             set { SetValue(Panel2MaxSizeProperty, value); }
+        }
+
+        public Style SplitterStyle
+        {
+            get { return (Style)GetValue(SplitterStyleProperty); }
+            set { SetValue(SplitterStyleProperty, value); }
+        }
+
+        public bool Panel1HasContent
+        {
+            get { return (bool)GetValue(Panel1HasContentProperty); }
+        }
+
+        public bool Panel2HasContent
+        {
+            get { return (bool)GetValue(Panel2HasContentProperty); }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
