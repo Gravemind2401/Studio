@@ -2067,24 +2067,24 @@
                                 <Border x:Name="proxyContainer" Grid.Row="1" Grid.Column="1"
                                         DataContext="{Binding RelativeSource={RelativeSource AncestorType=TabControl}}">
                                     <Border.Resources>
-                                        <c:BindingProxy x:Key="tabHostProxy" Context="{Binding}" />
+                                        <u:ProxyBinding x:Key="tabHostProxy" Source="{Binding}" />
                                     </Border.Resources>
                                     <ToggleButton Style="{StaticResource OverflowButtonStyle}"
                                             DataContext="{Binding RelativeSource={RelativeSource Self}}"
                                             Template="{StaticResource ButtonBaseTemplate}">
                                         <ToggleButton.Resources>
-                                            <c:BindingProxy x:Key="toggleProxy" Context="{Binding}" />
+                                            <u:ProxyBinding x:Key="toggleProxy" Source="{Binding}" />
                                         </ToggleButton.Resources>
 
                                         <ContentControl x:Name="OverflowButtonContent" Template="{StaticResource DocWellOverflowGlyph}" />
 
                                         <ToggleButton.ContextMenu>
                                             <ContextMenu Placement="Bottom"
-                                                    DataContext="{Binding Context, Source={StaticResource tabHostProxy}}"
-                                                    PlacementTarget="{Binding Context, Source={StaticResource toggleProxy}}"
-                                                    IsOpen="{Binding Context.IsChecked, Source={StaticResource toggleProxy}}"
-                                                    ItemsSource="{Binding Context.Items, Source={StaticResource tabHostProxy}}"
-                                                    ItemContainerStyle="{Binding Context.OverflowItemStyle, Source={StaticResource tabHostProxy}}" />
+                                                    DataContext="{Binding Source, Source={StaticResource tabHostProxy}}"
+                                                    PlacementTarget="{Binding Source, Source={StaticResource toggleProxy}}"
+                                                    IsOpen="{Binding Source.IsChecked, Source={StaticResource toggleProxy}}"
+                                                    ItemsSource="{Binding Source.Items, Source={StaticResource tabHostProxy}}"
+                                                    ItemContainerStyle="{Binding Source.OverflowItemStyle, Source={StaticResource tabHostProxy}}" />
                                         </ToggleButton.ContextMenu>
                                     </ToggleButton>
                                 </Border>
