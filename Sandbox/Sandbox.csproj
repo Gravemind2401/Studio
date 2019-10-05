@@ -83,6 +83,7 @@
       <DependentUpon>ToolControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Utilities\GridLengthConverter.cs" />
     <Compile Include="Utilities\TabTreeTemplateSelector.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="Controls\DocumentControl.xaml">

@@ -42,6 +42,20 @@ namespace Sandbox.Models
             set { SetProperty(ref selectedItem, value); }
         }
 
+        private double width;
+        public double Width
+        {
+            get { return width; }
+            set { SetProperty(ref width, value, UpdateChildrenWidth); }
+        }
+
+        private double height;
+        public double Height
+        {
+            get { return height; }
+            set { SetProperty(ref height, value, UpdateChildrenHeight); }
+        }
+
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
@@ -68,10 +82,15 @@ namespace Sandbox.Models
             else
             {
                 var temp = ParentViewModel;
+                int i = 0;
                 foreach (var c in Children.ToList())
                 {
                     children.Remove(c);
-                    temp.LeftDockItems.Add(c);
+
+                    if (i++ % 2 == 0)
+                        temp.LeftDockItems.Add(c);
+                    else
+                        temp.BottomDockItems.Add(c);
                 }
             }
         }
@@ -119,6 +138,18 @@ namespace Sandbox.Models
 
             if (GroupType == TabUsage.Tool && Children.Count == 0)
                 ParentModel.Remove(this);
+        }
+
+        private void UpdateChildrenWidth()
+        {
+            foreach (var item in Children)
+                item.Width = Width;
+        }
+
+        private void UpdateChildrenHeight()
+        {
+            foreach (var item in Children)
+                item.Height = Height;
         }
     }
 }

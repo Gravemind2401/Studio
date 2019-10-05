@@ -88,7 +88,8 @@
                 LeftItemsSource="{Binding LeftDockItems}"
                 TopItemsSource="{Binding TopDockItems}"
                 RightItemsSource="{Binding RightDockItems}"
-                BottomItemsSource="{Binding BottomDockItems}">
+                BottomItemsSource="{Binding BottomDockItems}"
+                SelectedContentTemplate="{StaticResource DockedToolTemplate}">
             <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}">
                 <ContentPresenter Content="{Binding Content}"
                         ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />

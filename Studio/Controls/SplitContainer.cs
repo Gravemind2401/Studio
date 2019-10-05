@@ -41,7 +41,7 @@ namespace Studio.Controls
             DependencyProperty.Register(nameof(Panel1MinSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(0d));
 
         public static readonly DependencyProperty Panel1SizeProperty =
-            DependencyProperty.Register(nameof(Panel1Size), typeof(GridLength), typeof(SplitContainer), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
+            DependencyProperty.Register(nameof(Panel1Size), typeof(GridLength), typeof(SplitContainer), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty Panel1MaxSizeProperty =
             DependencyProperty.Register(nameof(Panel1MaxSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(double.PositiveInfinity));
@@ -50,7 +50,7 @@ namespace Studio.Controls
             DependencyProperty.Register(nameof(Panel2MinSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(0d));
 
         public static readonly DependencyProperty Panel2SizeProperty =
-            DependencyProperty.Register(nameof(Panel2Size), typeof(GridLength), typeof(SplitContainer), new PropertyMetadata(new GridLength(1, GridUnitType.Star)));
+            DependencyProperty.Register(nameof(Panel2Size), typeof(GridLength), typeof(SplitContainer), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty Panel2MaxSizeProperty =
             DependencyProperty.Register(nameof(Panel2MaxSize), typeof(double), typeof(SplitContainer), new PropertyMetadata(double.PositiveInfinity));

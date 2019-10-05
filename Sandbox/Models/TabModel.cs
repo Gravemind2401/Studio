@@ -57,5 +57,19 @@ namespace Sandbox.Models
             get { return content; }
             set { SetProperty(ref content, value); }
         }
+
+        private double width;
+        public double Width
+        {
+            get { return width; }
+            set { SetProperty(ref width, value); }
+        }
+
+        private double height;
+        public double Height
+        {
+            get { return height; }
+            set { SetProperty(ref height, value); }
+        }
     }
 }

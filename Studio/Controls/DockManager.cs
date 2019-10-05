@@ -59,8 +59,9 @@ namespace Studio.Controls
 
             if (activeObjects.ContainsKey(group))
                 SetIsActive(activeObjects[group], false);
-
-            activeObjects.Add(group, d);
+            
+            if (!activeObjects.ContainsKey(group))
+                activeObjects.Add(group, d);
         }
         #endregion
 
