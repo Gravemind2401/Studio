@@ -46,6 +46,24 @@ namespace Sandbox.Models
             set { SetProperty(ref item2Size, value); }
         }
 
+        public SplitViewModel(Dock dock, TabGroupModel content)
+        {
+            Orientation = dock == Dock.Left || dock == Dock.Right ? Orientation.Horizontal : Orientation.Vertical;
+
+            if (dock == Dock.Left || dock == Dock.Top)
+            {
+                Item1Size = new GridLength(dock == Dock.Left ? content.Width : content.Height);
+                Item2Size = new GridLength(1, GridUnitType.Star);
+                Item1 = content;
+            }
+            else
+            {
+                Item1Size = new GridLength(1, GridUnitType.Star);
+                Item2Size = new GridLength(dock == Dock.Right ? content.Width : content.Height);
+                Item2 = content;
+            }
+        }
+
         public SplitViewModel()
         {
             Item1Size = new GridLength(1, GridUnitType.Star);
@@ -57,30 +75,65 @@ namespace Sandbox.Models
             prev?.SetParent(null, null);
             next?.SetParent(this, ParentViewModel);
 
-            if (ParentModel != null && next == null)
+            if (next == null)
             {
                 var remaining = Item1 ?? Item2;
                 if (remaining == null) return;
-
                 Item1 = Item2 = null;
-                ParentModel.Replace(this, remaining);
+
+                if (ParentModel != null)
+                    ParentModel.Replace(this, remaining);
+                else if (ParentViewModel != null)
+                    ParentViewModel.Content = remaining;
             }
         }
 
-        public void Remove(ModelBase item)
+        public bool Remove(ModelBase item)
         {
             if (Item1 == item)
+            {
                 Item1 = null;
+                return true;
+            }
             else if (Item2 == item)
+            {
                 Item2 = null;
+                return true;
+            }
+
+            return false;
         }
 
-        public void Replace(ModelBase prev, ModelBase next)
+        public bool Replace(ModelBase prev, ModelBase next)
         {
             if (Item1 == prev)
+            {
                 Item1 = next;
+                return true;
+            }
             else if (Item2 == prev)
+            {
                 Item2 = next;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool Add(ModelBase item)
+        {
+            if (Item1 == null)
+            {
+                Item1 = item;
+                return true;
+            }
+            else if (Item2 == null)
+            {
+                Item2 = item;
+                return true;
+            }
+
+            return false;
         }
 
         internal override void SetParent(SplitViewModel parentModel, WindowViewModel parentViewModel)

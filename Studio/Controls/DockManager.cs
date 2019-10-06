@@ -36,7 +36,7 @@ namespace Studio.Controls
         private static readonly Dictionary<string, DependencyObject> activeObjects = new Dictionary<string, DependencyObject>();
 
         public static readonly DependencyProperty IsActiveProperty =
-            DependencyProperty.RegisterAttached("IsActive", typeof(bool), typeof(DockManager), new PropertyMetadata(false, IsActiveChanged));
+            DependencyProperty.RegisterAttached("IsActive", typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, IsActiveChanged) { BindsTwoWayByDefault = true });
 
         public static bool GetIsActive(DependencyObject obj)
         {

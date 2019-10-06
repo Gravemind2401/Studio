@@ -79,15 +79,17 @@ namespace Sandbox
                 });
             }
 
-            model.Content.Item1 = item1;
-            model.Content.Item2 = new SplitViewModel
+            var content = new SplitViewModel();
+            content.Item1 = item1;
+            content.Item2 = new SplitViewModel
             {
                 Orientation = Orientation.Vertical,
                 Item1 = GenerateToolGroup(),
                 Item2 = GenerateToolGroup()
             };
 
-            model.Content.Item2Size = new GridLength(260);
+            content.Item2Size = new GridLength(260);
+            model.Content = content;
 
             Model = model;
         }

@@ -2315,7 +2315,7 @@
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Template="{StaticResource ButtonBaseTemplate}"
                                                 Command="{TemplateBinding TogglePinStatusCommand}">
-                                            <ContentControl Template="{StaticResource ToolPinGlyph}" />
+                                            <ContentControl x:Name="pinContent" Template="{StaticResource ToolPinGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Template="{StaticResource ButtonBaseTemplate}"
@@ -2343,6 +2343,9 @@
                             <Setter TargetName="TitleBar" Property="Background" Value="{DynamicResource Environment.TitleBar.ActiveGradient}" />
                             <Setter TargetName="TitleBarContent" Property="TextBlock.Foreground" Value="{DynamicResource Environment.TitleBar.ActiveText}" />
                             <Setter TargetName="TitleBarGrip" Property="Foreground" Value="{DynamicResource Environment.TitleBar.DragHandleActive}" />
+                        </Trigger>
+                        <Trigger Property="c:DockManager.IsPinned" Value="True">
+                            <Setter TargetName="pinContent" Property="Template" Value="{StaticResource ToolUnpinGlyph}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

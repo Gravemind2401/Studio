@@ -16,8 +16,8 @@ namespace Sandbox.Models
 
     public class TabModel : BindableBase
     {
-        private TabGroupModel parent;
-        public TabGroupModel Parent
+        private ModelBase parent;
+        public ModelBase Parent
         {
             get { return parent; }
             set { SetProperty(ref parent, value); }
@@ -35,6 +35,13 @@ namespace Sandbox.Models
         {
             get { return isPinned; }
             set { SetProperty(ref isPinned, value); }
+        }
+
+        private bool isActive;
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { SetProperty(ref isActive, value); }
         }
 
         private string header;

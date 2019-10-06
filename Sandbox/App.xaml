@@ -83,7 +83,7 @@
                 <s:SplitContainer x:Name="split"
                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                         VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                        Panel1Size="*" Panel2Size="*" Panel1MinSize="65" Panel2MinSize="65">
+                        Panel1MinSize="65" Panel2MinSize="65">
                     <s:SplitContainer.SplitterStyle>
                         <Style TargetType="GridSplitter">
                             <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
@@ -97,8 +97,10 @@
                     </s:SplitContainer.SplitterStyle>
                     <s:SplitContainer.ContentTemplate>
                         <DataTemplate>
-                            <s:ToolWell s:DockManager.DockGroup="Dock"
-                                        s:DockManager.IsActive="True"
+                            <s:ToolWell s:DockManager.IsActive="{Binding IsActive}"
+                                        s:DockManager.IsPinned="True"
+                                        CloseCommand="{Binding Parent.CloseTabCommand}"
+                                        TogglePinStatusCommand="{Binding Parent.TogglePinStatusCommand}"
                                         Caption="{Binding ToolTip}">
                                 <s:TabWellItem Content="{Binding Content}" />
                             </s:ToolWell>

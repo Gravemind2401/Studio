@@ -14,15 +14,7 @@ namespace Sandbox.Models
         public ObservableCollection<TabModel> Children
         {
             get { return children; }
-            set
-            {
-                var prev = children;
-                if (SetProperty(ref children, value))
-                {
-                    Unsubscribe(prev);
-                    Subscribe(value);
-                }
-            }
+            set { SetProperty(ref children, value, OnCollectionChanged); }
         }
 
         private readonly TabUsage groupType;
@@ -86,6 +78,7 @@ namespace Sandbox.Models
                 foreach (var c in Children.ToList())
                 {
                     children.Remove(c);
+                    c.IsActive = true;
 
                     if (i++ % 2 == 0)
                         temp.LeftDockItems.Add(c);
@@ -98,6 +91,12 @@ namespace Sandbox.Models
         private void SelectItemExecuted(TabModel item)
         {
             SelectedItem = item;
+        }
+
+        private void OnCollectionChanged(ObservableCollection<TabModel> prev, ObservableCollection<TabModel> next)
+        {
+            Unsubscribe(prev);
+            Subscribe(next);
         }
 
         private void Unsubscribe(ObservableCollection<TabModel> collection)

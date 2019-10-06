@@ -89,6 +89,7 @@
                 TopItemsSource="{Binding TopDockItems}"
                 RightItemsSource="{Binding RightDockItems}"
                 BottomItemsSource="{Binding BottomDockItems}"
+                SelectedItem="{Binding SelectedDockItem}"
                 SelectedContentTemplate="{StaticResource DockedToolTemplate}">
             <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}">
                 <ContentPresenter Content="{Binding Content}"

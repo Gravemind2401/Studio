@@ -43,7 +43,7 @@ namespace Studio.Controls
             DependencyProperty.Register(nameof(BottomItemsSource), typeof(IEnumerable), typeof(DockContainer), new PropertyMetadata((IEnumerable)null));
 
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(DockContainer), new PropertyMetadata(null, SelectedItemChanged));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(DockContainer), new FrameworkPropertyMetadata(null, SelectedItemChanged) { BindsTwoWayByDefault = true });
 
         private static void SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -53,7 +53,7 @@ namespace Studio.Controls
         }
 
         public static readonly DependencyProperty SelectedValueProperty =
-            DependencyProperty.Register(nameof(SelectedValue), typeof(object), typeof(DockContainer), new PropertyMetadata((object)null));
+            DependencyProperty.Register(nameof(SelectedValue), typeof(object), typeof(DockContainer), new FrameworkPropertyMetadata((object)null) { BindsTwoWayByDefault = true });
 
         public static readonly DependencyProperty SelectedValuePathProperty =
             DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(DockContainer), new PropertyMetadata((object)null));
