@@ -13,11 +13,20 @@ namespace Studio.Controls
 {
     public abstract class TabWellBase : TabControl
     {
-        private const int MinDetachThreshold = 0;
-        private const int MaxDetachThreshold = 30;
+        private const int minFloatThreshold = 0;
+        private const int maxFloatThreshold = 30;
 
-        private int DetachThreshold = MinDetachThreshold;
-        private int SwapThreshold = 0;
+        public static readonly DependencyProperty FloatTabCommandProperty =
+            DependencyProperty.Register(nameof(FloatTabCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
+
+        public ICommand FloatTabCommand
+        {
+            get { return (ICommand)GetValue(FloatTabCommandProperty); }
+            set { SetValue(FloatTabCommandProperty, value); }
+        }
+
+        private int floatThreshold = minFloatThreshold;
+        private int swapThreshold = 0;
 
         protected TabWellBase()
         {
@@ -66,7 +75,7 @@ namespace Studio.Controls
 
             if (mouseArgs.ChangedButton == MouseButton.Left)
             {
-                SwapThreshold = 0;
+                swapThreshold = 0;
                 tab.CaptureMouse();
             }
 
@@ -81,7 +90,7 @@ namespace Studio.Controls
 
             if (mouseArgs.ChangedButton != MouseButton.Left || !tab.IsMouseCaptured) return;
 
-            SwapThreshold = 0;
+            swapThreshold = 0;
             tab.ReleaseMouseCapture();
             e.Handled = true;
         }
@@ -99,22 +108,23 @@ namespace Studio.Controls
             var pos = mouseArgs.GetPosition(tab);
 
             var offset = mouseArgs.GetPosition(this);
-            var detachBounds = new Rect(
+            var floatBounds = new Rect(
                 pos.X - offset.X,
-                -DetachThreshold,
+                -floatThreshold,
                 this.ActualWidth,
-                tab.ActualHeight + DetachThreshold * 2
+                tab.ActualHeight + floatThreshold * 2
             );
 
-            if (!detachBounds.Contains(pos))
+            if (!floatBounds.Contains(pos))
             {
+                var args = new FloatEventArgs(this, tab, mouseArgs);
                 tab.ReleaseMouseCapture();
                 DockManager.SetIsPinned(tab, false);
-                System.Diagnostics.Debugger.Break();
+                FloatTabCommand?.TryExecute(args);
                 return;
             }
 
-            if (pos.X > 0 && pos.X < tab.ActualWidth) SwapThreshold = 0;
+            if (pos.X > 0 && pos.X < tab.ActualWidth) swapThreshold = 0;
 
             var isPinned = DockManager.GetIsPinned(tab);
             var grouped = Items.OfType<object>()
@@ -122,13 +132,13 @@ namespace Studio.Controls
                 .Where(c => DockManager.GetIsPinned(c) == isPinned);
 
             var collection = ItemsSource as IList ?? Items as IList;
-            if (pos.X < -SwapThreshold && index > 0)
+            if (pos.X < -swapThreshold && index > 0)
             {
                 var prevTab = grouped.TakeWhile(c => c != tab).LastOrDefault() as FrameworkElement;
                 if (prevTab != null)
                 {
-                    SwapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
-                    DetachThreshold = MaxDetachThreshold;
+                    swapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
+                    floatThreshold = maxFloatThreshold;
 
                     collection.Remove(item);
                     collection.Insert(index - 1, item);
@@ -136,13 +146,13 @@ namespace Studio.Controls
                     tab = (TabWellItem)ItemContainerGenerator.ContainerFromIndex(index - 1);
                 }
             }
-            else if (pos.X > tab.ActualWidth + SwapThreshold && index < Items.Count - 1)
+            else if (pos.X > tab.ActualWidth + swapThreshold && index < Items.Count - 1)
             {
                 var nextTab = grouped.SkipWhile(c => c != tab).Skip(1).FirstOrDefault() as FrameworkElement;
                 if (nextTab != null)
                 {
-                    SwapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
-                    DetachThreshold = MaxDetachThreshold;
+                    swapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
+                    floatThreshold = maxFloatThreshold;
 
                     collection.Remove(item);
                     collection.Insert(index + 1, item);
@@ -158,7 +168,7 @@ namespace Studio.Controls
         //internal command - OriginalSource is TabWellItem, Parameter is MouseEventArgs
         private void TabLostMouseCaptureCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            DetachThreshold = MinDetachThreshold;
+            floatThreshold = minFloatThreshold;
         }
         #endregion
     }

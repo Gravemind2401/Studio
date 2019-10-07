@@ -10,22 +10,30 @@ using System.Windows.Input;
 
 namespace Studio.Controls
 {
+    [TemplatePart(Name = nameof(PART_TitleBar), Type = typeof(FrameworkElement))]
     public class ToolWell : TabWellBase
     {
+        private const string PART_TitleBar = "PART_TitleBar";
+
+        private FrameworkElement titleBar;
+
         private static readonly object tabStyleKey = new Guid("6bed4f5f-4da7-4c65-8efa-a5b7b999885a");
         public static object ToolTabStyleKey => tabStyleKey;
 
         public static readonly DependencyProperty TogglePinStatusCommandProperty =
-            DependencyProperty.Register(nameof(TogglePinStatusCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata(Commands.PinToolCommand));
+            DependencyProperty.Register(nameof(TogglePinStatusCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata((ICommand)null));
 
         public static readonly DependencyProperty CloseCommandProperty =
             DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata(Commands.CloseToolCommand));
 
-        public static readonly DependencyProperty CaptionProperty =
-            DependencyProperty.Register(nameof(Caption), typeof(object), typeof(ToolWell), new PropertyMetadata(null));
+        public static readonly DependencyProperty FloatCommandProperty =
+            DependencyProperty.Register(nameof(FloatCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata((ICommand)null));
 
-        public static readonly DependencyProperty ShowCaptionProperty =
-            DependencyProperty.Register(nameof(ShowCaption), typeof(bool), typeof(ToolWell), new PropertyMetadata(true));
+        public static readonly DependencyProperty CaptionProperty =
+            DependencyProperty.Register(nameof(Caption), typeof(object), typeof(ToolWell), new PropertyMetadata((object)null));
+
+        public static readonly DependencyProperty HideTitleBarProperty =
+            DependencyProperty.Register(nameof(HideTitleBar), typeof(bool), typeof(ToolWell), new PropertyMetadata(false));
 
         public ICommand TogglePinStatusCommand
         {
@@ -39,16 +47,22 @@ namespace Studio.Controls
             set { SetValue(CloseCommandProperty, value); }
         }
 
+        public ICommand FloatCommand
+        {
+            get { return (ICommand)GetValue(FloatCommandProperty); }
+            set { SetValue(FloatCommandProperty, value); }
+        }
+
         public object Caption
         {
             get { return (object)GetValue(CaptionProperty); }
             set { SetValue(CaptionProperty, value); }
         }
 
-        public bool ShowCaption
+        public bool HideTitleBar
         {
-            get { return (bool)GetValue(ShowCaptionProperty); }
-            set { SetValue(ShowCaptionProperty, value); }
+            get { return (bool)GetValue(HideTitleBarProperty); }
+            set { SetValue(HideTitleBarProperty, value); }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
@@ -59,20 +73,70 @@ namespace Studio.Controls
 
         public ToolWell()
         {
-            CommandBindings.Add(new CommandBinding(Commands.PinToolCommand, PinToolCommandExecuted));
             CommandBindings.Add(new CommandBinding(Commands.CloseToolCommand, CloseToolCommandExecuted));
-        }
-
-        #region Command Handlers
-        private void PinToolCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-
         }
 
         private void CloseToolCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             (ItemsSource as IList ?? Items as IList)?.Remove(SelectedItem);
-        } 
-        #endregion
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            if (titleBar != null)
+            {
+                titleBar.MouseDown -= CaptionPanel_MouseDown;
+                titleBar.MouseUp -= CaptionPanel_MouseUp;
+                titleBar.MouseMove -= CaptionPanel_MouseMove;
+            }
+
+            titleBar = Template.FindName(PART_TitleBar, this) as FrameworkElement;
+
+            if (titleBar != null)
+            {
+                titleBar.MouseDown += CaptionPanel_MouseDown;
+                titleBar.MouseUp += CaptionPanel_MouseUp;
+                titleBar.MouseMove += CaptionPanel_MouseMove;
+            }
+        }
+
+        private Point dragStart;
+        private const int floatThreshold = 10;
+
+        private void CaptionPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left)
+                return;
+
+            dragStart = e.GetPosition(this);
+            titleBar.CaptureMouse();
+            e.Handled = true;
+        }
+
+        private void CaptionPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left || !titleBar.IsMouseCaptured)
+                return;
+
+            titleBar.ReleaseMouseCapture();
+        }
+
+        private void CaptionPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!titleBar.IsMouseCaptured)
+                return;
+
+            var pos = e.GetPosition(titleBar);
+            var dist = Math.Sqrt(Math.Pow(pos.X - dragStart.X, 2) + Math.Pow(pos.Y - dragStart.Y, 2));
+
+            if (dist > floatThreshold)
+            {
+                var args = new FloatEventArgs(this, null, e);
+                titleBar.ReleaseMouseCapture();
+                FloatCommand?.TryExecute(args);
+            }
+        }
     }
 }

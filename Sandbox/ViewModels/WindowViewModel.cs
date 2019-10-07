@@ -57,11 +57,13 @@ namespace Sandbox.ViewModels
 
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
+        public DelegateCommand<FloatEventArgs> FloatGroupCommand { get; }
 
         public WindowViewModel()
         {
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
+            FloatGroupCommand = new DelegateCommand<FloatEventArgs>(FloatGroupExecuted);
 
             LeftDockItems = new ObservableCollection<TabModel>();
             TopDockItems = new ObservableCollection<TabModel>();
@@ -100,6 +102,11 @@ namespace Sandbox.ViewModels
                 BottomDockItems.Remove(item);
                 AddItem(item, null, Dock.Bottom);
             }
+        }
+
+        private void FloatGroupExecuted(FloatEventArgs e)
+        {
+
         }
 
         public void AddItem(TabModel item, ModelBase target, Dock dock)

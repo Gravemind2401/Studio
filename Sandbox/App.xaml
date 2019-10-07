@@ -52,7 +52,8 @@
                             SelectedItem="{Binding SelectedItem}"
                             Caption="{Binding SelectedItem.ToolTip}"
                             CloseCommand="{Binding CloseTabCommand}"
-                            TogglePinStatusCommand="{Binding TogglePinStatusCommand}">
+                            TogglePinStatusCommand="{Binding TogglePinStatusCommand}"
+                            FloatCommand="{Binding ParentViewModel.FloatGroupCommand}">
                     <su:ProxyBinding.ProxyBindings>
                         <su:ProxyBindingCollection>
                             <su:ProxyBinding Source="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=TabControl}}"
