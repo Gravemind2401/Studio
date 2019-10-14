@@ -1,6 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Sandbox.Controls;
 using Sandbox.Models;
+using Studio.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,7 +108,21 @@ namespace Sandbox.ViewModels
 
         private void FloatGroupExecuted(FloatEventArgs e)
         {
+            var group = e.DataContext as TabGroupModel;
+            group.Remove();
+            group.IsWindow = true;
 
+            var wnd = new ToolWindow
+            {
+                Content = group,
+                Left = e.VisualBounds.X,
+                Top = e.VisualBounds.Y,
+                Width = e.VisualBounds.Width,
+                Height = e.VisualBounds.Height
+            };
+
+            wnd.Show();
+            wnd.DragMove();
         }
 
         public void AddItem(TabModel item, ModelBase target, Dock dock)

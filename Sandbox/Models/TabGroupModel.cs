@@ -27,6 +27,13 @@ namespace Sandbox.Models
             set { SetProperty(ref isActive, value); }
         }
 
+        private bool isWindow;
+        public bool IsWindow
+        {
+            get { return isWindow; }
+            internal set { SetProperty(ref isWindow, value); }
+        }
+
         private TabModel selectedItem;
         public TabModel SelectedItem
         {
@@ -136,7 +143,15 @@ namespace Sandbox.Models
             }
 
             if (GroupType == TabUsage.Tool && Children.Count == 0)
+                Remove();
+        }
+
+        public void Remove()
+        {
+            if (ParentModel != null)
                 ParentModel.Remove(this);
+            else if (ParentViewModel != null)
+                ParentViewModel.Content = null;
         }
 
         private void UpdateChildrenWidth()
