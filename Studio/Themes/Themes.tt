@@ -2,11 +2,13 @@
 <#@ output extension="?" #>
 <#@ include file="TemplateFileManager.ttinclude" #>
 <#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Drawing" #>
 <#@ Assembly Name="System.Xml" #>
 <#@ Assembly Name="System.Xml.Linq" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Drawing" #> 
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Xml" #>
@@ -80,7 +82,7 @@
                         {
                             var offset = stopCount++ / (float)(gradients.Count - 1);
                             #>
-        <GradientStop Offset="<#= offset.ToString("0.###") #>" Color="#<#= stop.Value #>" />
+        <GradientStop Offset="<#= offset.ToString("0.###") #>" Color="<#= stop.Value #>" />
 <#
                         }
 
@@ -93,7 +95,7 @@
                     else
                     {
                     #>
-    <SolidColorBrush x:Key="<#= item.Key #>" Color="#<#= item.Value #>" />
+    <SolidColorBrush x:Key="<#= item.Key #>" Color="<#= item.Value #>" />
 <#                    }
                 }
                 if (g.Key.Length > 0)
@@ -208,7 +210,17 @@
 
             Components = new Dictionary<string,string>();
             foreach (XmlNode n in node.ChildNodes)
-                Components.Add(n.Name, n.Attributes["Source"].Value);
+            {
+                var src = n.Attributes["Source"].Value;
+                if (n.Attributes["Type"].Value == "CT_SYSCOLOR")
+                {
+                    var c = (KnownColor)int.Parse(src, NumberStyles.HexNumber);
+                    src = string.Format("{{x:Static SystemColors.{0}Color}}", c);
+                }
+                else src = "#" + src;
+                
+                Components.Add(n.Name, src);
+            }
         }
     
         public IEnumerable<KeyValuePair<string,string>> ResourceComponents

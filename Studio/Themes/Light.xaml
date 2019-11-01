@@ -197,8 +197,8 @@
     <SolidColorBrush x:Key="Environment.DesignerSelectionDots" Color="#FF999999" />
     <SolidColorBrush x:Key="Environment.DesignerTray" Color="#FFCCCEDB" />
     <SolidColorBrush x:Key="Environment.DesignerWatermark" Color="#FFA2A4A5" />
-    <SolidColorBrush x:Key="Environment.DialogBackground" Color="#0000000F" />
-    <SolidColorBrush x:Key="Environment.DialogForeground" Color="#00000012" />
+    <SolidColorBrush x:Key="Environment.DialogBackground" Color="{x:Static SystemColors.HotTrackColor}" />
+    <SolidColorBrush x:Key="Environment.DialogForeground" Color="{x:Static SystemColors.InactiveCaptionTextColor}" />
     <SolidColorBrush x:Key="Environment.DropShadowBackground" Color="#72000000" />
     <SolidColorBrush x:Key="Environment.EditorAdditionalContentBorder" Color="#FFEEEEF2" />
     <SolidColorBrush x:Key="Environment.EditorExpansionBorder" Color="#FFCCCEDB" />
