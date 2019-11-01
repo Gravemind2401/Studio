@@ -16,6 +16,8 @@ namespace Studio.Controls
         private const int minFloatThreshold = 0;
         private const int maxFloatThreshold = 30;
 
+        protected abstract TabItemType DefaultItemType { get; }
+
         public static readonly DependencyProperty FloatTabCommandProperty =
             DependencyProperty.Register(nameof(FloatTabCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
 
@@ -23,6 +25,17 @@ namespace Studio.Controls
         {
             get { return (ICommand)GetValue(FloatTabCommandProperty); }
             set { SetValue(FloatTabCommandProperty, value); }
+        }
+
+        internal TabWellItem FirstContainer
+        {
+            get
+            {
+                return Enumerable.Range(0, Items.Count)
+                    .Select(i => (TabWellItem)ItemContainerGenerator.ContainerFromIndex(i))
+                    .OrderByDescending(t => DockManager.GetIsPinned(t))
+                    .FirstOrDefault();
+            }
         }
 
         private int floatThreshold = minFloatThreshold;
@@ -35,11 +48,24 @@ namespace Studio.Controls
             CommandBindings.Add(new CommandBinding(Commands.TabMouseUpCommand, TabMouseUpCommandExecuted));
             CommandBindings.Add(new CommandBinding(Commands.TabLostMouseCaptureCommand, TabLostMouseCaptureCommandExecuted));
             CommandBindings.Add(new CommandBinding(Commands.CloseTabCommand, CloseTabCommandExecuted));
+
+            Loaded += TabWellBase_Loaded;
+            Unloaded += TabWellBase_Unloaded;
+        }
+
+        private void TabWellBase_Loaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Register(this);
+        }
+
+        private void TabWellBase_Unloaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Unregister(this);
         }
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new TabWellItem();
+            return new TabWellItem { ItemType = DefaultItemType };
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)

@@ -259,4 +259,104 @@
         </Setter>
     </Style>
 
+    <Style TargetType="c:DockTargetPanel">
+        <Setter Property="HighlightStyle">
+            <Setter.Value>
+                <Style TargetType="Path">
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="UseLayoutRounding" Value="True" />
+                    <Setter Property="Fill" Value="{DynamicResource Environment.Highlight}" />
+                    <Setter Property="Stroke" Value="{DynamicResource Environment.ActiveBorder}" />
+                    <Setter Property="StrokeThickness" Value="10" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:DockTargetPanel">
+                    <Canvas Grid.IsSharedSizeScope="True"
+                            Width="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                            Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                        <DockPanel Name="outerDock" LastChildFill="False"
+                                   Canvas.Left="{Binding DockArea.X, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Canvas.Top="{Binding DockArea.Y, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Width="{Binding DockArea.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Height="{Binding DockArea.Height, RelativeSource={RelativeSource TemplatedParent}}">
+                            <c:DockTargetButton TargetDock="DockLeft" DockPanel.Dock="Left" />
+                            <c:DockTargetButton TargetDock="DockRight" DockPanel.Dock="Right" />
+                            <c:DockTargetButton TargetDock="DockTop" DockPanel.Dock="Top" />
+                            <c:DockTargetButton TargetDock="DockBottom" DockPanel.Dock="Bottom" />
+                        </DockPanel>
+                        <Grid Name="targetPanel" ClipToBounds="False"
+                              Canvas.Left="{Binding TargetArea.X, RelativeSource={RelativeSource TemplatedParent}}"
+                              Canvas.Top="{Binding TargetArea.Y, RelativeSource={RelativeSource TemplatedParent}}"
+                              Width="{Binding TargetArea.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                              Height="{Binding TargetArea.Height, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Grid x:Name="innerDock" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c1" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c2" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c3" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r1" />
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r2" />
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r3" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <c:DockTargetButton TargetDock="DockLeft" Grid.Column="0" Grid.Row="2" />
+                                <c:DockTargetButton TargetDock="DockRight" Grid.Column="4" Grid.Row="2" />
+                                <c:DockTargetButton TargetDock="DockTop" Grid.Column="2" Grid.Row="0" />
+                                <c:DockTargetButton TargetDock="DockBottom" Grid.Column="2" Grid.Row="4" />
+                            </Grid>
+                            <Grid x:Name="splitPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c1" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c2" />
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="c3" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r1" />
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r2" />
+                                    <RowDefinition Height="Auto" SharedSizeGroup="r3" />
+                                </Grid.RowDefinitions>
+                                <c:DockTargetButton TargetDock="SplitLeft" Grid.Column="0" Grid.Row="1" />
+                                <c:DockTargetButton TargetDock="SplitTop" Grid.Column="1" Grid.Row="0" />
+                                <c:DockTargetButton TargetDock="SplitRight" Grid.Column="2" Grid.Row="1" />
+                                <c:DockTargetButton TargetDock="SplitBottom" Grid.Column="1" Grid.Row="2" />
+                                <c:DockTargetButton TargetDock="Center" Grid.Column="1" Grid.Row="1" />
+                            </Grid>
+                        </Grid>
+                        <Path Style="{Binding HighlightStyle, RelativeSource={RelativeSource TemplatedParent}}"
+                              Canvas.Left="{Binding DockArea.X, RelativeSource={RelativeSource TemplatedParent}}"
+                              Canvas.Top="{Binding DockArea.Y, RelativeSource={RelativeSource TemplatedParent}}"
+                              Data="{Binding HighlightPath, RelativeSource={RelativeSource TemplatedParent}}"
+                              Clip="{Binding HighlightPath, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Canvas>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="DockArea" Value="{x:Static Rect.Empty}">
+                            <Setter TargetName="outerDock" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="TargetArea" Value="{x:Static Rect.Empty}">
+                            <Setter TargetName="targetPanel" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="CanDockOuter" Value="False">
+                            <Setter TargetName="outerDock" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="CanDockTarget" Value="False">
+                            <Setter TargetName="innerDock" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="CanSplitTarget" Value="False">
+                            <Setter TargetName="splitPanel" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

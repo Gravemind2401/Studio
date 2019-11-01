@@ -44,5 +44,18 @@ namespace Studio.Utilities
 
             return default(T);
         }
+
+        public static DpiScale GetDpi(this Visual visual)
+        {
+            var method = typeof(Visual).GetMethod(nameof(GetDpi), System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            return (DpiScale)method.Invoke(visual, null);
+        }
+
+        public static Point PointToScreenScaled(this Visual visual, Point point)
+        {
+            var scale = visual.GetDpi();
+            point = visual.PointToScreen(point);
+            return new Point(point.X * 1d / scale.DpiScaleX, point.Y * 1d / scale.DpiScaleY);
+        }
     }
 }

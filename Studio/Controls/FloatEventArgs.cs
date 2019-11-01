@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace Studio.Controls
             if (tab != null)
                 TabOffset = tab.TranslatePoint(new Point(0, 0), tabWell).X;
 
-            var loc = tabWell.PointToScreen(new Point(0, 0));
+            var loc = tabWell.PointToScreenScaled(new Point(0, 0));
             VisualBounds = new Rect(loc.X, loc.Y, tabWell.ActualWidth, tabWell.ActualHeight);
         }
     }

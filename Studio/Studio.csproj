@@ -34,6 +34,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,7 +46,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AdornerWindow.cs" />
+    <Compile Include="Controls\DockTargetButton.cs" />
+    <Compile Include="Controls\DockTargetPanel.cs" />
     <Compile Include="Controls\FloatEventArgs.cs" />
+    <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ProxyBinding.cs" />
     <Compile Include="Controls\Commands.cs" />
     <Compile Include="Controls\DockContainer.cs" />

@@ -9,13 +9,28 @@ using System.Windows.Input;
 
 namespace Studio.Controls
 {
+    public enum TabItemType
+    {
+        Document,
+        Tool
+    }
+
     public class TabWellItem : TabItem
     {
+        public static readonly DependencyProperty ItemTypeProperty =
+            DependencyProperty.Register(nameof(ItemType), typeof(TabItemType), typeof(TabWellItem), new PropertyMetadata(TabItemType.Document));
+
         public static readonly DependencyProperty TogglePinStatusCommandProperty =
             DependencyProperty.Register(nameof(TogglePinStatusCommand), typeof(ICommand), typeof(TabWellItem), new PropertyMetadata(Commands.PinTabCommand));
 
         public static readonly DependencyProperty CloseCommandProperty =
             DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(TabWellItem), new PropertyMetadata(Commands.CloseTabCommand));
+
+        public TabItemType ItemType
+        {
+            get { return (TabItemType)GetValue(ItemTypeProperty); }
+            set { SetValue(ItemTypeProperty, value); }
+        }
 
         public ICommand TogglePinStatusCommand
         {
@@ -27,6 +42,22 @@ namespace Studio.Controls
         {
             get { return (ICommand)GetValue(CloseCommandProperty); }
             set { SetValue(CloseCommandProperty, value); }
+        }
+
+        public TabWellItem()
+        {
+            Loaded += TabWellItem_Loaded;
+            Unloaded += TabWellItem_Unloaded;
+        }
+
+        private void TabWellItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Register(this);
+        }
+
+        private void TabWellItem_Unloaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Unregister(this);
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)

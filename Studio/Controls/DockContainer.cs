@@ -190,6 +190,22 @@ namespace Studio.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockContainer), new FrameworkPropertyMetadata(typeof(DockContainer)));
         }
 
+        public DockContainer()
+        {
+            Loaded += DockContainer_Loaded;
+            Unloaded += DockContainer_Unloaded;
+        }
+
+        private void DockContainer_Loaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Register(this);
+        }
+
+        private void DockContainer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            DockManager.Unregister(this);
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
