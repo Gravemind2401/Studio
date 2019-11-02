@@ -65,7 +65,7 @@ namespace Sandbox
 
         private void CreateModel()
         {
-            var model = new ViewModels.WindowViewModel
+            var model = new WindowViewModel
             {
                 Content = new SplitViewModel()
             };
@@ -85,8 +85,8 @@ namespace Sandbox
             content.Item2 = new SplitViewModel
             {
                 Orientation = Orientation.Vertical,
-                Item1 = GenerateToolGroup(),
-                Item2 = GenerateToolGroup()
+                Item1 = GenerateToolGroup(Dock.Right),
+                Item2 = GenerateToolGroup(Dock.Right)
             };
 
             content.Item2Size = new GridLength(WindowViewModel.DefaultDockSize);
@@ -95,9 +95,9 @@ namespace Sandbox
             Model = model;
         }
 
-        private TabGroupModel GenerateToolGroup()
+        private TabGroupModel GenerateToolGroup(Dock dock)
         {
-            var item = new TabGroupModel(TabUsage.Tool);
+            var item = new TabGroupModel(TabUsage.Tool) { Dock = dock };
             for (int i = 0; i < 3; i++)
             {
                 item.Children.Add(new TabModel

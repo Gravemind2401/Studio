@@ -2310,15 +2310,15 @@
                                             TextBlock.Foreground="{DynamicResource Environment.TitleBar.InactiveText}" />
                                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="3">
                                         <Button Style="{StaticResource CaptionButtonStyle}">
-                                            <ContentControl Template="{StaticResource ToolMenuGlyph}" />
+                                            <ContentControl IsHitTestVisible="False" Template="{StaticResource ToolMenuGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Command="{TemplateBinding TogglePinStatusCommand}">
-                                            <ContentControl x:Name="pinContent" Template="{StaticResource ToolPinGlyph}" />
+                                            <ContentControl x:Name="pinContent" IsHitTestVisible="False" Template="{StaticResource ToolPinGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Command="{TemplateBinding CloseCommand}">
-                                            <ContentControl Template="{StaticResource TabCloseGlyph}" />
+                                            <ContentControl IsHitTestVisible="False" Template="{StaticResource TabCloseGlyph}" />
                                         </Button>
                                     </StackPanel>
                                     <Thumb x:Name="TitleBarGrip" Margin="2,0"

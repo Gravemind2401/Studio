@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Sandbox.Models
 {
@@ -56,6 +57,13 @@ namespace Sandbox.Models
             set { SetProperty(ref height, value, UpdateChildrenHeight); }
         }
 
+        private Dock dock;
+        public Dock Dock
+        {
+            get { return dock; }
+            internal set { SetProperty(ref dock, value); }
+        }
+
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
@@ -84,15 +92,18 @@ namespace Sandbox.Models
             else
             {
                 var temp = ParentViewModel;
-                int i = 0;
                 foreach (var c in Children.ToList())
                 {
                     children.Remove(c);
                     c.IsActive = true;
 
-                    if (i++ % 2 == 0)
+                    if (Dock == Dock.Left)
                         temp.LeftDockItems.Add(c);
-                    else
+                    else if (Dock == Dock.Top)
+                        temp.TopDockItems.Add(c);
+                    else if (Dock == Dock.Right)
+                        temp.RightDockItems.Add(c);
+                    else if (Dock == Dock.Bottom)
                         temp.BottomDockItems.Add(c);
                 }
             }

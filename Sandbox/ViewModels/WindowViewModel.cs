@@ -133,7 +133,7 @@ namespace Sandbox.ViewModels
         private void DockExecuted(DockEventArgs e)
         {
             var groups = e.SourceContent.OfType<TabGroupModel>().ToList();
-            var newGroup = new TabGroupModel(TabUsage.Tool);
+            var newGroup = new TabGroupModel(TabUsage.Tool) { Dock = (Dock)((int)e.TargetDock - 5) };
 
             foreach (var group in groups)
             {

@@ -16,7 +16,7 @@ namespace Studio.Controls
     {
         private const string PART_ContentHost = "PART_ContentHost";
 
-        private ContentPresenter contentHost;
+        internal ContentPresenter ContentHost { get; private set; }
 
         #region Dependency Properties
         public static readonly DependencyProperty ItemContainerStyleProperty =
@@ -220,13 +220,13 @@ namespace Studio.Controls
         {
             base.OnApplyTemplate();
 
-            if (contentHost != null)
-                contentHost.PreviewMouseDown -= ContentHost_PreviewMouseDown;
+            if (ContentHost != null)
+                ContentHost.PreviewMouseDown -= ContentHost_PreviewMouseDown;
 
-            contentHost = Template.FindName(PART_ContentHost, this) as ContentPresenter;
+            ContentHost = Template.FindName(PART_ContentHost, this) as ContentPresenter;
 
-            if (contentHost != null)
-                contentHost.PreviewMouseDown += ContentHost_PreviewMouseDown;
+            if (ContentHost != null)
+                ContentHost.PreviewMouseDown += ContentHost_PreviewMouseDown;
         }
 
         private void ContentHost_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

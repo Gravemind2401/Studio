@@ -89,7 +89,7 @@ namespace Studio.Controls
 
             if (titleBar != null)
             {
-                titleBar.MouseDown -= CaptionPanel_MouseDown;
+                titleBar.PreviewMouseDown -= CaptionPanel_MouseDown;
                 titleBar.MouseUp -= CaptionPanel_MouseUp;
                 titleBar.MouseMove -= CaptionPanel_MouseMove;
             }
@@ -98,7 +98,7 @@ namespace Studio.Controls
 
             if (titleBar != null)
             {
-                titleBar.MouseDown += CaptionPanel_MouseDown;
+                titleBar.PreviewMouseDown += CaptionPanel_MouseDown;
                 titleBar.MouseUp += CaptionPanel_MouseUp;
                 titleBar.MouseMove += CaptionPanel_MouseMove;
             }
@@ -109,7 +109,7 @@ namespace Studio.Controls
 
         private void CaptionPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton != MouseButton.Left)
+            if (e.ChangedButton != MouseButton.Left || e.Source is Button)
                 return;
 
             dragStart = e.GetPosition(this);

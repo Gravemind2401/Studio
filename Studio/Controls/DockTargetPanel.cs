@@ -119,8 +119,8 @@ namespace Studio.Controls
                 else
                 {
                     DockArea = new Rect(
-                        DockHost.TranslatePoint(new Point(), this),
-                        DockHost.RenderSize
+                        DockHost.ContentHost.TranslatePoint(new Point(), this),
+                        DockHost.ContentHost.RenderSize
                     );
                 }
             }
@@ -146,10 +146,10 @@ namespace Studio.Controls
             CanDockTarget = well is DocumentWell && isAllTools;
             CanSplitTarget = well is DocumentWell || isAllTools;
 
-            UpdateHighlightPath(sourceTabs, container, well, item);
+            UpdateHighlightPath(sourceTabs, item);
         }
 
-        private void UpdateHighlightPath(IEnumerable<TabWellItem> sourceTabs, DockContainer container, TabWellBase well, TabWellItem item)
+        private void UpdateHighlightPath(IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
         {
             var dock = DockTargetButton.CurrentTargetDock;
             if (!dock.HasValue && item == null)
@@ -166,12 +166,12 @@ namespace Studio.Controls
             }
             else
             {
-                var first = well.FirstContainer;
+                var first = TargetHost.FirstContainer;
                 if (item == null) item = first;
 
-                var wellOffset = well.TranslatePoint(new Point(), container);
-                var firstOffset = first?.TranslatePoint(new Point(), container) ?? wellOffset;
-                var itemOffset = item?.TranslatePoint(new Point(), container) ?? wellOffset;
+                var wellOffset = TargetHost.TranslatePoint(new Point(), DockHost.ContentHost);
+                var firstOffset = first?.TranslatePoint(new Point(), DockHost.ContentHost) ?? wellOffset;
+                var itemOffset = item?.TranslatePoint(new Point(), DockHost.ContentHost) ?? wellOffset;
                 var itemHeight = sourceTabs.Max(t => t.ActualHeight);
                 var itemWidth = sourceTabs.Sum(t => t.ActualWidth);
 
@@ -180,9 +180,9 @@ namespace Studio.Controls
                 col.Add(new Point(itemOffset.X, itemOffset.Y));
                 col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
                 col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
-                col.Add(new Point(wellOffset.X + well.ActualWidth, itemOffset.Y + itemHeight));
-                col.Add(new Point(wellOffset.X + well.ActualWidth, wellOffset.Y + well.ActualHeight));
-                col.Add(new Point(wellOffset.X, wellOffset.Y + well.ActualHeight));
+                col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight));
+                col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight));
+                col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight));
             }
 
             var segs = new List<PathSegment> { new PolyLineSegment(col, true) };
