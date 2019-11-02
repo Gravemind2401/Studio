@@ -9,12 +9,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sandbox.ViewModels
 {
     public class WindowViewModel : ModelBase
     {
+        public const double DefaultDockSize = 260d;
+
         private ObservableCollection<TabModel> leftDockItems;
         public ObservableCollection<TabModel> LeftDockItems
         {
@@ -60,12 +63,14 @@ namespace Sandbox.ViewModels
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<FloatEventArgs> FloatGroupCommand { get; }
+        public DelegateCommand<DockEventArgs> DockCommand { get; }
 
         public WindowViewModel()
         {
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             FloatGroupCommand = new DelegateCommand<FloatEventArgs>(FloatGroupExecuted);
+            DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
 
             LeftDockItems = new ObservableCollection<TabModel>();
             TopDockItems = new ObservableCollection<TabModel>();
@@ -123,6 +128,52 @@ namespace Sandbox.ViewModels
 
             wnd.Show();
             wnd.DragMove();
+        }
+
+        private void DockExecuted(DockEventArgs e)
+        {
+            var groups = e.SourceContent.OfType<TabGroupModel>().ToList();
+            var newGroup = new TabGroupModel(TabUsage.Tool);
+
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    newGroup.Children.Add(item);
+                }
+            }
+
+            var newSplit = new SplitViewModel();
+            newSplit.Orientation = e.TargetDock == DockTarget.DockLeft || e.TargetDock == DockTarget.DockRight
+                ? Orientation.Horizontal
+                : Orientation.Vertical;
+
+            var existing = Content;
+            Content = null;
+
+            if (e.TargetDock == DockTarget.DockTop || e.TargetDock == DockTarget.DockLeft)
+            {
+                newSplit.Item1 = newGroup;
+                newSplit.Item2 = existing;
+                newSplit.Item1Size = new GridLength(DefaultDockSize);
+            }
+            else
+            {
+                newSplit.Item1 = existing;
+                newSplit.Item2 = newGroup;
+                newSplit.Item2Size = new GridLength(DefaultDockSize);
+            }
+
+            Content = newSplit;
+            newGroup.IsActive = true;
+            newGroup.SelectedItem = newGroup.Children.First();
+
+            e.Source.Close();
         }
 
         public void AddItem(TabModel item, ModelBase target, Dock dock)

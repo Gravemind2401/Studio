@@ -90,7 +90,8 @@
                 RightItemsSource="{Binding RightDockItems}"
                 BottomItemsSource="{Binding BottomDockItems}"
                 SelectedItem="{Binding SelectedDockItem}"
-                SelectedContentTemplate="{StaticResource DockedToolTemplate}">
+                SelectedContentTemplate="{StaticResource DockedToolTemplate}"
+                DockCommand="{Binding DockCommand}">
             <Grid Background="{DynamicResource Environment.EnvironmentBackgroundGradient}">
                 <ContentPresenter Content="{Binding Content}"
                         ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />

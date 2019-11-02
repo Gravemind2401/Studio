@@ -268,6 +268,7 @@
                     <Setter Property="Fill" Value="{DynamicResource Environment.Highlight}" />
                     <Setter Property="Stroke" Value="{DynamicResource Environment.ActiveBorder}" />
                     <Setter Property="StrokeThickness" Value="10" />
+                    <Setter Property="Opacity" Value="0.3" />
                 </Style>
             </Setter.Value>
         </Setter>
@@ -282,10 +283,14 @@
                                    Canvas.Top="{Binding DockArea.Y, RelativeSource={RelativeSource TemplatedParent}}"
                                    Width="{Binding DockArea.Width, RelativeSource={RelativeSource TemplatedParent}}"
                                    Height="{Binding DockArea.Height, RelativeSource={RelativeSource TemplatedParent}}">
-                            <c:DockTargetButton TargetDock="DockLeft" DockPanel.Dock="Left" />
-                            <c:DockTargetButton TargetDock="DockRight" DockPanel.Dock="Right" />
-                            <c:DockTargetButton TargetDock="DockTop" DockPanel.Dock="Top" />
-                            <c:DockTargetButton TargetDock="DockBottom" DockPanel.Dock="Bottom" />
+                            <c:DockTargetButton TargetDock="DockLeft" DockPanel.Dock="Left"
+                                                TargetHost="{Binding DockHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <c:DockTargetButton TargetDock="DockRight" DockPanel.Dock="Right"
+                                                TargetHost="{Binding DockHost, RelativeSource={RelativeSource TemplatedParent}}"  />
+                            <c:DockTargetButton TargetDock="DockTop" DockPanel.Dock="Top"
+                                                TargetHost="{Binding DockHost, RelativeSource={RelativeSource TemplatedParent}}"  />
+                            <c:DockTargetButton TargetDock="DockBottom" DockPanel.Dock="Bottom"
+                                                TargetHost="{Binding DockHost, RelativeSource={RelativeSource TemplatedParent}}"  />
                         </DockPanel>
                         <Grid Name="targetPanel" ClipToBounds="False"
                               Canvas.Left="{Binding TargetArea.X, RelativeSource={RelativeSource TemplatedParent}}"
@@ -307,10 +312,14 @@
                                     <RowDefinition Height="Auto" SharedSizeGroup="r3" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <c:DockTargetButton TargetDock="DockLeft" Grid.Column="0" Grid.Row="2" />
-                                <c:DockTargetButton TargetDock="DockRight" Grid.Column="4" Grid.Row="2" />
-                                <c:DockTargetButton TargetDock="DockTop" Grid.Column="2" Grid.Row="0" />
-                                <c:DockTargetButton TargetDock="DockBottom" Grid.Column="2" Grid.Row="4" />
+                                <c:DockTargetButton TargetDock="DockLeft" Grid.Column="0" Grid.Row="2"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="DockRight" Grid.Column="4" Grid.Row="2"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="DockTop" Grid.Column="2" Grid.Row="0"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="DockBottom" Grid.Column="2" Grid.Row="4"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"  />
                             </Grid>
                             <Grid x:Name="splitPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -323,11 +332,16 @@
                                     <RowDefinition Height="Auto" SharedSizeGroup="r2" />
                                     <RowDefinition Height="Auto" SharedSizeGroup="r3" />
                                 </Grid.RowDefinitions>
-                                <c:DockTargetButton TargetDock="SplitLeft" Grid.Column="0" Grid.Row="1" />
-                                <c:DockTargetButton TargetDock="SplitTop" Grid.Column="1" Grid.Row="0" />
-                                <c:DockTargetButton TargetDock="SplitRight" Grid.Column="2" Grid.Row="1" />
-                                <c:DockTargetButton TargetDock="SplitBottom" Grid.Column="1" Grid.Row="2" />
-                                <c:DockTargetButton TargetDock="Center" Grid.Column="1" Grid.Row="1" />
+                                <c:DockTargetButton TargetDock="SplitLeft" Grid.Column="0" Grid.Row="1"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="SplitTop" Grid.Column="1" Grid.Row="0"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="SplitRight" Grid.Column="2" Grid.Row="1"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="SplitBottom" Grid.Column="1" Grid.Row="2"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <c:DockTargetButton TargetDock="Center" Grid.Column="1" Grid.Row="1"
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Grid>
                         <Path Style="{Binding HighlightStyle, RelativeSource={RelativeSource TemplatedParent}}"

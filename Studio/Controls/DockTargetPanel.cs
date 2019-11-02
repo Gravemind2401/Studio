@@ -19,8 +19,14 @@ namespace Studio.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTargetPanel), new FrameworkPropertyMetadata(typeof(DockTargetPanel)));
         }
 
+        private static readonly DependencyPropertyKey DockHostPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(DockHost), typeof(DockContainer), typeof(DockTargetPanel), new PropertyMetadata((DockContainer)null));
+
         private static readonly DependencyPropertyKey DockAreaPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(DockArea), typeof(Rect), typeof(DockTargetPanel), new PropertyMetadata(Rect.Empty));
+
+        private static readonly DependencyPropertyKey TargetHostPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(TargetHost), typeof(TabWellBase), typeof(DockTargetPanel), new PropertyMetadata((TabWellBase)null));
 
         private static readonly DependencyPropertyKey TargetAreaPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(TargetArea), typeof(Rect), typeof(DockTargetPanel), new PropertyMetadata(Rect.Empty));
@@ -40,17 +46,31 @@ namespace Studio.Controls
         public static readonly DependencyProperty HighlightStyleProperty =
             DependencyProperty.Register(nameof(HighlightStyle), typeof(Style), typeof(DockTargetPanel), new PropertyMetadata((Style)null));
 
+        public static readonly DependencyProperty DockHostProperty = DockHostPropertyKey.DependencyProperty;
         public static readonly DependencyProperty DockAreaProperty = DockAreaPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TargetHostProperty = TargetHostPropertyKey.DependencyProperty;
         public static readonly DependencyProperty TargetAreaProperty = TargetAreaPropertyKey.DependencyProperty;
         public static readonly DependencyProperty CanDockOuterProperty = CanDockOuterPropertyKey.DependencyProperty;
         public static readonly DependencyProperty CanDockTargetProperty = CanDockTargetPropertyKey.DependencyProperty;
         public static readonly DependencyProperty CanSplitTargetProperty = CanSplitTargetPropertyKey.DependencyProperty;
         public static readonly DependencyProperty HighlightPathProperty = HighlightPathPropertyKey.DependencyProperty;
 
+        public DockContainer DockHost
+        {
+            get { return (DockContainer)GetValue(DockHostProperty); }
+            private set { SetValue(DockHostPropertyKey, value); }
+        }
+
         public Rect DockArea
         {
             get { return (Rect)GetValue(DockAreaProperty); }
             private set { SetValue(DockAreaPropertyKey, value); }
+        }
+
+        public TabWellBase TargetHost
+        {
+            get { return (TabWellBase)GetValue(TargetHostProperty); }
+            private set { SetValue(TargetHostPropertyKey, value); }
         }
 
         public Rect TargetArea
@@ -89,36 +109,32 @@ namespace Studio.Controls
             set { SetValue(HighlightStyleProperty, value); }
         }
 
-        private DockContainer Container { get; set; }
-        private TabWellBase TabWell { get; set; }
-        private TabWellItem TabItem { get; set; }
-
         internal void AlignToTarget(IEnumerable<TabWellItem> sourceTabs, DockContainer container, TabWellBase well, TabWellItem item)
         {
-            if (container != Container)
+            if (container != DockHost)
             {
-                Container = container;
-                if (Container == null)
+                DockHost = container;
+                if (DockHost == null)
                     DockArea = Rect.Empty;
                 else
                 {
                     DockArea = new Rect(
-                        Container.TranslatePoint(new Point(), this),
-                        Container.RenderSize
+                        DockHost.TranslatePoint(new Point(), this),
+                        DockHost.RenderSize
                     );
                 }
             }
 
-            if (well != TabWell)
+            if (well != TargetHost)
             {
-                TabWell = well;
-                if (TabWell == null)
+                TargetHost = well;
+                if (TargetHost == null)
                     TargetArea = Rect.Empty;
                 else
                 {
                     TargetArea = new Rect(
-                        TabWell.TranslatePoint(new Point(), this),
-                        TabWell.RenderSize
+                        TargetHost.TranslatePoint(new Point(), this),
+                        TargetHost.RenderSize
                     );
                 }
             }
@@ -135,7 +151,7 @@ namespace Studio.Controls
 
         private void UpdateHighlightPath(IEnumerable<TabWellItem> sourceTabs, DockContainer container, TabWellBase well, TabWellItem item)
         {
-            var dock = DockTargetButton.CurrentTarget;
+            var dock = DockTargetButton.CurrentTargetDock;
             if (!dock.HasValue && item == null)
             {
                 HighlightPath = Geometry.Empty;
@@ -178,9 +194,8 @@ namespace Studio.Controls
 
         internal void ClearTarget()
         {
-            Container = null;
-            TabWell = null;
-            TabItem = null;
+            DockHost = null;
+            TargetHost = null;
 
             DockArea = TargetArea = Rect.Empty;
         }

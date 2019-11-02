@@ -1,5 +1,6 @@
 ﻿using Sandbox.Controls;
 using Sandbox.Models;
+using Sandbox.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace Sandbox
                 Item2 = GenerateToolGroup()
             };
 
-            content.Item2Size = new GridLength(260);
+            content.Item2Size = new GridLength(WindowViewModel.DefaultDockSize);
             model.Content = content;
 
             Model = model;

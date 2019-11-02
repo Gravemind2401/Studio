@@ -187,11 +187,19 @@ namespace Studio.Controls
         {
             if (currentTarget != null)
             {
+                var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
+                var sourceItems = trackedElements[wnd].OfType<TabWellBase>().Select(t => t.DataContext ?? t);
+                var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.DataContext ?? tab);
+
+                DockTargetButton.CurrentTargetHost?.DockCommand?.TryExecute(args);
+
                 currentTarget.Adorner.ClearTarget();
                 currentTarget = null;
+
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         #endregion

@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace Studio.Controls
 {
-    public abstract class TabWellBase : TabControl
+    public abstract class TabWellBase : TabControl, IDockReceiver
     {
         private const int minFloatThreshold = 0;
         private const int maxFloatThreshold = 30;
@@ -21,10 +21,19 @@ namespace Studio.Controls
         public static readonly DependencyProperty FloatTabCommandProperty =
             DependencyProperty.Register(nameof(FloatTabCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
 
+        public static readonly DependencyProperty DockCommandProperty =
+            DependencyProperty.Register(nameof(DockCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
+
         public ICommand FloatTabCommand
         {
             get { return (ICommand)GetValue(FloatTabCommandProperty); }
             set { SetValue(FloatTabCommandProperty, value); }
+        }
+
+        public ICommand DockCommand
+        {
+            get { return (ICommand)GetValue(DockCommandProperty); }
+            set { SetValue(DockCommandProperty, value); }
         }
 
         internal TabWellItem FirstContainer

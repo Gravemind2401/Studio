@@ -30,7 +30,8 @@
                 <s:DocumentWell ItemsSource="{Binding Children}"
                                 s:DockManager.IsActive="{Binding IsActive}"
                                 SelectedItem="{Binding SelectedItem}"
-                                OverflowItemSelectedCommand="{Binding SelectItemCommand}">
+                                OverflowItemSelectedCommand="{Binding SelectItemCommand}"
+                                DockCommand="{Binding DockCommand}">
                     <TabControl.ContentTemplate>
                         <DataTemplate>
                             <ContentPresenter Content="{Binding Content}" />
@@ -54,7 +55,8 @@
                             Caption="{Binding SelectedItem.ToolTip}"
                             CloseCommand="{Binding CloseTabCommand}"
                             TogglePinStatusCommand="{Binding TogglePinStatusCommand}"
-                            FloatCommand="{Binding ParentViewModel.FloatGroupCommand}">
+                            FloatCommand="{Binding ParentViewModel.FloatGroupCommand}"
+                            DockCommand="{Binding DockCommand}">
                     <su:ProxyBinding.ProxyBindings>
                         <su:ProxyBindingCollection>
                             <su:ProxyBinding Source="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=TabControl}}"

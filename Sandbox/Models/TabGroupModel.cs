@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Studio.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -58,6 +59,7 @@ namespace Sandbox.Models
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
+        public DelegateCommand<DockEventArgs> DockCommand { get; }
 
         public TabGroupModel(TabUsage groupType)
         {
@@ -66,6 +68,7 @@ namespace Sandbox.Models
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             SelectItemCommand = new DelegateCommand<TabModel>(SelectItemExecuted);
+            DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
             Subscribe(children);
         }
 
@@ -98,6 +101,30 @@ namespace Sandbox.Models
         private void SelectItemExecuted(TabModel item)
         {
             SelectedItem = item;
+        }
+
+        private void DockExecuted(DockEventArgs e)
+        {
+            var groups = e.SourceContent.OfType<TabGroupModel>().ToList();
+            var target = e.TargetIndex as TabModel;
+            var index = target == null || target.IsPinned ? 0 : Children.IndexOf(target);
+
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    Children.Insert(index, item);
+                }
+            }
+
+            e.Source.Close();
+            IsActive = true;
+            SelectedItem = Children[index];
         }
 
         private void OnCollectionChanged(ObservableCollection<TabModel> prev, ObservableCollection<TabModel> next)

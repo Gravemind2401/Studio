@@ -27,7 +27,9 @@ namespace Studio.Controls
     {
         private static readonly List<DockTargetButton> Instances = new List<DockTargetButton>();
 
-        internal static DockTarget? CurrentTarget => Instances.FirstOrDefault(b => b.IsTargeted)?.TargetDock;
+        internal static DockTarget? CurrentTargetDock => Instances.FirstOrDefault(b => b.IsTargeted)?.TargetDock;
+
+        internal static IDockReceiver CurrentTargetHost => Instances.FirstOrDefault(b => b.IsTargeted)?.TargetHost as IDockReceiver;
 
         internal static void UpdateCursor()
         {
@@ -54,6 +56,9 @@ namespace Studio.Controls
             DependencyProperty.RegisterReadOnly(nameof(IsTargeted), typeof(bool), typeof(DockTargetButton), new PropertyMetadata(false, null, CoerceIsTargeted));
 
         public static readonly DependencyProperty IsTargetedProperty = IsTargetedPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty TargetHostProperty =
+            DependencyProperty.Register(nameof(TargetHost), typeof(object), typeof(DockTargetButton), new PropertyMetadata((object)null));
 
         public DockTarget TargetDock
         {
@@ -88,6 +93,12 @@ namespace Studio.Controls
         public bool IsTargeted
         {
             get { return (bool)GetValue(IsTargetedProperty); }
+        }
+
+        public object TargetHost
+        {
+            get { return GetValue(TargetHostProperty); }
+            set { SetValue(TargetHostProperty, value); }
         }
 
         public static object CoerceIsTargeted(DependencyObject d, object baseValue)

@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\AdornerWindow.cs" />
+    <Compile Include="Controls\DockEventArgs.cs" />
     <Compile Include="Controls\DockTargetButton.cs" />
     <Compile Include="Controls\DockTargetPanel.cs" />
     <Compile Include="Controls\FloatEventArgs.cs" />
+    <Compile Include="Controls\IDockReceiver.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ProxyBinding.cs" />
     <Compile Include="Controls\Commands.cs" />

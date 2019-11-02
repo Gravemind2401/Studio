@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Studio.Controls
 {
     [TemplatePart(Name = nameof(PART_ContentHost), Type = typeof(ContentPresenter))]
     [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(ListBoxItem))]
-    public class DockContainer : ContentControl
+    public class DockContainer : ContentControl, IDockReceiver
     {
         private const string PART_ContentHost = "PART_ContentHost";
 
@@ -93,6 +94,15 @@ namespace Studio.Controls
             else if (c.TopItemsSource.OfType<object>().Contains(c.SelectedItem))
                 return Dock.Top;
             else return null;
+        }
+
+        public static readonly DependencyProperty DockCommandProperty =
+            DependencyProperty.Register(nameof(DockCommand), typeof(ICommand), typeof(DockContainer), new PropertyMetadata((ICommand)null));
+
+        public ICommand DockCommand
+        {
+            get { return (ICommand)GetValue(DockCommandProperty); }
+            set { SetValue(DockCommandProperty, value); }
         }
 
         public Style ItemContainerStyle
