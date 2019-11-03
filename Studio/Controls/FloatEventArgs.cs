@@ -11,6 +11,8 @@ namespace Studio.Controls
 {
     public class FloatEventArgs : EventArgs
     {
+        public Window Source { get; }
+
         public object DataContext { get; }
 
         public Point MouseOffset { get; }
@@ -21,6 +23,7 @@ namespace Studio.Controls
 
         internal FloatEventArgs(TabWellBase tabWell, TabWellItem tab, MouseEventArgs e)
         {
+            Source = Window.GetWindow(tabWell);
             DataContext = tab?.DataContext ?? tabWell.DataContext;
             MouseOffset = e.GetPosition(tabWell);
 

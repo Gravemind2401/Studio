@@ -18,6 +18,15 @@ namespace Sandbox.ViewModels
     {
         public const double DefaultDockSize = 260d;
 
+        private bool isRafted;
+        public bool IsRafted
+        {
+            get { return isRafted; }
+            internal set { SetProperty(ref isRafted, value); }
+        }
+
+        internal Window Host { get; set; }
+
         private ObservableCollection<TabModel> leftDockItems;
         public ObservableCollection<TabModel> LeftDockItems
         {
@@ -126,8 +135,13 @@ namespace Sandbox.ViewModels
                 Height = e.VisualBounds.Height
             };
 
-            wnd.Show();
-            wnd.DragMove();
+            if (!AllTabs.Any())
+                ShowOnClose(Host, wnd);
+            else
+            {
+                wnd.Show();
+                wnd.DragMove();
+            }
         }
 
         private void DockExecuted(DockEventArgs e)
@@ -249,5 +263,7 @@ namespace Sandbox.ViewModels
                     tool.Parent = this;
             }
         }
+
+        internal override IEnumerable<TabModel> AllTabs => Content?.AllTabs ?? Enumerable.Empty<TabModel>();
     }
 }

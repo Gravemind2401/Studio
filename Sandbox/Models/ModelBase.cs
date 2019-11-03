@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sandbox.Models
 {
@@ -36,10 +37,30 @@ namespace Sandbox.Models
             else return false;
         }
 
+        protected void ShowOnClose(Window close, Window show)
+        {
+            //if we try to close window A then show and drag window B we get the error 'Can only call DragMove when primary mouse button is down.'
+            //this is a workaround to ensure window A has closed before windo B attempts to show and drag
+            close.Closed += (s, e) =>
+            {
+                show.Show();
+                show.DragMove();
+            };
+            close.Close();
+        }
+
         internal virtual void SetParent(SplitViewModel parentModel, WindowViewModel parentViewModel)
         {
             ParentModel = parentModel;
             ParentViewModel = parentViewModel;
+        }
+
+        internal virtual IEnumerable<TabModel> AllTabs
+        {
+            get
+            {
+                yield break;
+            }
         }
     }
 }

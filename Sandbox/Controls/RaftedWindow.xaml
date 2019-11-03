@@ -1,0 +1,24 @@
+﻿<Window x:Class="Sandbox.Controls.RaftedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
+        DataContext="{Binding Model, RelativeSource={RelativeSource Self}}"
+        xmlns:local="clr-namespace:Sandbox.Controls"
+        mc:Ignorable="d" Background="{DynamicResource Environment.EnvironmentBackgroundGradient}"
+        Title="RaftedWindow" Height="300" Width="300">
+    <Grid>
+        <s:DockContainer
+                LeftItemsSource="{Binding LeftDockItems}"
+                TopItemsSource="{Binding TopDockItems}"
+                RightItemsSource="{Binding RightDockItems}"
+                BottomItemsSource="{Binding BottomDockItems}"
+                SelectedItem="{Binding SelectedDockItem}"
+                SelectedContentTemplate="{StaticResource DockedToolTemplate}"
+                DockCommand="{Binding DockCommand}">
+            <ContentPresenter Content="{Binding Content}"
+                    ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
+        </s:DockContainer>
+    </Grid>
+</Window>

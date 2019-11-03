@@ -87,6 +87,9 @@
     <Compile Include="Controls\DocumentControl.xaml.cs">
       <DependentUpon>DocumentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RaftedWindow.xaml.cs">
+      <DependentUpon>RaftedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ToolControl.xaml.cs">
       <DependentUpon>ToolControl.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
     <Compile Include="Utilities\TabTreeTemplateSelector.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="Controls\DocumentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RaftedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

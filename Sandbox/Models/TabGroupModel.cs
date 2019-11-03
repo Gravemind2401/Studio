@@ -1,4 +1,6 @@
 ﻿using Prism.Commands;
+using Sandbox.Controls;
+using Sandbox.ViewModels;
 using Studio.Controls;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sandbox.Models
@@ -67,6 +70,7 @@ namespace Sandbox.Models
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
+        public DelegateCommand<FloatEventArgs> FloatTabCommand { get; }
         public DelegateCommand<DockEventArgs> DockCommand { get; }
 
         public TabGroupModel(TabUsage groupType)
@@ -76,13 +80,18 @@ namespace Sandbox.Models
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             SelectItemCommand = new DelegateCommand<TabModel>(SelectItemExecuted);
+            FloatTabCommand = new DelegateCommand<FloatEventArgs>(FloatTabExecuted);
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
             Subscribe(children);
         }
 
         private void CloseTabExecuted(TabModel item)
         {
+            var parent = ParentViewModel;
             Children.Remove(item ?? SelectedItem);
+
+            if (parent != null && parent.IsRafted && !parent.AllTabs.Any())
+                parent.Host.Close();
         }
 
         private void TogglePinStatusExecuted(TabModel item)
@@ -112,6 +121,54 @@ namespace Sandbox.Models
         private void SelectItemExecuted(TabModel item)
         {
             SelectedItem = item;
+        }
+
+        private void FloatTabExecuted(FloatEventArgs e)
+        {
+            var item = e.DataContext as TabModel;
+            Children.Remove(item);
+            Window wnd;
+
+            if (GroupType == TabUsage.Tool)
+            {
+                var group = new TabGroupModel(TabUsage.Tool) { IsWindow = true };
+                group.Children.Add(item);
+
+                wnd = new ToolWindow
+                {
+                    Content = group,
+                    Left = e.VisualBounds.X,
+                    Top = e.VisualBounds.Y,
+                    Width = e.VisualBounds.Width,
+                    Height = e.VisualBounds.Height
+                };
+            }
+            else
+            {
+                var model = new WindowViewModel { IsRafted = true };
+                var group = new TabGroupModel(TabUsage.Document);
+                group.Children.Add(item);
+                model.Content = group;
+
+                wnd = new RaftedWindow
+                {
+                    Model = model,
+                    Left = e.VisualBounds.X,
+                    Top = e.VisualBounds.Y,
+                    Width = e.VisualBounds.Width,
+                    Height = e.VisualBounds.Height
+                };
+
+                model.Host = wnd;
+            }
+
+            if (ParentViewModel != null && ParentViewModel.IsRafted && !ParentViewModel.AllTabs.Any())
+                ShowOnClose(ParentViewModel.Host, wnd);
+            else
+            {
+                wnd.Show();
+                wnd.DragMove();
+            }
         }
 
         private void DockExecuted(DockEventArgs e)
@@ -203,5 +260,7 @@ namespace Sandbox.Models
             foreach (var item in Children)
                 item.Height = Height;
         }
+
+        internal override IEnumerable<TabModel> AllTabs => Children;
     }
 }

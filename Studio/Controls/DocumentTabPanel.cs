@@ -109,7 +109,7 @@ namespace Studio.Controls
         protected override Size MeasureOverride(Size availableSize)
         {
             if (InternalChildren.Count == 0)
-                return availableSize;
+                return Size.Empty;
 
             foreach (var child in InternalChildren.OfType<UIElement>())
                 child.Measure(availableSize);

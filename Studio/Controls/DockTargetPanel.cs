@@ -139,13 +139,12 @@ namespace Studio.Controls
                 }
             }
 
-            DockTargetButton.UpdateCursor();
-
             var isAllTools = sourceTabs.All(i => i.ItemType == TabItemType.Tool);
             CanDockOuter = isAllTools;
             CanDockTarget = well is DocumentWell && isAllTools;
             CanSplitTarget = well is DocumentWell || isAllTools;
 
+            DockTargetButton.UpdateCursor();
             UpdateHighlightPath(sourceTabs, item);
         }
 
@@ -164,7 +163,7 @@ namespace Studio.Controls
                 HighlightPath = Geometry.Empty;
                 return;
             }
-            else
+            else if (CanSplitTarget) //mouse over center or specific tab
             {
                 var first = TargetHost.FirstContainer;
                 if (item == null) item = first;
@@ -199,6 +198,11 @@ namespace Studio.Controls
                     col.Add(new Point(itemOffset.X, itemOffset.Y));
                     col.Add(new Point(wellOffset.X, itemOffset.Y));
                 }
+            }
+            else
+            {
+                HighlightPath = Geometry.Empty;
+                return;
             }
 
             var segs = new List<PathSegment> { new PolyLineSegment(col, true) };

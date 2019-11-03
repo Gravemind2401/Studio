@@ -143,5 +143,15 @@ namespace Sandbox.Models
             Item1?.SetParent(this, parentViewModel);
             Item2?.SetParent(this, parentViewModel);
         }
+
+        internal override IEnumerable<TabModel> AllTabs
+        {
+            get
+            {
+                var tabs1 = Item1?.AllTabs ?? Enumerable.Empty<TabModel>();
+                var tabs2 = Item2?.AllTabs ?? Enumerable.Empty<TabModel>();
+                return tabs1.Concat(tabs2);
+            }
+        }
     }
 }
