@@ -169,20 +169,36 @@ namespace Studio.Controls
                 var first = TargetHost.FirstContainer;
                 if (item == null) item = first;
 
-                var wellOffset = TargetHost.TranslatePoint(new Point(), DockHost.ContentHost);
-                var firstOffset = first?.TranslatePoint(new Point(), DockHost.ContentHost) ?? wellOffset;
-                var itemOffset = item?.TranslatePoint(new Point(), DockHost.ContentHost) ?? wellOffset;
+                var relativeOrigin = (UIElement)DockHost?.ContentHost ?? TargetHost;
+
+                var wellOffset = TargetHost.TranslatePoint(new Point(), relativeOrigin);
+                var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? wellOffset;
+                var itemOffset = item?.TranslatePoint(new Point(), relativeOrigin) ?? wellOffset;
                 var itemHeight = sourceTabs.Max(t => t.ActualHeight);
                 var itemWidth = sourceTabs.Sum(t => t.ActualWidth);
 
-                col.Add(new Point(wellOffset.X, firstOffset.Y + itemHeight));
-                col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight));
-                col.Add(new Point(itemOffset.X, itemOffset.Y));
-                col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
-                col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
-                col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight));
-                col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight));
-                col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight));
+                if (TargetHost is DocumentWell)
+                {
+                    col.Add(new Point(wellOffset.X, firstOffset.Y + itemHeight));
+                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight));
+                    col.Add(new Point(itemOffset.X, itemOffset.Y));
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight));
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight));
+                    col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight));
+                }
+                else
+                {
+                    col.Add(new Point(wellOffset.X, wellOffset.Y));
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y));
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y));
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
+                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight));
+                    col.Add(new Point(itemOffset.X, itemOffset.Y));
+                    col.Add(new Point(wellOffset.X, itemOffset.Y));
+                }
             }
 
             var segs = new List<PathSegment> { new PolyLineSegment(col, true) };

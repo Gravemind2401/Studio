@@ -2306,22 +2306,24 @@
                                            Background="{DynamicResource Environment.TitleBar.InactiveGradient}">
                                     <ContentPresenter x:Name="TitleBarContent" DockPanel.Dock="Left" 
                                             Margin="4,2,4,3" VerticalAlignment="Center"
+                                            IsHitTestVisible="False"
                                             Content="{TemplateBinding Caption}"
                                             TextBlock.Foreground="{DynamicResource Environment.TitleBar.InactiveText}" />
                                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="3">
                                         <Button Style="{StaticResource CaptionButtonStyle}">
-                                            <ContentControl IsHitTestVisible="False" Template="{StaticResource ToolMenuGlyph}" />
+                                            <ContentControl Template="{StaticResource ToolMenuGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Command="{TemplateBinding TogglePinStatusCommand}">
-                                            <ContentControl x:Name="pinContent" IsHitTestVisible="False" Template="{StaticResource ToolPinGlyph}" />
+                                            <ContentControl x:Name="pinContent" Template="{StaticResource ToolPinGlyph}" />
                                         </Button>
                                         <Button Style="{StaticResource CaptionButtonStyle}"
                                                 Command="{TemplateBinding CloseCommand}">
-                                            <ContentControl IsHitTestVisible="False" Template="{StaticResource TabCloseGlyph}" />
+                                            <ContentControl Template="{StaticResource TabCloseGlyph}" />
                                         </Button>
                                     </StackPanel>
                                     <Thumb x:Name="TitleBarGrip" Margin="2,0"
+                                           IsHitTestVisible="False" 
                                            Height="5" VerticalAlignment="Center" 
                                            SnapsToDevicePixels="True" UseLayoutRounding="True"
                                            Template="{StaticResource DragHandleTemplate}"

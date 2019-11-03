@@ -89,7 +89,7 @@ namespace Studio.Controls
 
             if (titleBar != null)
             {
-                titleBar.PreviewMouseDown -= CaptionPanel_MouseDown;
+                titleBar.MouseDown -= CaptionPanel_MouseDown;
                 titleBar.MouseUp -= CaptionPanel_MouseUp;
                 titleBar.MouseMove -= CaptionPanel_MouseMove;
             }
@@ -98,7 +98,7 @@ namespace Studio.Controls
 
             if (titleBar != null)
             {
-                titleBar.PreviewMouseDown += CaptionPanel_MouseDown;
+                titleBar.MouseDown += CaptionPanel_MouseDown;
                 titleBar.MouseUp += CaptionPanel_MouseUp;
                 titleBar.MouseMove += CaptionPanel_MouseMove;
             }

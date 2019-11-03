@@ -96,6 +96,9 @@ namespace Studio.Controls
         internal static void Register(UIElement element)
         {
             var wnd = Window.GetWindow(element);
+            if (wnd == null)
+                return;
+
             if (!trackedElements.ContainsKey(wnd))
             {
                 trackedElements.Add(wnd, new List<UIElement>());
@@ -187,11 +190,15 @@ namespace Studio.Controls
         {
             if (currentTarget != null)
             {
+                var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
                 var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
                 var sourceItems = trackedElements[wnd].OfType<TabWellBase>().Select(t => t.DataContext ?? t);
                 var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.DataContext ?? tab);
 
-                DockTargetButton.CurrentTargetHost?.DockCommand?.TryExecute(args);
+                if (tab != null)
+                    well.DockCommand?.TryExecute(args);
+                else
+                    DockTargetButton.CurrentTargetHost?.DockCommand?.TryExecute(args);
 
                 currentTarget.Adorner.ClearTarget();
                 currentTarget = null;
