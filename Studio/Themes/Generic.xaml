@@ -373,4 +373,31 @@
         </Setter>
     </Style>
 
+    <Style TargetType="c:SplitPanelSplitter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ShowsPreview" Value="True" />
+        <Setter Property="PreviewStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Fill="#80000000" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:SplitPanelSplitter">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

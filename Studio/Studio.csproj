@@ -52,6 +52,9 @@
     <Compile Include="Controls\DockTargetPanel.cs" />
     <Compile Include="Controls\FloatEventArgs.cs" />
     <Compile Include="Controls\IDockReceiver.cs" />
+    <Compile Include="Controls\SplitPanel.cs" />
+    <Compile Include="Controls\SplitPanelSplitter.cs" />
+    <Compile Include="Utilities\LayoutDoubleUtil.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ProxyBinding.cs" />
     <Compile Include="Controls\Commands.cs" />
