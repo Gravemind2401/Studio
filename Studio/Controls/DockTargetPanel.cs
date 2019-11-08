@@ -168,7 +168,7 @@ namespace Studio.Controls
                 var first = TargetHost.FirstContainer;
                 if (item == null) item = first;
 
-                var relativeOrigin = (UIElement)DockHost?.ContentHost ?? TargetHost;
+                var relativeOrigin = (UIElement)DockHost?.ContentHost ?? Window.GetWindow(TargetHost);
 
                 var wellOffset = TargetHost.TranslatePoint(new Point(), relativeOrigin);
                 var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? wellOffset;
@@ -178,25 +178,28 @@ namespace Studio.Controls
 
                 if (TargetHost is DocumentWell)
                 {
-                    col.Add(new Point(wellOffset.X, firstOffset.Y + itemHeight));
-                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight));
-                    col.Add(new Point(itemOffset.X, itemOffset.Y));
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
-                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight));
-                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight));
-                    col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight));
+                    col.Add(new Point(wellOffset.X, firstOffset.Y + itemHeight)); //well top-left
+                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
+                    col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight)); //well top-right
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight)); //well bottom-right
+                    col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight)); //well bottom-left
                 }
                 else
                 {
-                    col.Add(new Point(wellOffset.X, wellOffset.Y));
-                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y));
-                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y));
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y));
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight));
-                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight));
-                    col.Add(new Point(itemOffset.X, itemOffset.Y));
-                    col.Add(new Point(wellOffset.X, itemOffset.Y));
+                    col.Add(new Point(wellOffset.X, wellOffset.Y)); //well top-left
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y)); //well top-right
+                    col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y)); //well bottom-right
+                    if (TargetHost.Items.Count > 1) //tab panel visible
+                    {
+                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
+                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
+                        col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
+                        col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
+                    }
+                    col.Add(new Point(wellOffset.X, itemOffset.Y)); //well bottom-left
                 }
             }
             else

@@ -10,9 +10,17 @@ namespace Studio.Controls
 {
     public class ToolTabPanel : Panel
     {
+        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
+        {
+            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
+
+            if (InternalChildren.OfType<UIElement>().Count() > 1) //use OfType to eliminate nulls
+                Visibility = Visibility.Visible;
+        }
+
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (InternalChildren.Count <= 1)
+            if (InternalChildren.Count == 0)
                 return new Size(availableSize.Width, 0);
 
             var maxWidth = availableSize.Width / InternalChildren.Count;
@@ -28,12 +36,6 @@ namespace Studio.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (InternalChildren.Count <= 1)
-            {
-                InternalChildren.OfType<UIElement>().FirstOrDefault()?.Arrange(new Rect());
-                return finalSize;
-            }
-
             var totalWidth = InternalChildren.OfType<UIElement>().Sum(e => e.DesiredSize.Width);
 
             double offset = 0;
@@ -43,6 +45,9 @@ namespace Studio.Controls
                 child.Arrange(new Rect(offset, 0, width, child.DesiredSize.Height));
                 offset += width;
             }
+
+            if (InternalChildren.Count == 1)
+                Visibility = Visibility.Collapsed;
 
             return finalSize;
         }
