@@ -177,12 +177,12 @@ namespace Studio.Controls
             var index2 = SplitterIndex + 1;
 
             _resizeData.Definition1Index = index1;
-            _resizeData.Definition1 = new SegmentDefinition(Owner, Owner.Children[index1] as FrameworkElement);
+            _resizeData.Definition1 = new SegmentDefinition(Owner, Owner.SortedChildren[index1] as FrameworkElement);
             _resizeData.OriginalDefinition1Length = _resizeData.Definition1.DesiredSize;  //save Size if user cancels
             _resizeData.OriginalDefinition1ActualLength = _resizeData.Definition1.ActualSize;
 
             _resizeData.Definition2Index = index2;
-            _resizeData.Definition2 = new SegmentDefinition(Owner, Owner.Children[index2] as FrameworkElement);
+            _resizeData.Definition2 = new SegmentDefinition(Owner, Owner.SortedChildren[index2] as FrameworkElement);
             _resizeData.OriginalDefinition2Length = _resizeData.Definition2.DesiredSize;  //save Size if user cancels
             _resizeData.OriginalDefinition2ActualLength = _resizeData.Definition2.ActualSize;
 
@@ -383,7 +383,7 @@ namespace Studio.Controls
             else // For the case where both definition1 and 2 are stars, update all star values to match their current pixel values
             {
                 int i = 0;
-                foreach (FrameworkElement child in Owner.Children)
+                foreach (FrameworkElement child in Owner.SortedChildren)
                 {
                     // For each definition, if it is a star, set is value to ActualLength in stars
                     // This makes 1 star == 1 pixel in length

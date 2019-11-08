@@ -51,6 +51,24 @@ namespace Studio.Controls
             obj.SetValue(MaxSizeProperty, value);
         }
 
+        public static readonly DependencyProperty DisplayIndexProperty =
+            DependencyProperty.RegisterAttached("DisplayIndex", typeof(int), typeof(SplitPanel), new PropertyMetadata(0, DisplayIndexChanged));
+
+        public static int GetDisplayIndex(DependencyObject obj)
+        {
+            return (int)obj.GetValue(DisplayIndexProperty);
+        }
+
+        public static void SetDisplayIndex(DependencyObject obj, int value)
+        {
+            obj.SetValue(DisplayIndexProperty, value);
+        }
+
+        public static void DisplayIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var panel = (d as FrameworkElement)?.Parent as SplitPanel;
+            panel?.sortedChildren.Sort(panel.SortCompare);
+        }
         #endregion
 
         #region Dependency Properties
@@ -73,11 +91,15 @@ namespace Studio.Controls
         }
         #endregion
 
-        private readonly UIElementCollection splitters;
+        private readonly VisualCollection splitters;
+
+        private readonly List<UIElement> sortedChildren;
+        internal IReadOnlyList<UIElement> SortedChildren => sortedChildren;
 
         public SplitPanel()
         {
-            splitters = new UIElementCollection(this, null);
+            splitters = new VisualCollection(this);
+            sortedChildren = new List<UIElement>();
         }
 
         private void UpdateSplitters()
@@ -88,6 +110,14 @@ namespace Studio.Controls
 
             while (splitters.Count < desiredCount)
                 splitters.Add(new SplitPanelSplitter(this, splitters.Count));
+        }
+
+        private int SortCompare(UIElement a, UIElement b)
+        {
+            var explicitIndex = GetDisplayIndex(a).CompareTo(GetDisplayIndex(b));
+            if (explicitIndex != 0)
+                return explicitIndex;
+            else return InternalChildren.IndexOf(a).CompareTo(InternalChildren.IndexOf(b));
         }
 
         private Dictionary<UIElement, Size> SizeElements(Size availableSize)
@@ -112,9 +142,14 @@ namespace Studio.Controls
             var allocatedAuto = Math.Min(totalAuto, remaining - allocatedFixed);
             var allocatedStar = Math.Max(0, remaining - (allocatedFixed + allocatedAuto));
 
-            for (int i = 0; i < InternalChildren.Count; i++)
+            var sorted = InternalChildren.OfType<UIElement>()
+                .Select((e, i) => new { Element = e, Index = i, Sort = GetDisplayIndex(e) })
+                .OrderBy(o => o.Sort)
+                .ThenBy(o => o.Index)
+                .Select(o => o.Element);
+
+            foreach (var child in sorted)
             {
-                var child = InternalChildren[i];
                 var desired = GetDesiredSize(child);
 
                 double actual;
@@ -151,7 +186,19 @@ namespace Studio.Controls
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
 
             if (!(visualAdded is SplitPanelSplitter || visualRemoved is SplitPanelSplitter))
+            {
+                var oldElement = visualRemoved as UIElement;
+                var newElement = visualAdded as UIElement;
+
+                if (oldElement != null)
+                    sortedChildren.Remove(oldElement);
+
+                if (newElement != null)
+                    sortedChildren.Add(newElement);
+
+                sortedChildren.Sort(SortCompare);
                 UpdateSplitters();
+            }
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -172,7 +219,7 @@ namespace Studio.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var calculated = SizeElements(finalSize);
+            var calculated = SizeElements(finalSize).ToList();
 
             var splitterSize = Orientation == Orientation.Horizontal
                 ? new Size(SplitterThickness, finalSize.Height)
@@ -181,8 +228,8 @@ namespace Studio.Controls
             double offset = 0;
             for (int i = 0; i < InternalChildren.Count; i++)
             {
-                var child = InternalChildren[i];
-                var childSize = calculated[child];
+                var child = calculated[i].Key;
+                var childSize = calculated[i].Value;
                 var segmentSize = Orientation == Orientation.Horizontal ? childSize.Width : childSize.Height;
 
                 var itemPos = Orientation == Orientation.Horizontal
@@ -197,14 +244,14 @@ namespace Studio.Controls
                         ? new Point(offset + segmentSize, 0)
                         : new Point(0, offset + segmentSize);
 
-                    splitters[i].Arrange(new Rect(splitterPos, splitterSize));
+                    ((UIElement)splitters[i]).Arrange(new Rect(splitterPos, splitterSize));
                 }
 
                 offset += segmentSize + SplitterThickness;
             }
 
             return base.ArrangeOverride(finalSize);
-        } 
+        }
         #endregion
     }
 }

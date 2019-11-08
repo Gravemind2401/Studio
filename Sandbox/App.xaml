@@ -16,14 +16,27 @@
 
             <u:TabTreeTemplateSelector x:Key="tabTreeTemplateSelector" />
 
-            <DataTemplate x:Key="SplitPaneTemplate" DataType="m:SplitModel">
-                <s:SplitContainer Orientation="{Binding Orientation}"
-                    Panel1Content="{Binding Item1}"
-                    Panel1Size="{Binding Item1Size}"
-                    Panel2Content="{Binding Item2}"
-                    Panel2Size="{Binding Item2Size}"
-                    Panel1MinSize="65" Panel2MinSize="65"
-                    ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
+            <DataTemplate x:Key="SplitPaneTemplate" DataType="m:SplitViewModel">
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <s:SplitPanel Orientation="{Binding Orientation}"
+                                          SplitterThickness="6" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="s:SplitPanel.MinSize" Value="65" />
+                            <Setter Property="s:SplitPanel.DesiredSize" Value="{Binding DesiredSize}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding Content}"
+                                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </DataTemplate>
             
             <DataTemplate x:Key="DocumentGroupTemplate" DataType="m:TabGroupModel">
@@ -87,62 +100,51 @@
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
-            
+
             <DataTemplate x:Key="DockedToolTemplate" DataType="m:TabModel">
                 <DataTemplate.Resources>
                     <u:GridLengthConverter x:Key="gridLengthConverter" />
                 </DataTemplate.Resources>
-                <s:SplitContainer x:Name="split"
-                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                        VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                        Panel1MinSize="65" Panel2MinSize="65">
-                    <s:SplitContainer.SplitterStyle>
-                        <Style TargetType="GridSplitter">
-                            <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
-                            <Setter Property="ShowsPreview" Value="True" />
-                            <Setter Property="Background" Value="{DynamicResource Environment.EnvironmentBackground}" />
-                            <Setter Property="MinWidth" Value="3" />
-                            <Setter Property="MinHeight" Value="3" />
-                            <Setter Property="HorizontalAlignment" Value="Stretch" />
-                            <Setter Property="VerticalAlignment" Value="Stretch" />
-                        </Style>
-                    </s:SplitContainer.SplitterStyle>
-                    <s:SplitContainer.ContentTemplate>
-                        <DataTemplate>
-                            <s:ToolWell s:DockManager.IsActive="{Binding IsActive}"
-                                        s:DockManager.IsPinned="True"
-                                        CloseCommand="{Binding Parent.CloseTabCommand}"
-                                        TogglePinStatusCommand="{Binding Parent.TogglePinStatusCommand}"
-                                        Caption="{Binding ToolTip}">
-                                <s:TabWellItem Content="{Binding Content}" />
-                            </s:ToolWell>
-                        </DataTemplate>
-                    </s:SplitContainer.ContentTemplate>
-                </s:SplitContainer>
+                <s:SplitPanel x:Name="split" SplitterThickness="3">
+                    <ContentPresenter x:Name="presenter" Content="{Binding}">
+                        <ContentPresenter.ContentTemplate>
+                            <DataTemplate>
+                                <s:ToolWell s:DockManager.IsActive="{Binding IsActive}"
+                                            s:DockManager.IsPinned="True"
+                                            CloseCommand="{Binding Parent.CloseTabCommand}"
+                                            TogglePinStatusCommand="{Binding Parent.TogglePinStatusCommand}"
+                                            Caption="{Binding ToolTip}">
+                                    <s:TabWellItem Content="{Binding Content}" />
+                                </s:ToolWell>
+                            </DataTemplate>
+                        </ContentPresenter.ContentTemplate>
+                    </ContentPresenter>
+                    <Grid Background="{x:Null}" s:SplitPanel.DisplayIndex="1" />
+                </s:SplitPanel>
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding SelectedItemDock, RelativeSource={RelativeSource AncestorType=s:DockContainer}}" Value="Left">
                         <Setter TargetName="split" Property="Margin" Value="0,6" />
                         <Setter TargetName="split" Property="Orientation" Value="Horizontal" />
-                        <Setter TargetName="split" Property="Panel1Content" Value="{Binding}" />
-                        <Setter TargetName="split" Property="Panel1Size" Value="{Binding Width, Converter={StaticResource gridLengthConverter}}" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DisplayIndex" Value="0" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DesiredSize" Value="{Binding Width, Converter={StaticResource gridLengthConverter}}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding SelectedItemDock, RelativeSource={RelativeSource AncestorType=s:DockContainer}}" Value="Top">
                         <Setter TargetName="split" Property="Margin" Value="6,0" />
                         <Setter TargetName="split" Property="Orientation" Value="Vertical" />
-                        <Setter TargetName="split" Property="Panel1Content" Value="{Binding}" />
-                        <Setter TargetName="split" Property="Panel1Size" Value="{Binding Height, Converter={StaticResource gridLengthConverter}}" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DisplayIndex" Value="0" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DesiredSize" Value="{Binding Height, Converter={StaticResource gridLengthConverter}}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding SelectedItemDock, RelativeSource={RelativeSource AncestorType=s:DockContainer}}" Value="Right">
                         <Setter TargetName="split" Property="Margin" Value="0,6" />
                         <Setter TargetName="split" Property="Orientation" Value="Horizontal" />
-                        <Setter TargetName="split" Property="Panel2Content" Value="{Binding}" />
-                        <Setter TargetName="split" Property="Panel2Size" Value="{Binding Width, Converter={StaticResource gridLengthConverter}}" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DisplayIndex" Value="2" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DesiredSize" Value="{Binding Width, Converter={StaticResource gridLengthConverter}}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding SelectedItemDock, RelativeSource={RelativeSource AncestorType=s:DockContainer}}" Value="Bottom">
                         <Setter TargetName="split" Property="Margin" Value="6,0" />
                         <Setter TargetName="split" Property="Orientation" Value="Vertical" />
-                        <Setter TargetName="split" Property="Panel2Content" Value="{Binding}" />
-                        <Setter TargetName="split" Property="Panel2Size" Value="{Binding Height, Converter={StaticResource gridLengthConverter}}" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DisplayIndex" Value="2" />
+                        <Setter TargetName="presenter" Property="s:SplitPanel.DesiredSize" Value="{Binding Height, Converter={StaticResource gridLengthConverter}}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

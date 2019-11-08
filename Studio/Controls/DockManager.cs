@@ -196,9 +196,9 @@ namespace Studio.Controls
                 var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.DataContext ?? tab);
 
                 if (tab != null)
-                    well.DockCommand?.TryExecute(args);
+                    well.DockCommand.TryExecute(args);
                 else
-                    DockTargetButton.CurrentTargetHost?.DockCommand?.TryExecute(args);
+                    DockTargetButton.CurrentTargetHost?.DockCommand.TryExecute(args);
 
                 currentTarget.Adorner.ClearTarget();
                 currentTarget = null;
@@ -228,16 +228,22 @@ namespace Studio.Controls
                 WindowBounds = new Rect(wnd.Left, wnd.Top, wnd.Width, wnd.Height);
 
                 var container = trackedElements[wnd].OfType<DockContainer>().FirstOrDefault();
-                if (container != null)
+                if (container?.DockCommand != null)
                     DockBounds = Tuple.Create(new Rect(container.PointToScreenScaled(new Point()), container.RenderSize), container);
 
                 WellBounds = new List<Tuple<Rect, TabWellBase>>();
-                foreach (var w in trackedElements[wnd].OfType<TabWellBase>())
+                foreach (var w in trackedElements[wnd].OfType<TabWellBase>().Where(w => w.IsVisible && w.DockCommand != null))
                     WellBounds.Add(Tuple.Create(new Rect(w.PointToScreenScaled(new Point()), w.RenderSize), w));
 
                 TabBounds = new List<Tuple<Rect, TabWellItem>>();
-                foreach (var t in trackedElements[wnd].OfType<TabWellItem>().Where(t => t.ActualHeight > 0 && t.ActualWidth > 0))
-                    TabBounds.Add(Tuple.Create(new Rect(t.PointToScreenScaled(new Point()), t.RenderSize), t));
+                foreach (var g in trackedElements[wnd].OfType<TabWellItem>().Where(t => t.IsVisible && t.ActualHeight > 0 && t.ActualWidth > 0).GroupBy(t => t.FindVisualAncestor<TabWellBase>()))
+                {
+                    if (!WellBounds.Any(b => b.Item2 == g.Key))
+                        continue;
+
+                    foreach (var t in g)
+                        TabBounds.Add(Tuple.Create(new Rect(t.PointToScreenScaled(new Point()), t.RenderSize), t));
+                }
             }
         }
 
