@@ -24,7 +24,7 @@ namespace Studio.Controls
         internal FloatEventArgs(TabWellBase tabWell, TabWellItem tab, MouseEventArgs e)
         {
             Source = Window.GetWindow(tabWell);
-            DataContext = tab?.DataContext ?? tabWell.DataContext;
+            DataContext = tab?.GetContainerContext() ?? tabWell.GetContainerContext();
             MouseOffset = e.GetPosition(tabWell);
 
             if (tab != null)

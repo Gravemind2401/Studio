@@ -9,20 +9,20 @@ namespace Studio.Controls
 {
     public class DockEventArgs : EventArgs
     {
-        public Window Source { get; }
+        public Window SourceWindow { get; }
 
         public IEnumerable<object> SourceContent { get; }
 
         public DockTarget TargetDock { get; }
 
-        public object TargetIndex { get; }
+        public object TargetItem { get; }
 
         internal DockEventArgs(Window source, IEnumerable<object> sourceContent, DockTarget targetDock, object targetIndex)
         {
-            Source = source;
+            SourceWindow = source;
             SourceContent = sourceContent;
             TargetDock = targetDock;
-            TargetIndex = targetIndex;
+            TargetItem = targetIndex;
         }
     }
 }

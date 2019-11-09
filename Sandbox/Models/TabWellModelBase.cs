@@ -95,13 +95,14 @@ namespace Sandbox.Models
 
         protected virtual void DockExecuted(DockEventArgs e)
         {
-            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
-            var target = e.TargetIndex as TabModel;
+            //Reverse() to preserve tab order
+            var groups = e.SourceContent.OfType<TabWellModelBase>().Reverse().ToList();
+            var target = e.TargetItem as TabModel;
             var index = target == null || target.IsPinned ? 0 : Children.IndexOf(target);
 
             foreach (var group in groups)
             {
-                var allChildren = group.Children.ToList();
+                var allChildren = group.Children.Reverse().ToList();
                 foreach (var item in allChildren)
                 {
                     group.Children.Remove(item);
@@ -112,7 +113,7 @@ namespace Sandbox.Models
                 }
             }
 
-            e.Source.Close();
+            e.SourceWindow.Close();
             IsActive = true;
             SelectedItem = Children[index];
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Studio.Utilities
@@ -43,6 +44,12 @@ namespace Studio.Utilities
             }
 
             return default(T);
+        }
+
+        internal static object GetContainerContext(this FrameworkElement element)
+        {
+            return element.FindVisualAncestor<ItemsControl>()?.ItemContainerGenerator.ItemFromContainer(element)
+                ?? element.DataContext;
         }
 
         public static DpiScale GetDpi(this Visual visual)

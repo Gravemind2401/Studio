@@ -50,10 +50,10 @@ namespace Studio.Controls
             Height = Owner.ActualHeight;
         }
 
-        public void SetTarget(IEnumerable<TabWellItem> sourceTabs, DockContainer container, TabWellBase well, TabWellItem item)
+        public void SetTarget(TargetArgs args)
         {
             Panel.Visibility = Visibility.Visible;
-            Panel.AlignToTarget(sourceTabs, container, well, item);
+            Panel.AlignToTarget(args);
         }
 
         public void ClearTarget()

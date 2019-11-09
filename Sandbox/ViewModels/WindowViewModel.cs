@@ -161,7 +161,7 @@ namespace Sandbox.ViewModels
             newGroup.IsActive = true;
             newGroup.SelectedItem = newGroup.Children.First();
 
-            e.Source.Close();
+            e.SourceWindow.Close();
         }
 
         public void AddItem(TabModel item, ModelBase target, Dock dock)

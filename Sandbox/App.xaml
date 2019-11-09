@@ -40,7 +40,8 @@
 
             <DataTemplate x:Key="DocumentContainerTemplate" DataType="m:DocContainerModel">
                 <s:DocumentContainer ItemsSource="{Binding Children}"
-                                     Orientation="{Binding Orientation}">
+                                     Orientation="{Binding Orientation}"
+                                     DockCommand="{Binding DockCommand}">
                     <s:DocumentContainer.ItemContainerStyle>
                         <Style TargetType="s:DocumentWell" BasedOn="{StaticResource {x:Type s:DocumentWell}}">
                             <Setter Property="ItemsSource" Value="{Binding Children}" />

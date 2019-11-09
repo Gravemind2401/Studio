@@ -181,9 +181,7 @@ namespace Studio.Controls
                 return;
             }
 
-            var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-            var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-            currentTarget.Adorner.SetTarget(trackedElements[wnd].OfType<TabWellItem>(), currentTarget.DockBounds?.Item2, well, tab);
+            currentTarget.Adorner.SetTarget(GetTargetArgs(wnd, pos));
         }
 
         private static bool OnDragStop(Window wnd, Point pos)
@@ -192,8 +190,8 @@ namespace Studio.Controls
             {
                 var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
                 var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-                var sourceItems = trackedElements[wnd].OfType<TabWellBase>().Select(t => t.DataContext ?? t);
-                var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.DataContext ?? tab);
+                var sourceItems = trackedElements[wnd].OfType<TabWellBase>().Select(t => t.GetContainerContext() ?? t);
+                var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.GetContainerContext() ?? tab);
 
                 if (tab != null)
                     well.DockCommand.TryExecute(args);
@@ -209,6 +207,23 @@ namespace Studio.Controls
             return false;
         }
 
+        private static TargetArgs GetTargetArgs(Window wnd, Point pos)
+        {
+            var container = currentTarget.DockBounds?.Item2;
+            var docPanel = currentTarget.DocumentBounds?.Item1.Contains(pos) == true ? currentTarget.DocumentBounds.Item2 : null;
+            var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
+            var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
+
+            return new TargetArgs
+            {
+                DockContainer = container,
+                DocumentContainer = docPanel,
+                TabWell = well,
+                TabItem = tab,
+                SourceItems = trackedElements[wnd].OfType<TabWellItem>()
+            };
+        }
+
         #endregion
 
         //see https://stackoverflow.com/questions/4998076/getting-the-location-of-a-control-relative-to-the-entire-screen if scaling becomes an issue
@@ -218,6 +233,7 @@ namespace Studio.Controls
             public AdornerWindow Adorner { get; }
             public Rect WindowBounds { get; }
             public Tuple<Rect, DockContainer> DockBounds { get; }
+            public Tuple<Rect, DocumentContainer> DocumentBounds { get; }
             public List<Tuple<Rect, TabWellBase>> WellBounds { get; }
             public List<Tuple<Rect, TabWellItem>> TabBounds { get; }
 
@@ -230,6 +246,10 @@ namespace Studio.Controls
                 var container = trackedElements[wnd].OfType<DockContainer>().FirstOrDefault();
                 if (container?.DockCommand != null)
                     DockBounds = Tuple.Create(new Rect(container.PointToScreenScaled(new Point()), container.RenderSize), container);
+
+                var docPanel = trackedElements[wnd].OfType<DocumentContainer>().FirstOrDefault();
+                if (docPanel?.DockCommand != null)
+                    DocumentBounds = Tuple.Create(new Rect(docPanel.PointToScreenScaled(new Point()), docPanel.RenderSize), docPanel);
 
                 WellBounds = new List<Tuple<Rect, TabWellBase>>();
                 foreach (var w in trackedElements[wnd].OfType<TabWellBase>().Where(w => w.IsVisible && w.DockCommand != null))
@@ -298,5 +318,14 @@ namespace Studio.Controls
             /// </summary>
             public const int WM_EXITSIZEMOVE = 0x0232;
         }
+    }
+
+    internal class TargetArgs
+    {
+        public DockContainer DockContainer { get; set; }
+        public DocumentContainer DocumentContainer { get; set; }
+        public TabWellBase TabWell { get; set; }
+        public TabWellItem TabItem { get; set; }
+        public IEnumerable<TabWellItem> SourceItems { get; set; }
     }
 }

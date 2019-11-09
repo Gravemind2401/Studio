@@ -1,4 +1,6 @@
-﻿using Sandbox.ViewModels;
+﻿using Prism.Commands;
+using Sandbox.ViewModels;
+using Studio.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,14 +27,41 @@ namespace Sandbox.Models
             set { SetProperty(ref orientation, value); }
         }
 
+        public DelegateCommand<DockEventArgs> DockCommand { get; }
+
         public DocContainerModel()
         {
+            DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
             Subscribe(Children);
         }
 
         public DocContainerModel(DocumentWellModel initial) : this()
         {
             Children.Add(initial);
+        }
+
+        private void DockExecuted(DockEventArgs e)
+        {
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
+            var newGroup = new DocumentWellModel();
+
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    newGroup.Children.Add(item);
+                }
+            }
+
+            e.SourceWindow.Close();
+            Children.Add(newGroup);
+            newGroup.IsActive = true;
+            newGroup.SelectedItem = newGroup.Children[0];
         }
 
         private void OnCollectionChanged(ObservableCollection<DocumentWellModel> prev, ObservableCollection<DocumentWellModel> next)
