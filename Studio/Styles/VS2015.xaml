@@ -1768,6 +1768,10 @@
         </Setter>
     </Style>
 
+    <Style TargetType="c:SplitPanel">
+        <Setter Property="SplitterThickness" Value="6" />
+    </Style>
+
     <!--#region DocumentWell-->
     <Style x:Key="{x:Static c:DocumentWell.DocumentTabStyleKey}" TargetType="c:TabWellItem">
         <Style.Resources>

@@ -50,6 +50,7 @@
     <Compile Include="Controls\DockEventArgs.cs" />
     <Compile Include="Controls\DockTargetButton.cs" />
     <Compile Include="Controls\DockTargetPanel.cs" />
+    <Compile Include="Controls\DocumentContainer.cs" />
     <Compile Include="Controls\FloatEventArgs.cs" />
     <Compile Include="Controls\IDockReceiver.cs" />
     <Compile Include="Controls\SplitPanel.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Utilities\ToolTabBorderThicknessConverter.cs" />
     <Compile Include="Utilities\ToolTabMarginConverter.cs" />
     <Compile Include="Utilities\TreeViewItemMarginConverter.cs" />
+    <Compile Include="Utilities\VisibilityConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Themes\Themes.tt">

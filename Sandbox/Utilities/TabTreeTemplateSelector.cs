@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Sandbox.Models;
+using Studio.Controls;
 
 namespace Sandbox.Utilities
 {
@@ -20,7 +21,7 @@ namespace Sandbox.Utilities
             var tabGroupModel = item as TabGroupModel;
             if (tabGroupModel != null)
             {
-                var key = tabGroupModel.GroupType == TabUsage.Document
+                var key = tabGroupModel.GroupType == TabItemType.Document
                     ? "DocumentGroupTemplate"
                     : "ToolGroupTemplate";
 

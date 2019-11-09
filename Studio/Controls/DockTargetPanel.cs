@@ -19,6 +19,7 @@ namespace Studio.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTargetPanel), new FrameworkPropertyMetadata(typeof(DockTargetPanel)));
         }
 
+        #region Dependency Properties
         private static readonly DependencyPropertyKey DockHostPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(DockHost), typeof(DockContainer), typeof(DockTargetPanel), new PropertyMetadata((DockContainer)null));
 
@@ -37,8 +38,20 @@ namespace Studio.Controls
         private static readonly DependencyPropertyKey CanDockTargetPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(CanDockTarget), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
 
-        private static readonly DependencyPropertyKey CanSplitTargetPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(CanSplitTarget), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
+        private static readonly DependencyPropertyKey CanSplitLeftPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CanSplitLeft), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
+
+        private static readonly DependencyPropertyKey CanSplitTopPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CanSplitTop), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
+
+        private static readonly DependencyPropertyKey CanSplitRightPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CanSplitRight), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
+
+        private static readonly DependencyPropertyKey CanSplitBottomPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CanSplitBottom), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
+
+        private static readonly DependencyPropertyKey CanDropCenterPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CanDropCenter), typeof(bool), typeof(DockTargetPanel), new PropertyMetadata(false));
 
         private static readonly DependencyPropertyKey HighlightPathPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HighlightPath), typeof(Geometry), typeof(DockTargetPanel), new PropertyMetadata(Geometry.Empty));
@@ -52,7 +65,11 @@ namespace Studio.Controls
         public static readonly DependencyProperty TargetAreaProperty = TargetAreaPropertyKey.DependencyProperty;
         public static readonly DependencyProperty CanDockOuterProperty = CanDockOuterPropertyKey.DependencyProperty;
         public static readonly DependencyProperty CanDockTargetProperty = CanDockTargetPropertyKey.DependencyProperty;
-        public static readonly DependencyProperty CanSplitTargetProperty = CanSplitTargetPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CanSplitLeftProperty = CanSplitLeftPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CanSplitTopProperty = CanSplitTopPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CanSplitRightProperty = CanSplitRightPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CanSplitBottomProperty = CanSplitBottomPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CanDropCenterProperty = CanDropCenterPropertyKey.DependencyProperty;
         public static readonly DependencyProperty HighlightPathProperty = HighlightPathPropertyKey.DependencyProperty;
 
         public DockContainer DockHost
@@ -91,10 +108,34 @@ namespace Studio.Controls
             private set { SetValue(CanDockTargetPropertyKey, value); }
         }
 
-        public bool CanSplitTarget
+        public bool CanSplitLeft
         {
-            get { return (bool)GetValue(CanSplitTargetProperty); }
-            private set { SetValue(CanSplitTargetPropertyKey, value); }
+            get { return (bool)GetValue(CanSplitLeftProperty); }
+            private set { SetValue(CanSplitLeftPropertyKey, value); }
+        }
+
+        public bool CanSplitTop
+        {
+            get { return (bool)GetValue(CanSplitTopProperty); }
+            private set { SetValue(CanSplitTopPropertyKey, value); }
+        }
+
+        public bool CanSplitRight
+        {
+            get { return (bool)GetValue(CanSplitRightProperty); }
+            private set { SetValue(CanSplitRightPropertyKey, value); }
+        }
+
+        public bool CanSplitBottom
+        {
+            get { return (bool)GetValue(CanSplitBottomProperty); }
+            private set { SetValue(CanSplitBottomPropertyKey, value); }
+        }
+
+        public bool CanDropCenter
+        {
+            get { return (bool)GetValue(CanDropCenterProperty); }
+            private set { SetValue(CanDropCenterPropertyKey, value); }
         }
 
         public Geometry HighlightPath
@@ -107,6 +148,17 @@ namespace Studio.Controls
         {
             get { return (Style)GetValue(HighlightStyleProperty); }
             set { SetValue(HighlightStyleProperty, value); }
+        }
+        #endregion
+
+        private bool CanSplitVertical
+        {
+            set { CanSplitTop = CanSplitBottom = value; }
+        }
+
+        private bool CanSplitHorizontal
+        {
+            set { CanSplitLeft = CanSplitRight = value; }
         }
 
         internal void AlignToTarget(IEnumerable<TabWellItem> sourceTabs, DockContainer container, TabWellBase well, TabWellItem item)
@@ -141,8 +193,21 @@ namespace Studio.Controls
 
             var isAllTools = sourceTabs.All(i => i.ItemType == TabItemType.Tool);
             CanDockOuter = isAllTools;
-            CanDockTarget = well is DocumentWell && isAllTools;
-            CanSplitTarget = well is DocumentWell || isAllTools;
+
+            if (well is DocumentWell)
+            {
+                CanDropCenter = true;
+                CanDockTarget = isAllTools;
+
+                var panel = well.Parent as DocumentContainer;
+                CanSplitHorizontal = panel?.Orientation == Orientation.Horizontal || panel?.Items.Count <= 1;
+                CanSplitVertical = panel?.Orientation == Orientation.Vertical || panel?.Items.Count <= 1;
+            }
+            else
+            {
+                CanDockTarget = false;
+                CanSplitHorizontal = CanSplitVertical = CanDropCenter = isAllTools;
+            }
 
             DockTargetButton.UpdateCursor();
             UpdateHighlightPath(sourceTabs, item);
@@ -163,7 +228,7 @@ namespace Studio.Controls
                 HighlightPath = Geometry.Empty;
                 return;
             }
-            else if (CanSplitTarget) //mouse over center or specific tab
+            else if (CanDropCenter) //mouse over center or specific tab
             {
                 var first = TargetHost.FirstContainer;
                 if (item == null) item = first;

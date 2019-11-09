@@ -20,8 +20,7 @@
                 <ItemsControl ItemsSource="{Binding Items}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <s:SplitPanel Orientation="{Binding Orientation}"
-                                          SplitterThickness="6" />
+                            <s:SplitPanel Orientation="{Binding Orientation}" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>

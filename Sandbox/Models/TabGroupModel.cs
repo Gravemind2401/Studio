@@ -22,8 +22,8 @@ namespace Sandbox.Models
             set { SetProperty(ref children, value, OnCollectionChanged); }
         }
 
-        private readonly TabUsage groupType;
-        public TabUsage GroupType => groupType;
+        private readonly TabItemType groupType;
+        public TabItemType GroupType => groupType;
 
         private bool isActive;
         public bool IsActive
@@ -73,7 +73,7 @@ namespace Sandbox.Models
         public DelegateCommand<FloatEventArgs> FloatTabCommand { get; }
         public DelegateCommand<DockEventArgs> DockCommand { get; }
 
-        public TabGroupModel(TabUsage groupType)
+        public TabGroupModel(TabItemType groupType)
         {
             this.groupType = groupType;
 
@@ -96,7 +96,7 @@ namespace Sandbox.Models
 
         private void TogglePinStatusExecuted(TabModel item)
         {
-            if (GroupType == TabUsage.Document)
+            if (GroupType == TabItemType.Document)
                 item.IsPinned = !item.IsPinned;
             else
             {
@@ -129,9 +129,9 @@ namespace Sandbox.Models
             Children.Remove(item);
             Window wnd;
 
-            if (GroupType == TabUsage.Tool)
+            if (GroupType == TabItemType.Tool)
             {
-                var group = new TabGroupModel(TabUsage.Tool) { IsWindow = true };
+                var group = new TabGroupModel(TabItemType.Tool) { IsWindow = true };
                 group.Children.Add(item);
 
                 wnd = new ToolWindow
@@ -146,7 +146,7 @@ namespace Sandbox.Models
             else
             {
                 var model = new WindowViewModel { IsRafted = true };
-                var group = new TabGroupModel(TabUsage.Document);
+                var group = new TabGroupModel(TabItemType.Document);
                 group.Children.Add(item);
                 model.Content = group;
 
@@ -237,7 +237,7 @@ namespace Sandbox.Models
                     tool.Parent = this;
             }
 
-            if (GroupType == TabUsage.Tool && Children.Count == 0)
+            if (GroupType == TabItemType.Tool && Children.Count == 0)
                 Remove();
         }
 

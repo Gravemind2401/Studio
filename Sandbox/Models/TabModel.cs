@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using Studio.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,6 @@ using System.Windows;
 
 namespace Sandbox.Models
 {
-    public enum TabUsage
-    {
-        Document,
-        Tool
-    }
-
     public class TabModel : BindableBase
     {
         private ModelBase parent;
@@ -23,8 +18,8 @@ namespace Sandbox.Models
             set { SetProperty(ref parent, value); }
         }
 
-        private TabUsage usage;
-        public TabUsage Usage
+        private TabItemType usage;
+        public TabItemType Usage
         {
             get { return usage; }
             set { SetProperty(ref usage, value); }

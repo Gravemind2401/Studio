@@ -137,6 +137,9 @@
     </Style>
 
     <Style TargetType="c:DockTargetPanel">
+        <Style.Resources>
+            <u:VisibilityConverter x:Key="visConverter" FalseValue="Hidden" />
+        </Style.Resources>
         <Setter Property="HighlightStyle">
             <Setter.Value>
                 <Style TargetType="Path">
@@ -198,7 +201,7 @@
                                 <c:DockTargetButton TargetDock="DockBottom" Grid.Column="2" Grid.Row="4"
                                                     TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"  />
                             </Grid>
-                            <Grid x:Name="splitPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="c1" />
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="c2" />
@@ -210,15 +213,20 @@
                                     <RowDefinition Height="Auto" SharedSizeGroup="r3" />
                                 </Grid.RowDefinitions>
                                 <c:DockTargetButton TargetDock="SplitLeft" Grid.Column="0" Grid.Row="1"
-                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Visibility="{Binding CanSplitLeft, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource visConverter}}" />
                                 <c:DockTargetButton TargetDock="SplitTop" Grid.Column="1" Grid.Row="0"
-                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Visibility="{Binding CanSplitTop, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource visConverter}}" />
                                 <c:DockTargetButton TargetDock="SplitRight" Grid.Column="2" Grid.Row="1"
-                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Visibility="{Binding CanSplitRight, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource visConverter}}" />
                                 <c:DockTargetButton TargetDock="SplitBottom" Grid.Column="1" Grid.Row="2"
-                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Visibility="{Binding CanSplitBottom, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource visConverter}}" />
                                 <c:DockTargetButton TargetDock="Center" Grid.Column="1" Grid.Row="1"
-                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    TargetHost="{Binding TargetHost, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Visibility="{Binding CanDropCenter, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource visConverter}}" />
                             </Grid>
                         </Grid>
                         <Path Style="{Binding HighlightStyle, RelativeSource={RelativeSource TemplatedParent}}"
@@ -240,9 +248,6 @@
                         </Trigger>
                         <Trigger Property="CanDockTarget" Value="False">
                             <Setter TargetName="innerDock" Property="Visibility" Value="Collapsed" />
-                        </Trigger>
-                        <Trigger Property="CanSplitTarget" Value="False">
-                            <Setter TargetName="splitPanel" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -273,6 +278,16 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}" />
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="c:DocumentContainer">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <c:SplitPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=c:DocumentContainer}}" />
+                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>

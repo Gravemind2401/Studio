@@ -1,6 +1,7 @@
 ﻿using Sandbox.Controls;
 using Sandbox.Models;
 using Sandbox.ViewModels;
+using Studio.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,7 @@ namespace Sandbox
                 Content = new SplitViewModel()
             };
 
-            var item1 = new TabGroupModel(TabUsage.Document) { IsActive = true };
+            var item1 = new TabGroupModel(TabItemType.Document) { IsActive = true };
             for (int i = 0; i < 5; i++)
             {
                 item1.Children.Add(new TabModel
@@ -97,7 +98,7 @@ namespace Sandbox
 
         private TabGroupModel GenerateToolGroup(Dock dock)
         {
-            var item = new TabGroupModel(TabUsage.Tool) { Dock = dock };
+            var item = new TabGroupModel(TabItemType.Tool) { Dock = dock };
             for (int i = 0; i < 3; i++)
             {
                 item.Children.Add(new TabModel

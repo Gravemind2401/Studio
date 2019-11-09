@@ -104,6 +104,9 @@ namespace Studio.Controls
         public static object CoerceIsTargeted(DependencyObject d, object baseValue)
         {
             var btn = d as DockTargetButton;
+            if (btn.Visibility != Visibility.Visible)
+                return false;
+
             var pos = btn.PointFromScreen(NativeMethods.GetMousePosition());
             return new Rect(new Point(), btn.RenderSize).Contains(pos);
         }
