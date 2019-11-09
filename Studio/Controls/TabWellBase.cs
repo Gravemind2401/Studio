@@ -21,6 +21,9 @@ namespace Studio.Controls
         public static readonly DependencyProperty FloatTabCommandProperty =
             DependencyProperty.Register(nameof(FloatTabCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
 
+        public static readonly DependencyProperty FloatAllCommandProperty =
+            DependencyProperty.Register(nameof(FloatAllCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
+
         public static readonly DependencyProperty DockCommandProperty =
             DependencyProperty.Register(nameof(DockCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
 
@@ -28,6 +31,12 @@ namespace Studio.Controls
         {
             get { return (ICommand)GetValue(FloatTabCommandProperty); }
             set { SetValue(FloatTabCommandProperty, value); }
+        }
+
+        public ICommand FloatAllCommand
+        {
+            get { return (ICommand)GetValue(FloatAllCommandProperty); }
+            set { SetValue(FloatAllCommandProperty, value); }
         }
 
         public ICommand DockCommand

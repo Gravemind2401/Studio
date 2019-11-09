@@ -74,6 +74,31 @@ namespace Sandbox.Models
             }
         }
 
+        protected override void FloatAllExecuted(FloatEventArgs e)
+        {
+            var host = ParentViewModel.Host;
+
+            Remove();
+            IsWindow = true;
+
+            var wnd = new ToolWindow
+            {
+                Content = this,
+                Left = e.VisualBounds.X,
+                Top = e.VisualBounds.Y,
+                Width = e.VisualBounds.Width,
+                Height = e.VisualBounds.Height
+            };
+
+            if (!AllTabs.Any())
+                ShowOnClose(host, wnd);
+            else
+            {
+                wnd.Show();
+                wnd.DragMove();
+            }
+        }
+
         protected override void OnChildrenChanged()
         {
             if (Children.Count == 0)

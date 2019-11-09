@@ -71,14 +71,12 @@ namespace Sandbox.ViewModels
 
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
-        public DelegateCommand<FloatEventArgs> FloatGroupCommand { get; }
         public DelegateCommand<DockEventArgs> DockCommand { get; }
 
         public WindowViewModel()
         {
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
-            FloatGroupCommand = new DelegateCommand<FloatEventArgs>(FloatGroupExecuted);
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
 
             LeftDockItems = new ObservableCollection<TabModel>();
@@ -117,30 +115,6 @@ namespace Sandbox.ViewModels
             {
                 BottomDockItems.Remove(item);
                 AddItem(item, null, Dock.Bottom);
-            }
-        }
-
-        private void FloatGroupExecuted(FloatEventArgs e)
-        {
-            var group = e.DataContext as ToolWellModel;
-            group.Remove();
-            group.IsWindow = true;
-
-            var wnd = new ToolWindow
-            {
-                Content = group,
-                Left = e.VisualBounds.X,
-                Top = e.VisualBounds.Y,
-                Width = e.VisualBounds.Width,
-                Height = e.VisualBounds.Height
-            };
-
-            if (!AllTabs.Any())
-                ShowOnClose(Host, wnd);
-            else
-            {
-                wnd.Show();
-                wnd.DragMove();
             }
         }
 

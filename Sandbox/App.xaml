@@ -80,7 +80,7 @@
                             CloseCommand="{Binding CloseTabCommand}"
                             TogglePinStatusCommand="{Binding TogglePinStatusCommand}"
                             FloatTabCommand="{Binding FloatTabCommand}"
-                            FloatCommand="{Binding ParentViewModel.FloatGroupCommand}"
+                            FloatAllCommand="{Binding FloatAllCommand}"
                             DockCommand="{Binding DockCommand}">
                     <su:ProxyBinding.ProxyBindings>
                         <su:ProxyBindingCollection>

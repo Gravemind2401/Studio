@@ -28,9 +28,6 @@ namespace Studio.Controls
         public static readonly DependencyProperty CloseCommandProperty =
             DependencyProperty.Register(nameof(CloseCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata(Commands.CloseToolCommand));
 
-        public static readonly DependencyProperty FloatCommandProperty =
-            DependencyProperty.Register(nameof(FloatCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata((ICommand)null));
-
         public static readonly DependencyProperty CaptionProperty =
             DependencyProperty.Register(nameof(Caption), typeof(object), typeof(ToolWell), new PropertyMetadata((object)null));
 
@@ -47,12 +44,6 @@ namespace Studio.Controls
         {
             get { return (ICommand)GetValue(CloseCommandProperty); }
             set { SetValue(CloseCommandProperty, value); }
-        }
-
-        public ICommand FloatCommand
-        {
-            get { return (ICommand)GetValue(FloatCommandProperty); }
-            set { SetValue(FloatCommandProperty, value); }
         }
 
         public object Caption
@@ -137,7 +128,7 @@ namespace Studio.Controls
             {
                 var args = new FloatEventArgs(this, null, e);
                 titleBar.ReleaseMouseCapture();
-                FloatCommand?.TryExecute(args);
+                FloatAllCommand?.TryExecute(args);
             }
         }
     }

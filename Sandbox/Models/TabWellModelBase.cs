@@ -50,6 +50,7 @@ namespace Sandbox.Models
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
         public DelegateCommand<FloatEventArgs> FloatTabCommand { get; }
+        public DelegateCommand<FloatEventArgs> FloatAllCommand { get; }
         public DelegateCommand<DockEventArgs> DockCommand { get; }
 
         public TabWellModelBase()
@@ -58,6 +59,7 @@ namespace Sandbox.Models
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             SelectItemCommand = new DelegateCommand<TabModel>(SelectItemExecuted);
             FloatTabCommand = new DelegateCommand<FloatEventArgs>(FloatTabExecuted);
+            FloatAllCommand = new DelegateCommand<FloatEventArgs>(FloatAllExecuted);
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
             Subscribe(children);
         }
@@ -82,6 +84,11 @@ namespace Sandbox.Models
         }
 
         protected virtual void FloatTabExecuted(FloatEventArgs e)
+        {
+
+        }
+
+        protected virtual void FloatAllExecuted(FloatEventArgs e)
         {
 
         }
