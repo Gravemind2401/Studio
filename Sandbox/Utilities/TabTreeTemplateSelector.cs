@@ -17,18 +17,12 @@ namespace Sandbox.Utilities
             var element = container as FrameworkElement;
             if (item is SplitViewModel)
                 return element.FindResource("SplitPaneTemplate") as DataTemplate;
-
-            var tabGroupModel = item as TabGroupModel;
-            if (tabGroupModel != null)
-            {
-                var key = tabGroupModel.GroupType == TabItemType.Document
-                    ? "DocumentGroupTemplate"
-                    : "ToolGroupTemplate";
-
-                return element.FindResource(key) as DataTemplate;
-            }
-
-            return base.SelectTemplate(item, container);
+            else if (item is DocContainerModel)
+                return element.FindResource("DocumentContainerTemplate") as DataTemplate;
+            else if (item is ToolWellModel)
+                return element.FindResource("ToolGroupTemplate") as DataTemplate;
+            else
+                return base.SelectTemplate(item, container);
         }
     }
 }

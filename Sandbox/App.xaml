@@ -32,36 +32,47 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ContentPresenter Content="{Binding Content}"
-                                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}"/>
+                                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </DataTemplate>
-            
-            <DataTemplate x:Key="DocumentGroupTemplate" DataType="m:TabGroupModel">
-                <s:DocumentWell ItemsSource="{Binding Children}"
-                                s:DockManager.IsActive="{Binding IsActive}"
-                                SelectedItem="{Binding SelectedItem}"
-                                OverflowItemSelectedCommand="{Binding SelectItemCommand}"
-                                FloatTabCommand="{Binding FloatTabCommand}"
-                                DockCommand="{Binding DockCommand}">
-                    <TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <ContentPresenter Content="{Binding Content}" />
-                        </DataTemplate>
-                    </TabControl.ContentTemplate>
-                    <TabControl.ItemContainerStyle>
-                        <Style TargetType="s:TabWellItem" BasedOn="{StaticResource {x:Static s:DocumentWell.DocumentTabStyleKey}}">
-                            <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
-                            <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
-                            <Setter Property="Header" Value="{Binding Header}" />
-                            <Setter Property="s:DockManager.IsPinned" Value="{Binding IsPinned}" />
+
+            <DataTemplate x:Key="DocumentContainerTemplate" DataType="m:DocContainerModel">
+                <s:DocumentContainer ItemsSource="{Binding Children}"
+                                     Orientation="{Binding Orientation}">
+                    <s:DocumentContainer.ItemContainerStyle>
+                        <Style TargetType="s:DocumentWell" BasedOn="{StaticResource {x:Type s:DocumentWell}}">
+                            <Setter Property="ItemsSource" Value="{Binding Children}" />
+                            <Setter Property="s:DockManager.IsActive" Value="{Binding IsActive}" />
+                            <Setter Property="SelectedItem" Value="{Binding SelectedItem}" />
+                            <Setter Property="OverflowItemSelectedCommand" Value="{Binding SelectItemCommand}" />
+                            <Setter Property="FloatTabCommand" Value="{Binding FloatTabCommand}" />
+                            <Setter Property="DockCommand" Value="{Binding DockCommand}" />
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <ContentPresenter Content="{Binding Content}" />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ItemContainerStyle">
+                                <Setter.Value>
+                                    <Style TargetType="s:TabWellItem" BasedOn="{StaticResource {x:Static s:DocumentWell.DocumentTabStyleKey}}">
+                                        <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
+                                        <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
+                                        <Setter Property="Header" Value="{Binding Header}" />
+                                        <Setter Property="s:DockManager.IsPinned" Value="{Binding IsPinned}" />
+                                        <Setter Property="ItemType" Value="{Binding Usage}" />
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
-                    </TabControl.ItemContainerStyle>
-                </s:DocumentWell>
+                    </s:DocumentContainer.ItemContainerStyle>
+                </s:DocumentContainer>
             </DataTemplate>
 
-            <DataTemplate x:Key="ToolGroupTemplate" DataType="m:TabGroupModel">
+            <DataTemplate x:Key="ToolGroupTemplate" DataType="m:ToolWellModel">
                 <s:ToolWell x:Name="toolWell" ItemsSource="{Binding Children}"
                             s:DockManager.IsActive="{Binding IsActive}"
                             SelectedItem="{Binding SelectedItem}"
@@ -89,6 +100,7 @@
                             <Setter Property="CloseCommand" Value="{Binding Parent.CloseTabCommand}" />
                             <Setter Property="TogglePinStatusCommand" Value="{Binding Parent.TogglePinStatusCommand}" />
                             <Setter Property="Header" Value="{Binding Header}" />
+                            <Setter Property="ItemType" Value="{Binding Usage}" />
                         </Style>
                     </TabControl.ItemContainerStyle>
                 </s:ToolWell>

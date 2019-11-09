@@ -17,7 +17,7 @@ namespace Studio.Controls
         }
 
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(SplitPanel), new PropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DocumentContainer), new PropertyMetadata(Orientation.Horizontal));
 
         public Orientation Orientation
         {

@@ -1,6 +1,4 @@
 ﻿using Prism.Commands;
-using Sandbox.Controls;
-using Sandbox.ViewModels;
 using Studio.Controls;
 using System;
 using System.Collections.Generic;
@@ -8,12 +6,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace Sandbox.Models
 {
-    public class TabGroupModel : ModelBase
+    public abstract class TabWellModelBase : ModelBase
     {
         private ObservableCollection<TabModel> children = new ObservableCollection<TabModel>();
         public ObservableCollection<TabModel> Children
@@ -22,21 +18,11 @@ namespace Sandbox.Models
             set { SetProperty(ref children, value, OnCollectionChanged); }
         }
 
-        private readonly TabItemType groupType;
-        public TabItemType GroupType => groupType;
-
         private bool isActive;
         public bool IsActive
         {
             get { return isActive; }
             set { SetProperty(ref isActive, value); }
-        }
-
-        private bool isWindow;
-        public bool IsWindow
-        {
-            get { return isWindow; }
-            internal set { SetProperty(ref isWindow, value); }
         }
 
         private TabModel selectedItem;
@@ -60,23 +46,14 @@ namespace Sandbox.Models
             set { SetProperty(ref height, value, UpdateChildrenHeight); }
         }
 
-        private Dock dock;
-        public Dock Dock
-        {
-            get { return dock; }
-            internal set { SetProperty(ref dock, value); }
-        }
-
         public DelegateCommand<TabModel> CloseTabCommand { get; }
         public DelegateCommand<TabModel> TogglePinStatusCommand { get; }
         public DelegateCommand<TabModel> SelectItemCommand { get; }
         public DelegateCommand<FloatEventArgs> FloatTabCommand { get; }
         public DelegateCommand<DockEventArgs> DockCommand { get; }
 
-        public TabGroupModel(TabItemType groupType)
+        public TabWellModelBase()
         {
-            this.groupType = groupType;
-
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             SelectItemCommand = new DelegateCommand<TabModel>(SelectItemExecuted);
@@ -85,7 +62,7 @@ namespace Sandbox.Models
             Subscribe(children);
         }
 
-        private void CloseTabExecuted(TabModel item)
+        protected virtual void CloseTabExecuted(TabModel item)
         {
             var parent = ParentViewModel;
             Children.Remove(item ?? SelectedItem);
@@ -94,86 +71,24 @@ namespace Sandbox.Models
                 parent.Host.Close();
         }
 
-        private void TogglePinStatusExecuted(TabModel item)
+        protected virtual void TogglePinStatusExecuted(TabModel item)
         {
-            if (GroupType == TabItemType.Document)
-                item.IsPinned = !item.IsPinned;
-            else
-            {
-                var temp = ParentViewModel;
-                foreach (var c in Children.ToList())
-                {
-                    children.Remove(c);
-                    c.IsActive = true;
 
-                    if (Dock == Dock.Left)
-                        temp.LeftDockItems.Add(c);
-                    else if (Dock == Dock.Top)
-                        temp.TopDockItems.Add(c);
-                    else if (Dock == Dock.Right)
-                        temp.RightDockItems.Add(c);
-                    else if (Dock == Dock.Bottom)
-                        temp.BottomDockItems.Add(c);
-                }
-            }
         }
 
-        private void SelectItemExecuted(TabModel item)
+        protected virtual void SelectItemExecuted(TabModel item)
         {
             SelectedItem = item;
         }
 
-        private void FloatTabExecuted(FloatEventArgs e)
+        protected virtual void FloatTabExecuted(FloatEventArgs e)
         {
-            var item = e.DataContext as TabModel;
-            Children.Remove(item);
-            Window wnd;
 
-            if (GroupType == TabItemType.Tool)
-            {
-                var group = new TabGroupModel(TabItemType.Tool) { IsWindow = true };
-                group.Children.Add(item);
-
-                wnd = new ToolWindow
-                {
-                    Content = group,
-                    Left = e.VisualBounds.X,
-                    Top = e.VisualBounds.Y,
-                    Width = e.VisualBounds.Width,
-                    Height = e.VisualBounds.Height
-                };
-            }
-            else
-            {
-                var model = new WindowViewModel { IsRafted = true };
-                var group = new TabGroupModel(TabItemType.Document);
-                group.Children.Add(item);
-                model.Content = group;
-
-                wnd = new RaftedWindow
-                {
-                    Model = model,
-                    Left = e.VisualBounds.X,
-                    Top = e.VisualBounds.Y,
-                    Width = e.VisualBounds.Width,
-                    Height = e.VisualBounds.Height
-                };
-
-                model.Host = wnd;
-            }
-
-            if (ParentViewModel != null && ParentViewModel.IsRafted && !ParentViewModel.AllTabs.Any())
-                ShowOnClose(ParentViewModel.Host, wnd);
-            else
-            {
-                wnd.Show();
-                wnd.DragMove();
-            }
         }
 
-        private void DockExecuted(DockEventArgs e)
+        protected virtual void DockExecuted(DockEventArgs e)
         {
-            var groups = e.SourceContent.OfType<TabGroupModel>().ToList();
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
             var target = e.TargetIndex as TabModel;
             var index = target == null || target.IsPinned ? 0 : Children.IndexOf(target);
 
@@ -206,8 +121,8 @@ namespace Sandbox.Models
             if (collection == null)
                 return;
 
-            foreach (var tool in collection)
-                tool.Parent = null;
+            foreach (var tab in collection)
+                tab.Parent = null;
 
             collection.CollectionChanged -= Children_CollectionChanged;
         }
@@ -217,8 +132,8 @@ namespace Sandbox.Models
             if (collection == null)
                 return;
 
-            foreach (var tool in collection)
-                tool.Parent = this;
+            foreach (var tab in collection)
+                tab.Parent = this;
 
             collection.CollectionChanged += Children_CollectionChanged;
         }
@@ -227,26 +142,22 @@ namespace Sandbox.Models
         {
             if (e.OldItems != null)
             {
-                foreach (var tool in e.OldItems.OfType<TabModel>())
-                    tool.Parent = null;
+                foreach (var tab in e.OldItems.OfType<TabModel>())
+                    tab.Parent = null;
             }
 
             if (e.NewItems != null)
             {
-                foreach (var tool in e.NewItems.OfType<TabModel>())
-                    tool.Parent = this;
+                foreach (var tab in e.NewItems.OfType<TabModel>())
+                    tab.Parent = this;
             }
 
-            if (GroupType == TabItemType.Tool && Children.Count == 0)
-                Remove();
+            OnChildrenChanged();
         }
 
-        public void Remove()
+        protected virtual void OnChildrenChanged()
         {
-            if (ParentModel != null)
-                ParentModel.Remove(this);
-            else if (ParentViewModel != null)
-                ParentViewModel.Content = null;
+
         }
 
         private void UpdateChildrenWidth()

@@ -122,7 +122,7 @@ namespace Sandbox.ViewModels
 
         private void FloatGroupExecuted(FloatEventArgs e)
         {
-            var group = e.DataContext as TabGroupModel;
+            var group = e.DataContext as ToolWellModel;
             group.Remove();
             group.IsWindow = true;
 
@@ -146,8 +146,8 @@ namespace Sandbox.ViewModels
 
         private void DockExecuted(DockEventArgs e)
         {
-            var groups = e.SourceContent.OfType<TabGroupModel>().ToList();
-            var newGroup = new TabGroupModel(TabItemType.Tool) { Dock = (Dock)((int)e.TargetDock - 5) };
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
+            var newGroup = new ToolWellModel() { Dock = (Dock)((int)e.TargetDock - 5) };
 
             foreach (var group in groups)
             {
@@ -194,7 +194,7 @@ namespace Sandbox.ViewModels
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
-            var group = new TabGroupModel(TabItemType.Tool) { Width = item.Width, Height = item.Height };
+            var group = new ToolWellModel() { Width = item.Width, Height = item.Height };
             group.Children.Add(item);
 
             var container = new SplitViewModel(dock, group);

@@ -71,10 +71,10 @@ namespace Sandbox
                 Content = new SplitViewModel()
             };
 
-            var item1 = new TabGroupModel(TabItemType.Document) { IsActive = true };
+            var item1 = new DocContainerModel(new DocumentWellModel() { IsActive = true });
             for (int i = 0; i < 5; i++)
             {
-                item1.Children.Add(new TabModel
+                item1.Children[0].Children.Add(new TabModel
                 {
                     Header = $"Tab Item {i}",
                     Content = new DocumentControl()
@@ -96,9 +96,9 @@ namespace Sandbox
             Model = model;
         }
 
-        private TabGroupModel GenerateToolGroup(Dock dock)
+        private ToolWellModel GenerateToolGroup(Dock dock)
         {
-            var item = new TabGroupModel(TabItemType.Tool) { Dock = dock };
+            var item = new ToolWellModel() { Dock = dock };
             for (int i = 0; i < 3; i++)
             {
                 item.Children.Add(new TabModel

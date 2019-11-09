@@ -33,7 +33,7 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.53.761")]
-[assembly: AssemblyFileVersion("1.0.53.761")]
+[assembly: AssemblyVersion("1.0.54.770")]
+[assembly: AssemblyFileVersion("1.0.54.770")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]

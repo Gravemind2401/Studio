@@ -282,7 +282,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="c:DocumentContainer">
+    <Style TargetType="c:DocumentContainer" BasedOn="{StaticResource {x:Type ItemsControl}}">
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>

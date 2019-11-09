@@ -96,7 +96,10 @@
     <Compile Include="Controls\ToolWindow.xaml.cs">
       <DependentUpon>ToolWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocContainerModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\DocumentWellModel.cs" />
+    <Compile Include="Models\TabWellModelBase.cs" />
     <Compile Include="Utilities\GridLengthConverter.cs" />
     <Compile Include="Utilities\TabTreeTemplateSelector.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -132,7 +135,7 @@
   <ItemGroup>
     <Compile Include="Models\SplitViewModel.cs" />
     <Compile Include="Models\TabModel.cs" />
-    <Compile Include="Models\TabGroupModel.cs" />
+    <Compile Include="Models\ToolWellModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

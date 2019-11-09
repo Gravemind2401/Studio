@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -199,7 +200,7 @@ namespace Studio.Controls
                 CanDropCenter = true;
                 CanDockTarget = isAllTools;
 
-                var panel = well.Parent as DocumentContainer;
+                var panel = well.FindVisualAncestor<DocumentContainer>();
                 CanSplitHorizontal = panel?.Orientation == Orientation.Horizontal || panel?.Items.Count <= 1;
                 CanSplitVertical = panel?.Orientation == Orientation.Vertical || panel?.Items.Count <= 1;
             }

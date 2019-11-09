@@ -85,7 +85,7 @@ namespace Sandbox.Models
             Items = new ObservableCollection<ItemWrapper>();
         }
 
-        public SplitViewModel(Dock dock, TabGroupModel content) : this()
+        public SplitViewModel(Dock dock, TabWellModelBase content) : this()
         {
             Orientation = dock == Dock.Left || dock == Dock.Right ? Orientation.Horizontal : Orientation.Vertical;
 
