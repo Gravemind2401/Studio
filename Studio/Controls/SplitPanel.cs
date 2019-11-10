@@ -13,7 +13,7 @@ namespace Studio.Controls
     {
         #region Attached Dependency Properties
         public static readonly DependencyProperty DesiredSizeProperty =
-            DependencyProperty.RegisterAttached("DesiredSize", typeof(GridLength), typeof(SplitPanel), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            DependencyProperty.RegisterAttached("DesiredSize", typeof(GridLength), typeof(SplitPanel), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static GridLength GetDesiredSize(DependencyObject obj)
         {
@@ -163,6 +163,7 @@ namespace Studio.Controls
                 else //desired.IsStar
                     actual = (desired.Value / totalStar) * allocatedStar;
 
+                actual = Math.Max(0, actual);
                 var childSize = Orientation == Orientation.Horizontal
                     ? new Size(actual, availableSize.Height)
                     : new Size(availableSize.Width, actual);

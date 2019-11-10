@@ -26,6 +26,20 @@ namespace Sandbox.Models
             private set { SetProperty(ref parentViewModel, value); }
         }
 
+        private GridLength panelSize = new GridLength(1, GridUnitType.Star);
+        public GridLength PanelSize
+        {
+            get { return panelSize; }
+            set { SetProperty(ref panelSize, value); }
+        }
+
+        private double minPanelSize = 65d;
+        public double MinPanelSize
+        {
+            get { return minPanelSize; }
+            set { SetProperty(ref minPanelSize, value); }
+        }
+
         protected bool SetProperty<T>(ref T storage, T value, Action<T, T> onChanged, [CallerMemberName]string propertyName = null)
         {
             var prev = storage;

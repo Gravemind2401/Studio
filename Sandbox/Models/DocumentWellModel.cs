@@ -62,11 +62,11 @@ namespace Sandbox.Models
             if (e.TargetDock == DockTarget.Center)
                 base.DockExecuted(e);
             else if (e.TargetDock == DockTarget.SplitLeft || e.TargetDock == DockTarget.SplitTop || e.TargetDock == DockTarget.SplitRight || e.TargetDock == DockTarget.SplitBottom)
-                SplitDock(e);
+                InnerDock(e);
             else OuterDock(e);
         }
 
-        private void SplitDock(DockEventArgs e)
+        private void InnerDock(DockEventArgs e)
         {
             var index = Parent.Children.IndexOf(this);
 
@@ -95,6 +95,9 @@ namespace Sandbox.Models
 
             Parent.Orientation = orientation;
             Parent.Children.Insert(index, newGroup);
+
+            foreach (var child in Parent.Children)
+                child.PanelSize = new GridLength(1, GridUnitType.Star);
 
             e.SourceWindow.Close();
         }

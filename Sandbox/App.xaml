@@ -18,7 +18,7 @@
             <u:TabTreeTemplateSelector x:Key="tabTreeTemplateSelector" />
 
             <DataTemplate x:Key="SplitPaneTemplate" DataType="m:SplitViewModel">
-                <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl ItemsSource="{Binding Items}" ItemTemplateSelector="{StaticResource tabTreeTemplateSelector}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <s:SplitPanel Orientation="{Binding Orientation}" />
@@ -26,16 +26,10 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemContainerStyle>
                         <Style>
-                            <Setter Property="s:SplitPanel.MinSize" Value="65" />
-                            <Setter Property="s:SplitPanel.DesiredSize" Value="{Binding DesiredSize}" />
+                            <Setter Property="s:SplitPanel.MinSize" Value="{Binding MinPanelSize}" />
+                            <Setter Property="s:SplitPanel.DesiredSize" Value="{Binding PanelSize}" />
                         </Style>
                     </ItemsControl.ItemContainerStyle>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <ContentPresenter Content="{Binding Content}"
-                                ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </DataTemplate>
 
@@ -51,6 +45,8 @@
                             <Setter Property="OverflowItemSelectedCommand" Value="{Binding SelectItemCommand}" />
                             <Setter Property="FloatTabCommand" Value="{Binding FloatTabCommand}" />
                             <Setter Property="DockCommand" Value="{Binding DockCommand}" />
+                            <Setter Property="s:SplitPanel.MinSize" Value="{Binding MinPanelSize}" />
+                            <Setter Property="s:SplitPanel.DesiredSize" Value="{Binding PanelSize}" />
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
