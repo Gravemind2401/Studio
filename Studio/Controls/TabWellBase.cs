@@ -16,8 +16,6 @@ namespace Studio.Controls
         private const int minFloatThreshold = 0;
         private const int maxFloatThreshold = 30;
 
-        protected abstract TabItemType DefaultItemType { get; }
-
         public static readonly DependencyProperty FloatTabCommandProperty =
             DependencyProperty.Register(nameof(FloatTabCommand), typeof(ICommand), typeof(TabWellBase), new PropertyMetadata((ICommand)null));
 
@@ -83,7 +81,7 @@ namespace Studio.Controls
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new TabWellItem { ItemType = DefaultItemType };
+            return new TabWellItem();
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)

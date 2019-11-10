@@ -68,12 +68,78 @@ namespace Sandbox.Models
 
         private void SplitDock(DockEventArgs e)
         {
+            var index = Parent.Children.IndexOf(this);
 
+            if (e.TargetDock == DockTarget.SplitRight || e.TargetDock == DockTarget.SplitBottom)
+                index++;
+
+            var orientation = e.TargetDock == DockTarget.SplitLeft || e.TargetDock == DockTarget.SplitRight
+                ? Orientation.Horizontal
+                : Orientation.Vertical;
+
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
+            var newGroup = new DocumentWellModel();
+
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    newGroup.Children.Add(item);
+                }
+            }
+
+            Parent.Orientation = orientation;
+            Parent.Children.Insert(index, newGroup);
+
+            e.SourceWindow.Close();
         }
 
         private void OuterDock(DockEventArgs e)
         {
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
+            var newGroup = new ToolWellModel() { Dock = (Dock)((int)e.TargetDock - 5) };
 
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    newGroup.Children.Add(item);
+                }
+            }
+
+            var newSplit = new SplitViewModel();
+            newSplit.Orientation = e.TargetDock == DockTarget.DockLeft || e.TargetDock == DockTarget.DockRight
+                ? Orientation.Horizontal
+                : Orientation.Vertical;
+
+            ParentModel.Replace(Parent, newSplit);
+            if (e.TargetDock == DockTarget.DockTop || e.TargetDock == DockTarget.DockLeft)
+            {
+                newSplit.Item1 = newGroup;
+                newSplit.Item2 = Parent;
+                newSplit.Item1Size = new GridLength(e.DesiredSize);
+            }
+            else
+            {
+                newSplit.Item1 = Parent;
+                newSplit.Item2 = newGroup;
+                newSplit.Item2Size = new GridLength(e.DesiredSize);
+            }
+
+            newGroup.IsActive = true;
+            newGroup.SelectedItem = newGroup.Children.First();
+
+            e.SourceWindow.Close();
         }
 
         protected override void OnChildrenChanged()

@@ -99,6 +99,66 @@ namespace Sandbox.Models
             }
         }
 
+        protected override void DockExecuted(DockEventArgs e)
+        {
+            if (e.TargetDock == DockTarget.Center)
+            {
+                base.DockExecuted(e);
+                return;
+            }
+
+            var groups = e.SourceContent.OfType<TabWellModelBase>().ToList();
+            var newGroup = new ToolWellModel() { Dock = Dock };
+
+            foreach (var group in groups)
+            {
+                var allChildren = group.Children.ToList();
+                foreach (var item in allChildren)
+                {
+                    group.Children.Remove(item);
+                    item.IsPinned = false;
+                    item.IsActive = false;
+
+                    newGroup.Children.Add(item);
+                }
+            }
+
+            var newSplit = new SplitViewModel();
+
+            double remainingSize;
+            if (e.TargetDock == DockTarget.SplitLeft || e.TargetDock == DockTarget.SplitRight)
+            {
+                newSplit.Orientation = Orientation.Horizontal;
+                remainingSize = Width - e.DesiredSize;
+            }
+            else
+            {
+                newSplit.Orientation = Orientation.Vertical;
+                remainingSize = Height - e.DesiredSize;
+            }
+
+            ParentModel.Replace(this, newSplit);
+            if (e.TargetDock == DockTarget.SplitTop || e.TargetDock == DockTarget.SplitLeft)
+            {
+                newSplit.Item1 = newGroup;
+                newSplit.Item2 = this;
+                newSplit.Item1Size = new GridLength(e.DesiredSize, GridUnitType.Star);
+                newSplit.Item2Size = new GridLength(remainingSize, GridUnitType.Star);
+            }
+            else
+            {
+                newSplit.Item1 = this;
+                newSplit.Item2 = newGroup;
+                newSplit.Item1Size = new GridLength(remainingSize, GridUnitType.Star);
+                newSplit.Item2Size = new GridLength(e.DesiredSize, GridUnitType.Star);
+            }
+
+            newGroup.IsActive = true;
+            newGroup.SelectedItem = newGroup.Children.First();
+
+            e.SourceWindow.Close();
+        }
+
         protected override void OnChildrenChanged()
         {
             if (Children.Count == 0)

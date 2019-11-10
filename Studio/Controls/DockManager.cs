@@ -158,7 +158,7 @@ namespace Studio.Controls
         private static void OnDragStart(Window wnd)
         {
             windowData.Clear();
-            foreach (var w in NativeMethods.SortWindowsTopToBottom(trackedElements.Keys))
+            foreach (var w in NativeMethods.SortWindowsTopToBottom(trackedElements.Keys.Where(w => w.WindowState != WindowState.Minimized)))
             {
                 if (w != wnd)
                     windowData.Add(new WindowInfo(w));
@@ -242,7 +242,7 @@ namespace Studio.Controls
             {
                 Window = wnd;
                 Adorner = wnd.OwnedWindows.OfType<AdornerWindow>().First();
-                WindowBounds = new Rect(wnd.Left, wnd.Top, wnd.Width, wnd.Height);
+                WindowBounds = new Rect(wnd.PointToScreenScaled(new Point()), wnd.RenderSize);
 
                 var container = trackedElements[wnd].OfType<DockContainer>().FirstOrDefault();
                 if (container?.DockCommand != null)

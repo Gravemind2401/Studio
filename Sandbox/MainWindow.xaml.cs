@@ -105,7 +105,8 @@ namespace Sandbox
                 {
                     Header = $"Tool Item {i}",
                     ToolTip = $"Tool Item {i} Long Name",
-                    Content = new ToolControl()
+                    Content = new ToolControl(),
+                    Usage = TabItemType.Tool
                 });
             }
 

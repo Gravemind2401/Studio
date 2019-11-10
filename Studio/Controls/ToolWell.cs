@@ -20,8 +20,6 @@ namespace Studio.Controls
         private static readonly object tabStyleKey = new Guid("6bed4f5f-4da7-4c65-8efa-a5b7b999885a");
         public static object ToolTabStyleKey => tabStyleKey;
 
-        protected override TabItemType DefaultItemType => TabItemType.Tool;
-
         public static readonly DependencyProperty TogglePinStatusCommandProperty =
             DependencyProperty.Register(nameof(TogglePinStatusCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata((ICommand)null));
 
