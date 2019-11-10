@@ -49,8 +49,29 @@ namespace Studio.Utilities
 
         internal static object GetContainerContext(this FrameworkElement element)
         {
-            return element.FindVisualAncestor<ItemsControl>()?.ItemContainerGenerator.ItemFromContainer(element)
-                ?? element.DataContext;
+            var lineage = new List<DependencyObject> { element };
+            var parent = VisualTreeHelper.GetParent(element);
+            while (parent != null)
+            {
+                lineage.Insert(0, parent);
+                if (parent is ItemsControl)
+                    break;
+                else parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            var ic = lineage[0] as ItemsControl;
+            if (ic != null)
+            {
+                lineage.Reverse();
+                foreach (var d in lineage)
+                {
+                    var item = ic.ItemContainerGenerator.ItemFromContainer(d);
+                    if (item != DependencyProperty.UnsetValue)
+                        return item;
+                }
+            }
+
+            return element.DataContext;
         }
 
         public static DpiScale GetDpi(this Visual visual)

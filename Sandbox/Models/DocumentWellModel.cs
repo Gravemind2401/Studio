@@ -125,7 +125,11 @@ namespace Sandbox.Models
                 ? Orientation.Horizontal
                 : Orientation.Vertical;
 
-            ParentModel.Replace(Parent, newSplit);
+            if (ParentModel == null)
+                ParentViewModel.Content = newSplit;
+            else
+                ParentModel.Replace(Parent, newSplit);
+
             if (e.TargetDock == DockTarget.DockTop || e.TargetDock == DockTarget.DockLeft)
             {
                 newSplit.Item1 = newGroup;

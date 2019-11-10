@@ -76,7 +76,7 @@ namespace Sandbox.Models
 
         protected override void FloatAllExecuted(FloatEventArgs e)
         {
-            var host = ParentViewModel.Host;
+            var pvm = ParentViewModel;
 
             Remove();
             IsWindow = true;
@@ -90,8 +90,8 @@ namespace Sandbox.Models
                 Height = e.VisualBounds.Height
             };
 
-            if (!AllTabs.Any())
-                ShowOnClose(host, wnd);
+            if (!pvm.AllTabs.Any())
+                ShowOnClose(pvm.Host, wnd);
             else
             {
                 wnd.Show();

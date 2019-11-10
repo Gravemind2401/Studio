@@ -114,5 +114,7 @@ namespace Sandbox.Models
             foreach (var child in children)
                 child.SetParent(parentModel, parentViewModel);
         }
+
+        internal override IEnumerable<TabModel> AllTabs => Children.SelectMany(c => c.Children);
     }
 }
