@@ -158,6 +158,182 @@
                 </DataTemplate.Triggers>
             </DataTemplate>
 
+            <Style x:Key="MainWindowButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0,0,0,7" />
+                <Setter Property="Width" Value="34" />
+                <Setter Property="Height" Value="26" />
+                <Setter Property="BorderThickness" Value="1,0,1,1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+                
+                <!--inactive-->
+                <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonInactiveGlyph}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonInactiveBorder}" />
+
+                <Style.Triggers>
+                    <!--active-->
+                    <DataTrigger Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonActiveGlyph}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonActiveBorder}" />
+                    </DataTrigger>
+
+                    <!--active, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonHoverActiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.MainWindow.ButtonHoverActive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonHoverActiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--inactive, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonHoverInactiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.MainWindow.ButtonHoverInactive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonHoverInactiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--pressed-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonDownGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.MainWindow.ButtonDown}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonDownBorder}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MainWindowMaxButtonStyle" TargetType="Button" BasedOn="{StaticResource MainWindowButtonStyle}">
+                <Setter Property="Padding" Value="0,0,0,6" />
+            </Style>
+
+            <Style x:Key="MainWindowStyle" TargetType="metro:MetroWindow">
+                <Setter Property="WindowTitleBrush" Value="{DynamicResource Environment.MainWindow.ActiveCaptionBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />
+                <!--<Setter Property="GlowBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />-->
+
+                <Setter Property="NonActiveWindowTitleBrush" Value="{DynamicResource Environment.MainWindow.InactiveCaptionBackground}" />
+                <Setter Property="NonActiveBorderBrush" Value="{DynamicResource Environment.MainWindow.InactiveBorder}" />
+                <!--<Setter Property="NonActiveGlowBrush" Value="{DynamicResource Environment.MainWindow.InactiveBorder}" />-->
+
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="TitleCaps" Value="False" />
+                <Setter Property="TitlebarHeight" Value="31" />
+                <Setter Property="TitleForeground" Value="{DynamicResource Environment.MainWindow.InactiveCaptionForeground}" />
+                <Setter Property="WindowTransitionsEnabled" Value="False" />
+
+                <Setter Property="WindowMinButtonStyle" Value="{StaticResource MainWindowButtonStyle}" />
+                <Setter Property="WindowMaxButtonStyle" Value="{StaticResource MainWindowMaxButtonStyle}" />
+                <Setter Property="WindowCloseButtonStyle" Value="{StaticResource MainWindowButtonStyle}" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsActive" Value="True">
+                        <Setter Property="TitleForeground" Value="{DynamicResource Environment.MainWindow.ActiveCaptionForeground}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RaftedWindowButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0,0,0,7" />
+                <Setter Property="Width" Value="34" />
+                <Setter Property="Height" Value="26" />
+                <Setter Property="BorderThickness" Value="1,0,1,1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
+
+                <!--inactive-->
+                <Setter Property="Foreground" Value="{DynamicResource Environment.RaftedWindow.ButtonInactiveGlyph}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.RaftedWindow.ButtonInactiveBorder}" />
+
+                <Style.Triggers>
+                    <!--active-->
+                    <DataTrigger Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.RaftedWindow.ButtonActiveGlyph}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.RaftedWindow.ButtonActiveBorder}" />
+                    </DataTrigger>
+
+                    <!--active, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverActiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverActive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverActiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--inactive, hovered-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverInactiveGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverInactive}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.RaftedWindow.ButtonHoverInactiveBorder}" />
+                    </MultiDataTrigger>
+
+                    <!--pressed-->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Foreground" Value="{DynamicResource Environment.RaftedWindow.ButtonDownGlyph}" />
+                        <Setter Property="Background" Value="{DynamicResource Environment.RaftedWindow.ButtonDown}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource Environment.RaftedWindow.ButtonDownBorder}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RaftedWindowMaxButtonStyle" TargetType="Button" BasedOn="{StaticResource RaftedWindowButtonStyle}">
+                <Setter Property="Padding" Value="0,0,0,6" />
+            </Style>
+
+            <Style x:Key="RaftedWindowStyle" TargetType="metro:MetroWindow">
+                <Setter Property="WindowTitleBrush" Value="{DynamicResource Environment.ToolWindow.FloatingFrameBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />
+                <!--<Setter Property="GlowBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />-->
+
+                <Setter Property="NonActiveWindowTitleBrush" Value="{DynamicResource Environment.ToolWindow.FloatingFrameInactiveBackground}" />
+                <Setter Property="NonActiveBorderBrush" Value="{DynamicResource Environment.MainWindow.InactiveBorder}" />
+                <!--<Setter Property="NonActiveGlowBrush" Value="{DynamicResource Environment.MainWindow.InactiveBorder}" />-->
+
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="TitleCaps" Value="False" />
+                <Setter Property="TitlebarHeight" Value="29" />
+                <Setter Property="TitleForeground" Value="{DynamicResource Environment.ToolWindow.FloatingFrameInactiveForeground}" />
+                <Setter Property="WindowTransitionsEnabled" Value="False" />
+
+                <Setter Property="WindowMinButtonStyle" Value="{StaticResource RaftedWindowButtonStyle}" />
+                <Setter Property="WindowMaxButtonStyle" Value="{StaticResource RaftedWindowMaxButtonStyle}" />
+                <Setter Property="WindowCloseButtonStyle" Value="{StaticResource RaftedWindowButtonStyle}" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsActive" Value="True">
+                        <Setter Property="TitleForeground" Value="{DynamicResource Environment.ToolWindow.FloatingFrameForeground}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="ToolWindowMaxButtonStyle" TargetType="Button">
                 <Setter Property="Margin" Value="0,0,1,0" />
                 <Setter Property="Width" Value="15" />

@@ -963,7 +963,7 @@
 
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{DynamicResource Environment.CommandShelf.HighlightGradient}" />
-        <Setter Property="Padding" Value="0,2" />
+        <Setter Property="Padding" Value="0,1" />
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />
 
         <Setter Property="Template">

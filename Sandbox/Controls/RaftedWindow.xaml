@@ -1,13 +1,15 @@
-﻿<Window x:Class="Sandbox.Controls.RaftedWindow"
+﻿<m:MetroWindow x:Class="Sandbox.Controls.RaftedWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:s="clr-namespace:Studio.Controls;assembly=Studio"
         DataContext="{Binding Model, RelativeSource={RelativeSource Self}}"
         xmlns:local="clr-namespace:Sandbox.Controls"
         mc:Ignorable="d" Background="{DynamicResource Environment.EnvironmentBackgroundGradient}"
-        Title="RaftedWindow" Height="300" Width="300">
+        Title="RaftedWindow" Height="300" Width="300"
+        Style="{StaticResource RaftedWindowStyle}">
     <Grid>
         <s:DockContainer
                 LeftItemsSource="{Binding LeftDockItems}"
@@ -21,4 +23,4 @@
                     ContentTemplateSelector="{StaticResource tabTreeTemplateSelector}" />
         </s:DockContainer>
     </Grid>
-</Window>
+</m:MetroWindow>
