@@ -232,60 +232,9 @@ namespace Studio.Controls
 
             var col = new PointCollection();
             if (dock.HasValue && dock.Value != DockTarget.Center)
-            {
-                HighlightPath = Geometry.Empty;
-                return;
-            }
+                HighlightSplit(col, sourceTabs, item);
             else if (CanDropCenter) //mouse over center or specific tab
-            {
-                if (TargetHost is DocumentContainer)
-                {
-                    col.Add(new Point());
-                    col.Add(new Point(TargetArea.Width, 0));
-                    col.Add(new Point(TargetArea.Width, TargetArea.Height));
-                    col.Add(new Point(0, TargetArea.Height));
-                }
-                else
-                {
-                    var well = TargetHost as TabWellBase;
-                    var first = well.FirstContainer;
-                    if (item == null) item = first;
-
-                    var relativeOrigin = (UIElement)DockHost?.ContentHost ?? Window.GetWindow(TargetHost);
-
-                    var wellOffset = TargetHost.TranslatePoint(new Point(), relativeOrigin);
-                    var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? wellOffset;
-                    var itemOffset = item?.TranslatePoint(new Point(), relativeOrigin) ?? wellOffset;
-                    var itemHeight = sourceTabs.Max(t => t.ActualHeight);
-                    var itemWidth = sourceTabs.Sum(t => t.ActualWidth);
-
-                    if (TargetHost is DocumentWell)
-                    {
-                        col.Add(new Point(wellOffset.X, firstOffset.Y + itemHeight)); //well top-left
-                        col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
-                        col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
-                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
-                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
-                        col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight)); //well top-right
-                        col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y + TargetHost.ActualHeight)); //well bottom-right
-                        col.Add(new Point(wellOffset.X, wellOffset.Y + TargetHost.ActualHeight)); //well bottom-left
-                    }
-                    else
-                    {
-                        col.Add(new Point(wellOffset.X, wellOffset.Y)); //well top-left
-                        col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, wellOffset.Y)); //well top-right
-                        col.Add(new Point(wellOffset.X + TargetHost.ActualWidth, itemOffset.Y)); //well bottom-right
-                        if (well.Items.Count > 1) //tab panel visible
-                        {
-                            col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
-                            col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
-                            col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
-                            col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
-                        }
-                        col.Add(new Point(wellOffset.X, itemOffset.Y)); //well bottom-left
-                    }
-                }
-            }
+                HighlightCenter(col, sourceTabs, item);
             else
             {
                 HighlightPath = Geometry.Empty;
@@ -297,6 +246,90 @@ namespace Studio.Controls
             geom.Figures.Add(new PathFigure(col[0], segs, true));
 
             HighlightPath = geom;
+        }
+
+        private void HighlightCenter(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
+        {
+            var relativeOrigin = (UIElement)DockHost?.ContentHost ?? Window.GetWindow(TargetHost);
+            var hostOffset = TargetHost.TranslatePoint(new Point(), relativeOrigin);
+
+            if (TargetHost is DocumentContainer)
+            {
+                col.Add(hostOffset);
+                col.Add(new Point(hostOffset.X + TargetArea.Width, hostOffset.Y));
+                col.Add(new Point(hostOffset.X + TargetArea.Width, hostOffset.Y + TargetArea.Height));
+                col.Add(new Point(hostOffset.X, hostOffset.Y + TargetArea.Height));
+            }
+            else
+            {
+                var well = TargetHost as TabWellBase;
+                var first = well.FirstContainer;
+                if (item == null) item = first;
+
+                var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
+                var itemOffset = item?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
+                var itemHeight = sourceTabs.Max(t => t.ActualHeight);
+                var itemWidth = sourceTabs.Sum(t => t.ActualWidth);
+
+                if (TargetHost is DocumentWell)
+                {
+                    col.Add(new Point(hostOffset.X, firstOffset.Y + itemHeight)); //well top-left
+                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
+                    col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
+                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
+                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight)); //well top-right
+                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y + TargetHost.ActualHeight)); //well bottom-right
+                    col.Add(new Point(hostOffset.X, hostOffset.Y + TargetHost.ActualHeight)); //well bottom-left
+                }
+                else
+                {
+                    col.Add(new Point(hostOffset.X, hostOffset.Y)); //well top-left
+                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y)); //well top-right
+                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y)); //well bottom-right
+                    if (well.Items.Count > 1) //tab panel visible
+                    {
+                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
+                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
+                        col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
+                        col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
+                    }
+                    col.Add(new Point(hostOffset.X, itemOffset.Y)); //well bottom-left
+                }
+            }
+        }
+
+        private void HighlightSplit(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
+        {
+            var dock = DockTargetButton.CurrentTargetDock.Value;
+            var wnd = Window.GetWindow(sourceTabs.First());
+            var panel = DockTargetButton.CurrentTargetHost as FrameworkElement;
+
+            double width, height, xOffset, yOffset;
+            if (dock.GetDockOrientation() == Orientation.Horizontal)
+            {
+                width = Math.Min(wnd.ActualWidth, panel.ActualWidth / 2);
+                height = panel.ActualHeight;
+
+                xOffset = dock.GetDockSide() == Dock.Right ? panel.ActualWidth - width : 0;
+                yOffset = 0;
+            }
+            else
+            {
+                width = panel.ActualWidth;
+                height = Math.Min(wnd.ActualHeight, panel.ActualHeight / 2);
+
+                xOffset = 0;
+                yOffset = dock.GetDockSide() == Dock.Bottom ? panel.ActualHeight - height : 0;
+            }
+
+            var relativeOrigin = (UIElement)DockHost?.ContentHost ?? Window.GetWindow(TargetHost);
+            var panelOffset = panel.TranslatePoint(new Point(), relativeOrigin);
+
+            col.Add(new Point(panelOffset.X + xOffset, panelOffset.Y + yOffset));
+            col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset));
+            col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset + height));
+            col.Add(new Point(panelOffset.X + xOffset, panelOffset.Y + yOffset + height));
         }
 
         internal void ClearTarget()

@@ -57,6 +57,25 @@ namespace Sandbox.Models
             }
         }
 
+        protected override void DockExecuted(DockEventArgs e)
+        {
+            if (e.TargetDock == DockTarget.Center)
+                base.DockExecuted(e);
+            else if (e.TargetDock == DockTarget.SplitLeft || e.TargetDock == DockTarget.SplitTop || e.TargetDock == DockTarget.SplitRight || e.TargetDock == DockTarget.SplitBottom)
+                SplitDock(e);
+            else OuterDock(e);
+        }
+
+        private void SplitDock(DockEventArgs e)
+        {
+
+        }
+
+        private void OuterDock(DockEventArgs e)
+        {
+
+        }
+
         protected override void OnChildrenChanged()
         {
             if (Children.Count == 0)

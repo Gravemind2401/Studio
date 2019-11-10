@@ -148,13 +148,13 @@ namespace Sandbox.ViewModels
             {
                 newSplit.Item1 = newGroup;
                 newSplit.Item2 = existing;
-                newSplit.Item1Size = new GridLength(DefaultDockSize);
+                newSplit.Item1Size = new GridLength(e.DesiredSize);
             }
             else
             {
                 newSplit.Item1 = existing;
                 newSplit.Item2 = newGroup;
-                newSplit.Item2Size = new GridLength(DefaultDockSize);
+                newSplit.Item2Size = new GridLength(e.DesiredSize);
             }
 
             Content = newSplit;

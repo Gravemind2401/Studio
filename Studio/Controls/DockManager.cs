@@ -190,13 +190,14 @@ namespace Studio.Controls
             {
                 var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
                 var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-                var sourceItems = trackedElements[wnd].OfType<TabWellBase>().Select(t => t.GetContainerContext() ?? t);
-                var args = new DockEventArgs(wnd, sourceItems, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.GetContainerContext() ?? tab);
+                var targetElement = tab != null ? well : DockTargetButton.CurrentTargetHost;
 
-                if (tab != null)
-                    well.DockCommand.TryExecute(args);
-                else
-                    DockTargetButton.CurrentTargetHost?.DockCommand.TryExecute(args);
+                if (targetElement?.DockCommand != null)
+                {
+                    var sourceItems = trackedElements[wnd].OfType<TabWellBase>();
+                    var args = new DockEventArgs(sourceItems, targetElement as FrameworkElement, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.GetContainerContext() ?? tab);
+                    targetElement.DockCommand.TryExecute(args);
+                }
 
                 currentTarget.Adorner.ClearTarget();
                 currentTarget = null;

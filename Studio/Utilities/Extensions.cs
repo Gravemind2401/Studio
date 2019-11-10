@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studio.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Windows.Media;
 
 namespace Studio.Utilities
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static T FindLogicalAncestor<T>(this FrameworkElement element) where T : DependencyObject
         {
@@ -63,6 +64,28 @@ namespace Studio.Utilities
             var scale = visual.GetDpi();
             point = visual.PointToScreen(point);
             return new Point(point.X * 1d / scale.DpiScaleX, point.Y * 1d / scale.DpiScaleY);
+        }
+
+        public static Orientation? GetDockOrientation(this DockTarget d)
+        {
+            if (d == DockTarget.Center)
+                return null;
+            else if (d == DockTarget.DockLeft || d == DockTarget.DockRight || d == DockTarget.SplitLeft || d == DockTarget.SplitRight)
+                return Orientation.Horizontal;
+            else return Orientation.Vertical;
+        }
+
+        public static Dock? GetDockSide(this DockTarget d)
+        {
+            if (d == DockTarget.Center)
+                return null;
+            else if (d == DockTarget.DockLeft || d == DockTarget.SplitLeft)
+                return Dock.Left;
+            else if (d == DockTarget.DockTop || d == DockTarget.SplitTop)
+                return Dock.Top;
+            else if (d == DockTarget.DockRight || d == DockTarget.SplitRight)
+                return Dock.Right;
+            else return Dock.Bottom;
         }
     }
 }
