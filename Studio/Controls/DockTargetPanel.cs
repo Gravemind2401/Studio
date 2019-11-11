@@ -211,11 +211,13 @@ namespace Studio.Controls
                 CanDockTarget = isAllTools;
                 CanSplitHorizontal = CanSplitVertical = false;
             }
-            else
+            else if (TargetHost is ToolWell)
             {
                 CanDockTarget = false;
                 CanSplitHorizontal = CanSplitVertical = CanDropCenter = isAllTools;
             }
+            else
+                CanDockTarget = CanSplitHorizontal = CanSplitVertical = CanDropCenter = false;
 
             DockTargetButton.UpdateCursor();
             UpdateHighlightPath(args.SourceItems, args.TabItem);
@@ -232,7 +234,10 @@ namespace Studio.Controls
 
             var col = new PointCollection();
             if (dock.HasValue && dock.Value != DockTarget.Center)
-                HighlightSplit(col, sourceTabs, item);
+            {
+                if (!HighlightSplit(col, sourceTabs, item))
+                    return;
+            }
             else if (CanDropCenter) //mouse over center or specific tab
                 HighlightCenter(col, sourceTabs, item);
             else
@@ -299,11 +304,17 @@ namespace Studio.Controls
             }
         }
 
-        private void HighlightSplit(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
+        private bool HighlightSplit(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
         {
+            var panel = DockTargetButton.CurrentTargetHost as FrameworkElement;
+            if (panel == null)
+            {
+                HighlightPath = Geometry.Empty;
+                return false;
+            }
+
             var dock = DockTargetButton.CurrentTargetDock.Value;
             var wnd = Window.GetWindow(sourceTabs.First());
-            var panel = DockTargetButton.CurrentTargetHost as FrameworkElement;
 
             double width, height, xOffset, yOffset;
             if (dock.GetDockOrientation() == Orientation.Horizontal)
@@ -330,6 +341,8 @@ namespace Studio.Controls
             col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset));
             col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset + height));
             col.Add(new Point(panelOffset.X + xOffset, panelOffset.Y + yOffset + height));
+
+            return true;
         }
 
         internal void ClearTarget()

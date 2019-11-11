@@ -119,7 +119,7 @@ namespace Studio.Controls
 
         private static void TrackWindow(Window wnd)
         {
-            AdornerWindow.Follow(wnd);
+            AdornerWindow.ForTarget(wnd);
 
             if (wnd == Application.Current.MainWindow)
                 return;
@@ -161,8 +161,14 @@ namespace Studio.Controls
             foreach (var w in NativeMethods.SortWindowsTopToBottom(trackedElements.Keys.Where(w => w.WindowState != WindowState.Minimized)))
             {
                 if (w != wnd)
-                    windowData.Add(new WindowInfo(w));
+                {
+                    var info = new WindowInfo(w);
+                    windowData.Add(info);
+                    info.Adorner.Show();
+                }
             }
+
+            wnd.BringToFront();
         }
 
         private static void OnDragMove(Window wnd, Point pos)
@@ -175,17 +181,20 @@ namespace Studio.Controls
 
             if (!currentTarget.WindowBounds.Contains(pos))
             {
-                currentTarget.Adorner.ClearTarget();
+                currentTarget.Adorner.ClearTargetParams();
                 currentTarget = null;
                 OnDragMove(wnd, pos);
                 return;
             }
 
-            currentTarget.Adorner.SetTarget(GetTargetArgs(wnd, pos));
+            currentTarget.Adorner.SetTargetParams(GetTargetArgs(wnd, pos));
         }
 
         private static bool OnDragStop(Window wnd, Point pos)
         {
+            foreach (var w in windowData)
+                w.Adorner.Hide();
+
             if (currentTarget != null)
             {
                 var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
@@ -199,7 +208,7 @@ namespace Studio.Controls
                     targetElement.DockCommand.TryExecute(args);
                 }
 
-                currentTarget.Adorner.ClearTarget();
+                currentTarget.Adorner.ClearTargetParams();
                 currentTarget = null;
 
                 return true;
@@ -210,7 +219,7 @@ namespace Studio.Controls
 
         private static TargetArgs GetTargetArgs(Window wnd, Point pos)
         {
-            var container = currentTarget.DockBounds?.Item2;
+            var container = currentTarget.DockBounds?.Item1.Contains(pos) == true ? currentTarget.DockBounds.Item2 : null;
             var docPanel = currentTarget.DocumentBounds?.Item1.Contains(pos) == true ? currentTarget.DocumentBounds.Item2 : null;
             var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
             var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
@@ -241,7 +250,7 @@ namespace Studio.Controls
             public WindowInfo(Window wnd)
             {
                 Window = wnd;
-                Adorner = wnd.OwnedWindows.OfType<AdornerWindow>().First();
+                Adorner = AdornerWindow.FromTarget(wnd);
                 WindowBounds = new Rect(wnd.PointToScreenScaled(new Point()), wnd.RenderSize);
 
                 var container = trackedElements[wnd].OfType<DockContainer>().FirstOrDefault();

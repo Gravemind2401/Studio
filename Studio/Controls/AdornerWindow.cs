@@ -10,6 +10,8 @@ namespace Studio.Controls
 {
     internal class AdornerWindow : Window
     {
+        private static readonly Dictionary<Window, AdornerWindow> targetLookup = new Dictionary<Window, AdornerWindow>();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static AdornerWindow()
         {
@@ -21,67 +23,56 @@ namespace Studio.Controls
             TopmostProperty.OverrideMetadata(typeof(AdornerWindow), new FrameworkPropertyMetadata(true));
         }
 
+        private readonly Window target;
         private DockTargetPanel Panel => Content as DockTargetPanel;
 
-        private AdornerWindow(Window owner)
+        private AdornerWindow(Window target)
         {
             Background = null;
+            this.target = target;
 
-            Owner = owner;
-            Owner.LocationChanged += Owner_LocationChanged;
-            Owner.SizeChanged += Owner_SizeChanged;
-            Owner.StateChanged += Owner_StateChanged;
-            Owner.Closed += Target_Closed;
-            AlignToOwner();
+            target.Closed += Target_Closed;
         }
 
-        public static void Follow(Window target)
+        public static void ForTarget(Window target)
         {
             var wnd = new AdornerWindow(target);
             wnd.Content = new DockTargetPanel { Visibility = Visibility.Collapsed };
-            wnd.Show();
+            targetLookup.Add(target, wnd);
         }
 
-        private void AlignToOwner()
+        public static AdornerWindow FromTarget(Window target)
         {
-            Top = Owner.Top;
-            Left = Owner.Left;
-            Width = Owner.ActualWidth;
-            Height = Owner.ActualHeight;
+            return targetLookup[target];
         }
 
-        public void SetTarget(TargetArgs args)
+        new public void Show()
+        {
+            base.Show();
+
+            var pos = target.PointToScreen(new Point());
+            Top = pos.Y;
+            Left = pos.X;
+            Width = target.ActualWidth;
+            Height = target.ActualHeight;
+        }
+
+        public void SetTargetParams(TargetArgs args)
         {
             Panel.Visibility = Visibility.Visible;
             Panel.AlignToTarget(args);
         }
 
-        public void ClearTarget()
+        public void ClearTargetParams()
         {
             Panel.ClearTarget();
             Panel.Visibility = Visibility.Collapsed;
         }
 
-        private void Owner_LocationChanged(object sender, EventArgs e)
-        {
-            AlignToOwner();
-        }
-
-        private void Owner_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            AlignToOwner();
-        }
-
-        private void Owner_StateChanged(object sender, EventArgs e)
-        {
-            WindowState = Owner.WindowState;
-        }
-
         private void Target_Closed(object sender, EventArgs e)
         {
-            Owner.LocationChanged += Owner_LocationChanged;
-            Owner.SizeChanged -= Owner_SizeChanged;
-            Owner.StateChanged -= Owner_StateChanged;
+            Owner.Closed -= Target_Closed;
+            targetLookup.Remove(target);
             Close();
         }
     }
