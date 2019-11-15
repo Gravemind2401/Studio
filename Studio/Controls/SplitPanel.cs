@@ -154,14 +154,18 @@ namespace Studio.Controls
 
                 double actual;
                 if (desired.IsAbsolute)
-                    actual = (desired.Value / totalFixed) * allocatedFixed;
+                    actual = totalFixed > 0 ? (desired.Value / totalFixed) * allocatedFixed : 0;
                 else if (desired.IsAuto)
                 {
-                    var fraction = Orientation == Orientation.Horizontal ? child.DesiredSize.Width : child.DesiredSize.Height;
-                    actual = (fraction / totalFixed) * allocatedAuto;
+                    if (totalAuto > 0)
+                    {
+                        var fraction = Orientation == Orientation.Horizontal ? child.DesiredSize.Width : child.DesiredSize.Height;
+                        actual = (fraction / totalAuto) * allocatedAuto;
+                    }
+                    else actual = 0;
                 }
                 else //desired.IsStar
-                    actual = (desired.Value / totalStar) * allocatedStar;
+                    actual = totalStar > 0 ? (desired.Value / totalStar) * allocatedStar : 0;
 
                 actual = Math.Max(0, actual);
                 var childSize = Orientation == Orientation.Horizontal
