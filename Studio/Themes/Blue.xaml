@@ -5,6 +5,29 @@
         <ResourceDictionary Source="/Studio;component/Styles/VS2015.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <!--#region Cider-->
+
+
+    <!--#region Artboard-->
+    <SolidColorBrush x:Key="Cider.Artboard.Background" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Cider.Artboard.Foreground" Color="#FF1B293E" />
+    <SolidColorBrush x:Key="Cider.Artboard.Button" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Cider.Artboard.DistanceBackground" Color="#FFEFEFF2" />
+    <SolidColorBrush x:Key="Cider.Artboard.DistanceForeground" Color="{x:Static SystemColors.InactiveCaptionColor}" />
+    <SolidColorBrush x:Key="Cider.Artboard.DistanceSelectedBackground" Color="#FFF6F6F6" />
+    <SolidColorBrush x:Key="Cider.Artboard.DistanceSelectedForeground" Color="{x:Static SystemColors.InactiveCaptionColor}" />
+    <SolidColorBrush x:Key="Cider.Artboard.ElementBackground" Color="#FFEFEFF2" />
+    <SolidColorBrush x:Key="Cider.Artboard.ElementForeground" Color="{x:Static SystemColors.InactiveCaptionColor}" />
+    <SolidColorBrush x:Key="Cider.Artboard.Guide" Color="#FF80D2CB" />
+    <SolidColorBrush x:Key="Cider.Artboard.SecondaryBackground" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Cider.Artboard.Tick" Color="#FF8591A2" />
+    <SolidColorBrush x:Key="Cider.Artboard.WindowBackground" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="Cider.Artboard.WindowForeground" Color="#FFC4C4C6" />
+    <SolidColorBrush x:Key="Cider.Artboard.WindowBorder" Color="#FFB5B5B7" />
+    <!--#endregion-->
+
+    <!--#endregion-->
+
     <!--#region Command Window-->
 
     <SolidColorBrush x:Key="CommandWindow.InactiveSelectedTextBackground" Color="#00000000" />

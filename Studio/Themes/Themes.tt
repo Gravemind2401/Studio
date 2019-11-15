@@ -124,7 +124,7 @@
         @"ApplicationInsights",
         @"^Autos",
         @"^CallStack", 
-        @"^Cider", 
+        @"^Cider\.(?!Artboard)", 
         @"^Code", 
         @"^ColorizedSignatureHelp",
         @"Config",
@@ -193,6 +193,7 @@
     {
         private static Dictionary<string, string[]> groups = new Dictionary<string, string[]>
         {
+            { "Cider", new[] { "Artboard" }},
             { "CommonControls", new[] { "Button", "CheckBox", "ComboBox", "InnerTab", "TextBox" }},
             { "Environment", new[] { "DropDown", "DockTarget", "DocWellOverflowButton", "ScrollBar", "ComboBox", "CommandBar", "CommandShelf", "FileTab", "SearchBox", "TitleBar", "Toolbox", "ToolWindow", "Panel", "SideBar", "MainWindow", "RaftedWindow", "StatusBar", "ToolTip" }},
             { "SearchControl", new[] { "Popup" }},
