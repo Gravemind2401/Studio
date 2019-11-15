@@ -71,7 +71,7 @@ namespace Studio.Controls
 
         private void Target_Closed(object sender, EventArgs e)
         {
-            Owner.Closed -= Target_Closed;
+            target.Closed -= Target_Closed;
             targetLookup.Remove(target);
             Close();
         }
