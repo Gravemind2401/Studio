@@ -13,7 +13,7 @@ namespace Studio.Controls
 {
     public class DocumentTabPanel : TabPanel
     {
-        public static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
+        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
             DependencyProperty.RegisterAttachedReadOnly("HasOverflowItems", typeof(bool), typeof(DocumentTabPanel), new PropertyMetadata(false));
 
         public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;

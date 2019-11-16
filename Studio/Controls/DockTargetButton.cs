@@ -52,7 +52,7 @@ namespace Studio.Controls
         public static readonly DependencyProperty GlyphArrowBrushProperty =
             DependencyProperty.Register(nameof(GlyphArrowBrush), typeof(Brush), typeof(DockTargetButton), new PropertyMetadata(Brushes.Black));
 
-        public static readonly DependencyPropertyKey IsTargetedPropertyKey =
+        private static readonly DependencyPropertyKey IsTargetedPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(IsTargeted), typeof(bool), typeof(DockTargetButton), new PropertyMetadata(false, null, CoerceIsTargeted));
 
         public static readonly DependencyProperty IsTargetedProperty = IsTargetedPropertyKey.DependencyProperty;

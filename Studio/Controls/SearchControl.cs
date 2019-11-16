@@ -53,11 +53,10 @@ namespace Studio.Controls
         #endregion
 
         #region Dependency Properties
-        public static readonly DependencyPropertyKey HasTextPropertyKey =
+        private static readonly DependencyPropertyKey HasTextPropertyKey =
             DependencyProperty.RegisterAttachedReadOnly(nameof(HasText), typeof(bool), typeof(SearchControl), new PropertyMetadata(false, null, CoerceHasText));
 
-        public static readonly DependencyProperty HasTextProperty =
-            HasTextPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasTextProperty = HasTextPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty AcceptButtonStyleProperty =
             DependencyProperty.Register(nameof(AcceptButtonStyle), typeof(Style), typeof(SearchControl));

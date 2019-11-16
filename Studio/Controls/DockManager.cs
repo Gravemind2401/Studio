@@ -1,6 +1,7 @@
 ﻿using Studio.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace Studio.Controls
 
         #region IsPinned
         public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DockManager), new PropertyMetadata(false, IsPinnedChanged));
+            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static bool GetIsPinned(DependencyObject obj)
         {
@@ -80,10 +81,6 @@ namespace Studio.Controls
             obj.SetValue(IsPinnedProperty, value);
         }
 
-        public static void IsPinnedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (VisualTreeHelper.GetParent(d) as UIElement)?.InvalidateVisual();
-        }
         #endregion
 
         #region Tracking
@@ -96,7 +93,7 @@ namespace Studio.Controls
         internal static void Register(UIElement element)
         {
             var wnd = Window.GetWindow(element);
-            if (wnd == null)
+            if (wnd == null || DesignerProperties.GetIsInDesignMode(element))
                 return;
 
             if (!trackedElements.ContainsKey(wnd))

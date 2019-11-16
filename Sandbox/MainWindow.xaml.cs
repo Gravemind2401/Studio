@@ -66,10 +66,7 @@ namespace Sandbox
 
         private void CreateModel()
         {
-            var model = new WindowViewModel
-            {
-                Content = new SplitViewModel()
-            };
+            var model = new WindowViewModel();
 
             var item1 = new DocContainerModel(new DocumentWellModel() { IsActive = true });
             for (int i = 0; i < 5; i++)

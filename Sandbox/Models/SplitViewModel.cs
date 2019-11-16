@@ -187,26 +187,5 @@ namespace Sandbox.Models
                 return tabs1.Concat(tabs2);
             }
         }
-
-        public sealed class ItemWrapper : BindableBase
-        {
-            public double MinSize { get; }
-            public ModelBase Content { get; }
-
-            private GridLength desiredSize;
-            public GridLength DesiredSize
-            {
-                get { return desiredSize; }
-                set { SetProperty(ref desiredSize, value); }
-            }
-
-            internal ItemWrapper(ModelBase content)
-            {
-                Content = content;
-                MinSize = 65d;
-
-                desiredSize = new GridLength(1, GridUnitType.Star);
-            }
-        }
     }
 }

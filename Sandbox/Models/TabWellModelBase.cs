@@ -11,12 +11,7 @@ namespace Sandbox.Models
 {
     public abstract class TabWellModelBase : ModelBase
     {
-        private ObservableCollection<TabModel> children = new ObservableCollection<TabModel>();
-        public ObservableCollection<TabModel> Children
-        {
-            get { return children; }
-            set { SetProperty(ref children, value, OnCollectionChanged); }
-        }
+        public ObservableCollection<TabModel> Children { get; }
 
         private bool isActive;
         public bool IsActive
@@ -61,7 +56,8 @@ namespace Sandbox.Models
             FloatTabCommand = new DelegateCommand<FloatEventArgs>(FloatTabExecuted);
             FloatAllCommand = new DelegateCommand<FloatEventArgs>(FloatAllExecuted);
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
-            Subscribe(children);
+            Children = new ObservableCollection<TabModel>();
+            Children.CollectionChanged += Children_CollectionChanged;
         }
 
         protected virtual void CloseTabExecuted(TabModel item)
@@ -116,34 +112,6 @@ namespace Sandbox.Models
             e.SourceWindow.Close();
             IsActive = true;
             SelectedItem = Children[index];
-        }
-
-        private void OnCollectionChanged(ObservableCollection<TabModel> prev, ObservableCollection<TabModel> next)
-        {
-            Unsubscribe(prev);
-            Subscribe(next);
-        }
-
-        private void Unsubscribe(ObservableCollection<TabModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var tab in collection)
-                tab.Parent = null;
-
-            collection.CollectionChanged -= Children_CollectionChanged;
-        }
-
-        private void Subscribe(ObservableCollection<TabModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var tab in collection)
-                tab.Parent = this;
-
-            collection.CollectionChanged += Children_CollectionChanged;
         }
 
         private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

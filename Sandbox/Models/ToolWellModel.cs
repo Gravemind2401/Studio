@@ -172,7 +172,5 @@ namespace Sandbox.Models
             else if (ParentViewModel != null)
                 ParentViewModel.Content = null;
         }
-
-        internal override IEnumerable<TabModel> AllTabs => Children;
     }
 }

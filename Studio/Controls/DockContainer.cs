@@ -65,7 +65,7 @@ namespace Studio.Controls
         public static readonly DependencyProperty SelectedContentTemplateSelectorProperty =
             DependencyProperty.Register(nameof(SelectedContentTemplateSelector), typeof(DataTemplateSelector), typeof(DockContainer), new PropertyMetadata((DataTemplateSelector)null));
 
-        public static readonly DependencyPropertyKey HasSelectionPropertyKey =
+        private static readonly DependencyPropertyKey HasSelectionPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasSelection), typeof(bool), typeof(DockContainer), new PropertyMetadata(false, null, CoerceHasSelection));
 
         public static readonly DependencyProperty HasSelectionProperty = HasSelectionPropertyKey.DependencyProperty;
@@ -75,7 +75,7 @@ namespace Studio.Controls
             return ((DockContainer)d).SelectedItem != null;
         }
 
-        public static readonly DependencyPropertyKey SelectedItemDockPropertyKey =
+        private static readonly DependencyPropertyKey SelectedItemDockPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedItemDock), typeof(Dock?), typeof(DockContainer), new PropertyMetadata(null, null, CoerceSelectedItemDock));
 
         public static readonly DependencyProperty SelectedItemDockProperty = SelectedItemDockPropertyKey.DependencyProperty;

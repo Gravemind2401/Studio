@@ -27,33 +27,10 @@ namespace Sandbox.ViewModels
 
         internal Window Host { get; set; }
 
-        private ObservableCollection<TabModel> leftDockItems;
-        public ObservableCollection<TabModel> LeftDockItems
-        {
-            get { return leftDockItems; }
-            set { SetProperty(ref leftDockItems, value, OnCollectionChanged); }
-        }
-
-        private ObservableCollection<TabModel> topDockItems;
-        public ObservableCollection<TabModel> TopDockItems
-        {
-            get { return topDockItems; }
-            set { SetProperty(ref topDockItems, value, OnCollectionChanged); }
-        }
-
-        private ObservableCollection<TabModel> rightDockItems;
-        public ObservableCollection<TabModel> RightDockItems
-        {
-            get { return rightDockItems; }
-            set { SetProperty(ref rightDockItems, value, OnCollectionChanged); }
-        }
-
-        private ObservableCollection<TabModel> bottomDockItems;
-        public ObservableCollection<TabModel> BottomDockItems
-        {
-            get { return bottomDockItems; }
-            set { SetProperty(ref bottomDockItems, value, OnCollectionChanged); }
-        }
+        public ObservableCollection<TabModel> LeftDockItems { get; }
+        public ObservableCollection<TabModel> TopDockItems { get; }
+        public ObservableCollection<TabModel> RightDockItems { get; }
+        public ObservableCollection<TabModel> BottomDockItems { get; }
 
         private TabModel selectedDockItem;
         public TabModel SelectedDockItem
@@ -83,14 +60,19 @@ namespace Sandbox.ViewModels
             TopDockItems = new ObservableCollection<TabModel>();
             RightDockItems = new ObservableCollection<TabModel>();
             BottomDockItems = new ObservableCollection<TabModel>();
+
+            LeftDockItems.CollectionChanged += DockItems_CollectionChanged;
+            TopDockItems.CollectionChanged += DockItems_CollectionChanged;
+            RightDockItems.CollectionChanged += DockItems_CollectionChanged;
+            BottomDockItems.CollectionChanged += DockItems_CollectionChanged;
         }
 
         private void CloseTabExecuted(TabModel item)
         {
-            LeftDockItems?.Remove(SelectedDockItem);
-            TopDockItems?.Remove(SelectedDockItem);
-            RightDockItems?.Remove(SelectedDockItem);
-            BottomDockItems?.Remove(SelectedDockItem);
+            LeftDockItems.Remove(SelectedDockItem);
+            TopDockItems.Remove(SelectedDockItem);
+            RightDockItems.Remove(SelectedDockItem);
+            BottomDockItems.Remove(SelectedDockItem);
         }
 
         private void TogglePinStatusExecuted(TabModel item)
@@ -195,49 +177,28 @@ namespace Sandbox.ViewModels
             next?.SetParent(null, this);
         }
 
-        private void OnCollectionChanged(ObservableCollection<TabModel> prev, ObservableCollection<TabModel> next)
-        {
-            Unsubscribe(prev);
-            Subscribe(next);
-        }
-
-        private void Unsubscribe(ObservableCollection<TabModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var tool in collection)
-                tool.Parent = null;
-
-            collection.CollectionChanged -= DockItems_CollectionChanged;
-        }
-
-        private void Subscribe(ObservableCollection<TabModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var tool in collection)
-                tool.Parent = this;
-
-            collection.CollectionChanged += DockItems_CollectionChanged;
-        }
-
         private void DockItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
             {
-                foreach (var tool in e.OldItems.OfType<TabModel>())
-                    tool.Parent = null;
+                foreach (var tab in e.OldItems.OfType<TabModel>())
+                    tab.Parent = null;
             }
 
             if (e.NewItems != null)
             {
-                foreach (var tool in e.NewItems.OfType<TabModel>())
-                    tool.Parent = this;
+                foreach (var tab in e.NewItems.OfType<TabModel>())
+                    tab.Parent = this;
             }
         }
 
-        internal override IEnumerable<TabModel> AllTabs => Content?.AllTabs ?? Enumerable.Empty<TabModel>();
+        internal override IEnumerable<TabModel> AllTabs
+        {
+            get
+            {
+                var contentItems = Content?.AllTabs ?? Enumerable.Empty<TabModel>();
+                return LeftDockItems.Concat(TopDockItems).Concat(RightDockItems).Concat(BottomDockItems).Concat(contentItems);
+            }
+        }
     }
 }

@@ -13,12 +13,7 @@ namespace Sandbox.Models
 {
     public class DocContainerModel : ModelBase
     {
-        private ObservableCollection<DocumentWellModel> children = new ObservableCollection<DocumentWellModel>();
-        public ObservableCollection<DocumentWellModel> Children
-        {
-            get { return children; }
-            set { SetProperty(ref children, value, OnCollectionChanged); }
-        }
+        public ObservableCollection<DocumentWellModel> Children { get; }
 
         private Orientation orientation;
         public Orientation Orientation
@@ -32,7 +27,8 @@ namespace Sandbox.Models
         public DocContainerModel()
         {
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
-            Subscribe(Children);
+            Children = new ObservableCollection<DocumentWellModel>();
+            Children.CollectionChanged += Children_CollectionChanged;
         }
 
         public DocContainerModel(DocumentWellModel initial) : this()
@@ -64,34 +60,6 @@ namespace Sandbox.Models
             newGroup.SelectedItem = newGroup.Children[0];
         }
 
-        private void OnCollectionChanged(ObservableCollection<DocumentWellModel> prev, ObservableCollection<DocumentWellModel> next)
-        {
-            Unsubscribe(prev);
-            Subscribe(next);
-        }
-
-        private void Unsubscribe(ObservableCollection<DocumentWellModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var well in collection)
-                well.Parent = null;
-
-            collection.CollectionChanged -= Children_CollectionChanged;
-        }
-
-        private void Subscribe(ObservableCollection<DocumentWellModel> collection)
-        {
-            if (collection == null)
-                return;
-
-            foreach (var well in collection)
-                well.Parent = this;
-
-            collection.CollectionChanged += Children_CollectionChanged;
-        }
-
         private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
@@ -111,7 +79,7 @@ namespace Sandbox.Models
         {
             base.SetParent(parentModel, parentViewModel);
 
-            foreach (var child in children)
+            foreach (var child in Children)
                 child.SetParent(parentModel, parentViewModel);
         }
 
