@@ -1772,6 +1772,17 @@
         <Setter Property="SplitterThickness" Value="6" />
     </Style>
 
+    <Style TargetType="c:SplitPanelSplitter">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=c:SplitPanel}}" Value="Horizontal">
+                <Setter Property="Background" Value="{DynamicResource Environment.VerticalResizeGrip}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=c:SplitPanel}}" Value="Vertical">
+                <Setter Property="Background" Value="{DynamicResource Environment.HorizontalResizeGrip}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!--#region DocumentWell-->
     <Style x:Key="{x:Static c:DocumentWell.DocumentTabStyleKey}" TargetType="c:TabWellItem">
         <Style.Resources>
