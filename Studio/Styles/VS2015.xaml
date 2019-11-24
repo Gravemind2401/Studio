@@ -466,6 +466,15 @@
                                 </ControlTemplate>
                             </ToggleButton.Template>
                         </ToggleButton>
+                        <ToggleButton x:Name="ToggleOverlay" Grid.ColumnSpan="3" Panel.ZIndex="1"
+                                      Focusable="False" ClickMode="Press" Background="Transparent"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="{TemplateBinding Background}" />
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
                         <Popup x:Name="Popup" Placement="Bottom"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                AllowsTransparency="True" Focusable="False"
@@ -506,6 +515,7 @@
                         </Trigger>
                         <Trigger Property="IsEditable" Value="True">
                             <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ToggleOverlay" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="HasItems" Value="False">
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
