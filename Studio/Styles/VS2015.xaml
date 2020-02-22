@@ -983,8 +983,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <StackPanel IsItemsHost="True" Orientation="Horizontal"
-                                    Margin="{TemplateBinding Padding}" />
+                        <ItemsPresenter Margin="{TemplateBinding Padding}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
