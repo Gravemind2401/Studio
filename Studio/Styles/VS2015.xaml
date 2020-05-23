@@ -757,6 +757,11 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="StatusBar">
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="Padding" Value="1" />
+    </Style>
     
     <!--#endregion-->
     

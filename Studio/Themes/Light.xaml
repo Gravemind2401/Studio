@@ -607,8 +607,10 @@
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveBuildingBorder" Color="#FF9B9FB9" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveCaptionBackground" Color="#FFEEEEF2" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveCaptionForeground" Color="#FF525252" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveDebuggingBorder" Color="#FF9B9FB9" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveDefaultBorder" Color="#FF9B9FB9" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconBuilding" Color="#FF68217A" />
+    <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconDebugging" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconDefault" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveIconNoSolution" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.MainWindow.ActiveNoSolutionBorder" Color="#FF9B9FB9" />
@@ -629,6 +631,7 @@
     <SolidColorBrush x:Key="Environment.MainWindow.InactiveCaptionBackground" Color="#FFEEEEF2" />
     <SolidColorBrush x:Key="Environment.MainWindow.InactiveCaptionForeground" Color="#99525252" />
     <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconBuilding" Color="#66000000" />
+    <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconDebugging" Color="#66000000" />
     <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconDefault" Color="#66000000" />
     <SolidColorBrush x:Key="Environment.MainWindow.InactiveIconNoSolution" Color="#66000000" />
     <SolidColorBrush x:Key="Environment.MainWindow.ResizeGripTexture1" Color="#FFFFFFFF" />
@@ -664,6 +667,7 @@
 
     <!--#region RaftedWindow-->
     <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconBuilding" Color="#FF68217A" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconDebugging" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconDefault" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.ActiveIconNoSolution" Color="#FF68217A" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonActiveBorder" Color="#00000000" />
@@ -680,6 +684,7 @@
     <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonInactiveBorder" Color="#00000000" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.ButtonInactiveGlyph" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconBuilding" Color="#66000000" />
+    <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconDebugging" Color="#66000000" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconDefault" Color="#66000000" />
     <SolidColorBrush x:Key="Environment.RaftedWindow.InactiveIconNoSolution" Color="#66000000" />
     <!--#endregion-->
@@ -732,6 +737,8 @@
     <!--#region StatusBar-->
     <SolidColorBrush x:Key="Environment.StatusBar.BuildingBackground" Color="#FF0E639C" />
     <SolidColorBrush x:Key="Environment.StatusBar.BuildingForeground" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Environment.StatusBar.DebuggingBackground" Color="#FFCA5100" />
+    <SolidColorBrush x:Key="Environment.StatusBar.DebuggingForeground" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.StatusBar.DefaultBackground" Color="#FF007ACC" />
     <SolidColorBrush x:Key="Environment.StatusBar.DefaultForeground" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Environment.StatusBar.HighlightBackground" Color="#4C000000" />
