@@ -318,7 +318,7 @@
 
     <!--#region Standard Controls-->
 
-    <Style TargetType="TextBox">
+    <Style x:Key="Studio.TextBoxStyle" TargetType="TextBox">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
@@ -355,7 +355,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button">
+    <Style x:Key="Studio.ButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
@@ -396,7 +396,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="ComboBox">
+    <Style x:Key="Studio.ComboBoxStyle" TargetType="ComboBox">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -550,7 +550,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="ComboBoxItem">
+    <Style x:Key="Studio.ComboBoxItemStyle" TargetType="ComboBoxItem">
         <Setter Property="Template" Value="{StaticResource ComboBoxItemTemplate}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -574,7 +574,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource Environment.ComboBox.ItemMouseOverText}" />
@@ -587,14 +587,14 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="TreeView">
+    <Style x:Key="Studio.TreeViewStyle" TargetType="TreeView">
         <Setter Property="Padding" Value="0" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}" />
         <Setter Property="Background" Value="{DynamicResource TreeView.Background}" />
     </Style>
 
-    <Style TargetType="TreeViewItem">
+    <Style x:Key="Studio.TreeViewItemStyle" TargetType="TreeViewItem">
         <Style.Resources>
             <u:TreeViewItemMarginConverter x:Key="marginConverter" IndentWidth="18" />
             <Style x:Key="ExpanderToggleStyle" TargetType="ToggleButton">
@@ -604,7 +604,7 @@
                 <!--unselected, collapsed-->
                 <Setter Property="Foreground" Value="{DynamicResource TreeView.Glyph}" />
                 <Setter Property="Background" Value="Transparent" />
-                
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ToggleButton">
@@ -627,12 +627,12 @@
                     <Trigger Property="IsChecked" Value="True">
                         <Setter Property="Background" Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
                     </Trigger>
-                    
+
                     <!--unselected, hovered-->
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Foreground" Value="{DynamicResource TreeView.GlyphMouseOver}" />
                     </Trigger>
-                    
+
                     <!--selected, active-->
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
@@ -758,16 +758,16 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="StatusBar">
+    <Style x:Key="Studio.StatusBarStyle" TargetType="StatusBar">
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="Padding" Value="1" />
     </Style>
-    
+
     <!--#endregion-->
-    
+
     <!--#region ToolBar-->
 
-    <Style TargetType="ToolBarTray">
+    <Style x:Key="Studio.ToolBarTrayStyle" TargetType="ToolBarTray">
         <Setter Property="Background" Value="{DynamicResource Environment.CommandShelf.BackgroundGradient}" />
         <Style.Triggers>
             <Trigger Property="IsLocked" Value="True">
@@ -776,7 +776,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="ToolBar">
+    <Style x:Key="Studio.ToolBarStyle" TargetType="ToolBar">
         <Style.Resources>
             <Style x:Key="ToolBarThumbStyle" TargetType="Thumb">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -883,7 +883,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
+    <Style x:Key="Studio.ToolBarButtonStyle" TargetType="Button">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
         <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextActive}" />
@@ -907,7 +907,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" TargetType="ToggleButton">
+    <Style x:Key="Studio.ToolBarToggleButtonStyle" TargetType="ToggleButton">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
         <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextActive}" />
@@ -943,11 +943,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="{x:Static ToolBar.ComboBoxStyleKey}" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+    <Style x:Key="Studio.ToolBarComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource Studio.ComboBoxStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-    
-    <Style x:Key="{x:Static ToolBar.SeparatorStyleKey}" TargetType="Separator">
+
+    <Style x:Key="Studio.ToolBarSeparatorStyle" TargetType="Separator">
         <Setter Property="Margin" Value="3,2" />
         <Setter Property="Width" Value="2" />
 
@@ -969,10 +969,10 @@
     </Style>
 
     <!--#endregion-->
-    
+
     <!--#region Menu-->
 
-    <Style TargetType="Menu">
+    <Style x:Key="Studio.MenuStyle" TargetType="Menu">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
 
@@ -995,7 +995,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
+    <Style x:Key="Studio.MenuItemSeparatorStyle" TargetType="Separator">
         <Setter Property="Margin" Value="3,1,2,1" />
         <Setter Property="Height" Value="1" />
 
@@ -1263,7 +1263,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="ContextMenu">
+    <Style x:Key="Studio.ContextMenuStyle" TargetType="ContextMenu">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.MenuBorder}" />
@@ -1475,7 +1475,7 @@
         </Grid>
     </ControlTemplate>
 
-    <Style TargetType="ScrollBar">
+    <Style x:Key="Studio.ScrollBarStyle" TargetType="ScrollBar">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Style.Triggers>
@@ -1492,7 +1492,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="ScrollViewer">
+    <Style x:Key="Studio.ScrollViewerStyle" TargetType="ScrollViewer">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
@@ -1541,7 +1541,7 @@
 
     <!--#region Custom Controls-->
 
-    <Style TargetType="c:SearchControl">
+    <Style x:Key="Studio.SearchControlStyle" TargetType="c:SearchControl">
         <Style.Resources>
             <Style x:Key="ActionButtonStyle" TargetType="Button">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -1712,7 +1712,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="c:DockContainer">
+    <Style x:Key="Studio.DockContainerStyle" TargetType="c:DockContainer">
         <Setter Property="Padding" Value="6" />
 
         <Setter Property="ItemTemplate">
@@ -1782,11 +1782,11 @@
         </Setter>
     </Style>
 
-    <Style TargetType="c:SplitPanel">
+    <Style x:Key="Studio.SplitPanelStyle" TargetType="c:SplitPanel">
         <Setter Property="SplitterThickness" Value="6" />
     </Style>
 
-    <Style TargetType="c:SplitPanelSplitter">
+    <Style x:Key="Studio.SplitPanelSplitterStyle" TargetType="c:SplitPanelSplitter">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=c:SplitPanel}}" Value="Horizontal">
                 <Setter Property="Background" Value="{DynamicResource Environment.VerticalResizeGrip}" />
@@ -2385,10 +2385,10 @@
         </Setter>
     </Style>
     <!--#endregion-->
-    
+
     <!--#region DockTarget-->
 
-    <Style TargetType="c:DockTargetButton">
+    <Style x:Key="Studio.DockTargetButtonStyle" TargetType="c:DockTargetButton">
         <Style.Resources>
             <Style TargetType="Canvas">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -2409,7 +2409,7 @@
                 <Setter Property="StrokeThickness" Value="1" />
             </Style>
         </Style.Resources>
-        
+
         <Setter Property="Margin" Value="3" />
         <Setter Property="Padding" Value="3" />
         <Setter Property="Width" Value="32" />
@@ -2430,7 +2430,7 @@
             <Trigger Property="IsTargeted" Value="True">
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
-            
+
             <Trigger Property="TargetDock" Value="Center">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -2647,9 +2647,66 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <!--#endregion-->
-    
+
+    <!--#endregion-->
+
+    <!--#region Default Overrides-->
+
+    <!--#region Standard Controls-->
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource Studio.TextBoxStyle}" />
+    <Style TargetType="Button" BasedOn="{StaticResource Studio.ButtonStyle}" />
+    <Style TargetType="ComboBox" BasedOn="{StaticResource Studio.ComboBoxStyle}" />
+    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource Studio.ComboBoxItemStyle}" />
+    <Style TargetType="TreeView" BasedOn="{StaticResource Studio.TreeViewStyle}" />
+    <Style TargetType="TreeViewItem" BasedOn="{StaticResource Studio.TreeViewItemStyle}" />
+    <Style TargetType="StatusBar" BasedOn="{StaticResource Studio.StatusBarStyle}" />
+
+    <!--#endregion-->
+
+    <!--#region ToolBar-->
+
+    <Style TargetType="ToolBarTray" BasedOn="{StaticResource Studio.ToolBarTrayStyle}" />
+    <Style TargetType="ToolBar" BasedOn="{StaticResource Studio.ToolBarStyle}" />
+    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button" BasedOn="{StaticResource Studio.ToolBarButtonStyle}" />
+    <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" TargetType="ToggleButton" BasedOn="{StaticResource Studio.ToolBarToggleButtonStyle}" />
+    <Style x:Key="{x:Static ToolBar.ComboBoxStyleKey}" TargetType="ComboBox" BasedOn="{StaticResource Studio.ToolBarComboBoxStyle}" />
+    <Style x:Key="{x:Static ToolBar.SeparatorStyleKey}" TargetType="Separator" BasedOn="{StaticResource Studio.ToolBarSeparatorStyle}" />
+
+    <!--#endregion-->
+
+    <!--#region Menu-->
+
+    <Style TargetType="Menu" BasedOn="{StaticResource Studio.MenuStyle}" />
+    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator" BasedOn="{StaticResource Studio.MenuItemSeparatorStyle}" />
+    <Style TargetType="ContextMenu" BasedOn="{StaticResource Studio.ContextMenuStyle}" />
+
+    <!--#endregion-->
+
+    <!--#region ScrollViewer-->
+
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource Studio.ScrollBarStyle}" />
+    <Style TargetType="ScrollViewer" BasedOn="{StaticResource Studio.ScrollViewerStyle}" />
+
+    <!--#endregion-->
+
+    <!--#region Custom Controls-->
+
+    <Style TargetType="c:SearchControl" BasedOn="{StaticResource Studio.SearchControlStyle}" />
+    <Style TargetType="c:DockContainer" BasedOn="{StaticResource Studio.DockContainerStyle}" />
+    <Style TargetType="c:SplitPanel" BasedOn="{StaticResource Studio.SplitPanelStyle}" />
+    <Style TargetType="c:SplitPanelSplitter" BasedOn="{StaticResource Studio.SplitPanelSplitterStyle}" />
+
+    <!--#region DockTarget-->
+
+    <Style TargetType="c:DockTargetButton" BasedOn="{StaticResource Studio.DockTargetButtonStyle}" />
+
+    <!--#endregion-->
+
+    <!--#endregion-->
+
     <!--#endregion-->
 
 </ResourceDictionary>
