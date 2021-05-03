@@ -5,7 +5,7 @@
                     xmlns:u="clr-namespace:Studio.Utilities">
 
     <!--#region Icon Templates-->
-    <ControlTemplate x:Key="ScrollArrowLeftGlyph">
+    <ControlTemplate x:Key="Studio.ScrollArrowLeftGlyph">
         <Viewbox Width="17" Height="17">
             <Rectangle Width="17" Height="17">
                 <Rectangle.Fill>
@@ -33,7 +33,7 @@
         </Viewbox>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ScrollArrowUpGlyph">
+    <ControlTemplate x:Key="Studio.ScrollArrowUpGlyph">
         <Viewbox Width="17" Height="17">
             <Rectangle Width="17" Height="17">
                 <Rectangle.Fill>
@@ -61,7 +61,7 @@
         </Viewbox>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ScrollArrowRightGlyph">
+    <ControlTemplate x:Key="Studio.ScrollArrowRightGlyph">
         <Viewbox Width="17" Height="17">
             <Rectangle Width="17" Height="17">
                 <Rectangle.Fill>
@@ -89,7 +89,7 @@
         </Viewbox>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ScrollArrowDownGlyph">
+    <ControlTemplate x:Key="Studio.ScrollArrowDownGlyph">
         <Viewbox Width="17" Height="17">
             <Rectangle Width="17" Height="17">
                 <Rectangle.Fill>
@@ -1310,7 +1310,7 @@
 
     <!--#region ScrollViewer-->
 
-    <Style x:Key="ScrollBarLineButton" TargetType="RepeatButton">
+    <Style x:Key="Studio.ScrollBarLineButtonStyle" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Focusable" Value="False" />
@@ -1414,9 +1414,9 @@
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3" Background="{DynamicResource Environment.ScrollBar.Background}" />
             <RepeatButton Grid.Row="0" Height="17"
-                    Style="{StaticResource ScrollBarLineButton}"
+                    Style="{StaticResource Studio.ScrollBarLineButtonStyle}"
                     Command="ScrollBar.LineUpCommand">
-                <ContentControl Template="{StaticResource ScrollArrowUpGlyph}"
+                <ContentControl Template="{StaticResource Studio.ScrollArrowUpGlyph}"
                                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
             </RepeatButton>
             <Track x:Name="PART_Track" Grid.Row="1"
@@ -1432,9 +1432,9 @@
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton Grid.Row="3" Height="17"
-                    Style="{StaticResource ScrollBarLineButton}"
+                    Style="{StaticResource Studio.ScrollBarLineButtonStyle}"
                     Command="ScrollBar.LineDownCommand">
-                <ContentControl Template="{StaticResource ScrollArrowDownGlyph}"
+                <ContentControl Template="{StaticResource Studio.ScrollArrowDownGlyph}"
                                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
             </RepeatButton>
         </Grid>
@@ -1449,9 +1449,9 @@
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="3" Background="{DynamicResource Environment.ScrollBar.Background}" />
             <RepeatButton Grid.Column="0" Width="17"
-                        Style="{StaticResource ScrollBarLineButton}"
+                        Style="{StaticResource Studio.ScrollBarLineButtonStyle}"
                         Command="ScrollBar.LineLeftCommand">
-                <ContentControl Template="{StaticResource ScrollArrowLeftGlyph}"
+                <ContentControl Template="{StaticResource Studio.ScrollArrowLeftGlyph}"
                                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
             </RepeatButton>
             <Track x:Name="PART_Track" Grid.Column="1"
@@ -1467,9 +1467,9 @@
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton Grid.Column="3" Width="17"
-                        Style="{StaticResource ScrollBarLineButton}"
+                        Style="{StaticResource Studio.ScrollBarLineButtonStyle}"
                         Command="ScrollBar.LineRightCommand">
-                <ContentControl Template="{StaticResource ScrollArrowRightGlyph}"
+                <ContentControl Template="{StaticResource Studio.ScrollArrowRightGlyph}"
                                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
             </RepeatButton>
         </Grid>
