@@ -1,6 +1,5 @@
-﻿<#@ template debug="true" hostSpecific="true" #>
-<#@ output extension="?" #>
-<#@ include file="TemplateFileManager.ttinclude" #>
+﻿<#@ template debug="true" hostSpecific="true" language="C#" #>
+<#@ include file="T4.FileManager.VisualStudio.ttinclude" #>
 <#@ Assembly Name="System.Core" #>
 <#@ Assembly Name="System.Drawing" #>
 <#@ Assembly Name="System.Xml" #>
@@ -9,17 +8,18 @@
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #> 
 <#@ import namespace="System.Drawing" #> 
+<#@ import namespace="System.Globalization" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <# 
-    var manager = TemplateFileManager.Create(this);
+    var fileManager = T4FileManager.Create(this).DisableTemplateMainOutputFile();
     var dir = this.Host.ResolvePath("VSTheme");
     var files = Directory.EnumerateFiles(dir, "*.vstheme");
     foreach (var fileName in files)
     {
-        manager.StartNewFile(Path.GetFileNameWithoutExtension(fileName) + ".xaml");
+        fileManager.CreateNewFile(Path.GetFileNameWithoutExtension(fileName) + ".xaml");
         #><ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -116,7 +116,7 @@
         <#
     }
 
-    manager.Process();
+    fileManager.Generate();
 #>
 <#+
     string[] excludedResources = new[]
