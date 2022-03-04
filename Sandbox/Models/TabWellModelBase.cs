@@ -16,29 +16,29 @@ namespace Sandbox.Models
         private bool isActive;
         public bool IsActive
         {
-            get { return isActive; }
-            set { SetProperty(ref isActive, value); }
+            get => isActive;
+            set => SetProperty(ref isActive, value);
         }
 
         private TabModel selectedItem;
         public TabModel SelectedItem
         {
-            get { return selectedItem; }
-            set { SetProperty(ref selectedItem, value); }
+            get => selectedItem;
+            set => SetProperty(ref selectedItem, value);
         }
 
         private double width;
         public double Width
         {
-            get { return width; }
-            set { SetProperty(ref width, value, UpdateChildrenWidth); }
+            get => width;
+            set => SetProperty(ref width, value, UpdateChildrenWidth);
         }
 
         private double height;
         public double Height
         {
-            get { return height; }
-            set { SetProperty(ref height, value, UpdateChildrenHeight); }
+            get => height;
+            set => SetProperty(ref height, value, UpdateChildrenHeight);
         }
 
         public DelegateCommand<TabModel> CloseTabCommand { get; }
@@ -93,8 +93,7 @@ namespace Sandbox.Models
         {
             //Reverse() to preserve tab order
             var groups = e.SourceContent.OfType<TabWellModelBase>().Reverse().ToList();
-            var target = e.TargetItem as TabModel;
-            var index = target == null || target.IsPinned ? 0 : Children.IndexOf(target);
+            var index = !(e.TargetItem is TabModel target) || target.IsPinned ? 0 : Children.IndexOf(target);
 
             foreach (var group in groups)
             {

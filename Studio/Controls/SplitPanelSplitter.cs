@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls;
-using Studio.Utilities;
 
 namespace Studio.Controls
 {
@@ -27,7 +27,7 @@ namespace Studio.Controls
         private static object CoerceCursor(DependencyObject d, object value)
         {
             return ((SplitPanelSplitter)d).Owner.Orientation == Orientation.Horizontal ? Cursors.SizeWE : Cursors.SizeNS;
-        } 
+        }
         #endregion
 
         #region Dependency Properties
@@ -46,26 +46,26 @@ namespace Studio.Controls
 
         public bool ShowsPreview
         {
-            get { return (bool)GetValue(ShowsPreviewProperty); }
-            set { SetValue(ShowsPreviewProperty, value); }
+            get => (bool)GetValue(ShowsPreviewProperty);
+            set => SetValue(ShowsPreviewProperty, value);
         }
 
         public Style PreviewStyle
         {
-            get { return (Style)GetValue(PreviewStyleProperty); }
-            set { SetValue(PreviewStyleProperty, value); }
+            get => (Style)GetValue(PreviewStyleProperty);
+            set => SetValue(PreviewStyleProperty, value);
         }
 
         public double KeyboardIncrement
         {
-            get { return (double)GetValue(KeyboardIncrementProperty); }
-            set { SetValue(KeyboardIncrementProperty, value); }
+            get => (double)GetValue(KeyboardIncrementProperty);
+            set => SetValue(KeyboardIncrementProperty, value);
         }
 
         public double DragIncrement
         {
-            get { return (double)GetValue(DragIncrementProperty); }
-            set { SetValue(DragIncrementProperty, value); }
+            get => (double)GetValue(DragIncrementProperty);
+            set => SetValue(DragIncrementProperty, value);
         }
 
         private static bool IsValidDelta(object o)
@@ -100,14 +100,14 @@ namespace Studio.Controls
 
             public double OffsetX
             {
-                get { return translation.X; }
-                set { translation.X = value; }
+                get => translation.X;
+                set => translation.X = value;
             }
 
             public double OffsetY
             {
-                get { return translation.Y; }
-                set { translation.Y = value; }
+                get => translation.Y;
+                set => translation.Y = value;
             }
 
             public PreviewAdorner(SplitPanelSplitter splitter, Style previewStyle)
@@ -161,11 +161,13 @@ namespace Studio.Controls
 
         private void InitializeData(bool ShowsPreview)
         {
-            _resizeData = new ResizeData();
-            _resizeData.Panel = Owner;
-            _resizeData.ShowsPreview = ShowsPreview;
-            _resizeData.SplitterLength = Math.Min(ActualWidth, ActualHeight);
-            _resizeData.SplitterIndex = SplitterIndex;
+            _resizeData = new ResizeData
+            {
+                Panel = Owner,
+                ShowsPreview = ShowsPreview,
+                SplitterLength = Math.Min(ActualWidth, ActualHeight),
+                SplitterIndex = SplitterIndex
+            };
 
             SetupDefinitionsToResize();
             SetupPreview();
@@ -186,8 +188,8 @@ namespace Studio.Controls
             _resizeData.OriginalDefinition2Length = _resizeData.Definition2.DesiredSize;  //save Size if user cancels
             _resizeData.OriginalDefinition2ActualLength = _resizeData.Definition2.ActualSize;
 
-            bool isStar1 = _resizeData.Definition1.DesiredSize.IsStar;
-            bool isStar2 = _resizeData.Definition2.DesiredSize.IsStar;
+            var isStar1 = _resizeData.Definition1.DesiredSize.IsStar;
+            var isStar2 = _resizeData.Definition2.DesiredSize.IsStar;
             if (isStar1 && isStar2)
             {
                 // If they are both stars, resize both
@@ -249,13 +251,12 @@ namespace Studio.Controls
             if (_resizeData == null)
                 return;
 
-            double horizontalChange = e.HorizontalChange;
-            double verticalChange = e.VerticalChange;
+            var horizontalChange = e.HorizontalChange;
+            var verticalChange = e.VerticalChange;
 
             // Round change to nearest multiple of DragIncrement
-            double dragIncrement = DragIncrement;
-            horizontalChange = Math.Round(horizontalChange / dragIncrement) * dragIncrement;
-            verticalChange = Math.Round(verticalChange / dragIncrement) * dragIncrement;
+            horizontalChange = Math.Round(horizontalChange / DragIncrement) * DragIncrement;
+            verticalChange = Math.Round(verticalChange / DragIncrement) * DragIncrement;
 
             if (_resizeData.ShowsPreview)
             {
@@ -341,13 +342,13 @@ namespace Studio.Controls
         // Get the minimum and maximum Delta can be given definition constraints (MinWidth/MaxWidth)
         private void GetDeltaConstraints(out double minDelta, out double maxDelta)
         {
-            double definition1Len = _resizeData.Definition1.ActualSize;
-            double definition1Min = _resizeData.Definition1.MinSize;
-            double definition1Max = _resizeData.Definition1.MaxSize;
+            var definition1Len = _resizeData.Definition1.ActualSize;
+            var definition1Min = _resizeData.Definition1.MinSize;
+            var definition1Max = _resizeData.Definition1.MaxSize;
 
-            double definition2Len = _resizeData.Definition2.ActualSize;
-            double definition2Min = _resizeData.Definition2.MinSize;
-            double definition2Max = _resizeData.Definition2.MaxSize;
+            var definition2Len = _resizeData.Definition2.ActualSize;
+            var definition2Min = _resizeData.Definition2.MinSize;
+            var definition2Max = _resizeData.Definition2.MaxSize;
 
             //Set MinWidths to be greater than width of splitter
             if (_resizeData.SplitterIndex == _resizeData.Definition1Index)
@@ -425,20 +426,16 @@ namespace Studio.Controls
             var definition2 = _resizeData.Definition2;
             if (definition1 != null && definition2 != null)
             {
-                double actualLength1 = definition1.ActualSize;
-                double actualLength2 = definition2.ActualSize;
-
                 // When splitting, Check to see if the total pixels spanned by the definitions 
                 // is the same as before starting resize. If not cancel the drag
                 if (_resizeData.SplitBehavior == SplitBehavior.ResizeBoth &&
-                    !LayoutDoubleUtil.AreClose(actualLength1 + actualLength2, _resizeData.OriginalDefinition1ActualLength + _resizeData.OriginalDefinition2ActualLength))
+                    !LayoutDoubleUtil.AreClose(definition1.ActualSize + definition2.ActualSize, _resizeData.OriginalDefinition1ActualLength + _resizeData.OriginalDefinition2ActualLength))
                 {
                     CancelResize();
                     return;
                 }
 
-                double min, max;
-                GetDeltaConstraints(out min, out max);
+                GetDeltaConstraints(out double min, out double max);
 
                 // Flip when the splitter's flow direction isn't the same as the grid's
                 if (FlowDirection != _resizeData.Panel.FlowDirection)
@@ -446,8 +443,8 @@ namespace Studio.Controls
 
                 delta = Math.Min(Math.Max(delta, min), max);
 
-                double definition1LengthNew = actualLength1 + delta;
-                double definition2LengthNew = actualLength1 + actualLength2 - definition1LengthNew;
+                var definition1LengthNew = definition1.ActualSize + delta;
+                var definition2LengthNew = definition1.ActualSize + definition2.ActualSize - definition1LengthNew;
 
                 SetLengths(definition1LengthNew, definition2LengthNew);
             }
@@ -464,7 +461,7 @@ namespace Studio.Controls
 
             // Check that we are actually able to resize
             if (_resizeData == null)
-                return false; 
+                return false;
 
             // Keyboard keys are unaffected by FlowDirection.
             if (FlowDirection == FlowDirection.RightToLeft)
@@ -536,20 +533,20 @@ namespace Studio.Controls
 
             public double MinSize
             {
-                get { return SplitPanel.GetMinSize(element); }
-                set { SplitPanel.SetMinSize(element, value); }
+                get => SplitPanel.GetMinSize(element);
+                set => SplitPanel.SetMinSize(element, value);
             }
 
             public GridLength DesiredSize
             {
-                get { return SplitPanel.GetDesiredSize(element); }
-                set { SplitPanel.SetDesiredSize(element, value); }
+                get => SplitPanel.GetDesiredSize(element);
+                set => SplitPanel.SetDesiredSize(element, value);
             }
 
             public double MaxSize
             {
-                get { return SplitPanel.GetMaxSize(element); }
-                set { SplitPanel.SetMaxSize(element, value); }
+                get => SplitPanel.GetMaxSize(element);
+                set => SplitPanel.SetMaxSize(element, value);
             }
         }
 

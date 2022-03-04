@@ -18,15 +18,15 @@ namespace Sandbox.Models
         private bool isWindow;
         public bool IsWindow
         {
-            get { return isWindow; }
-            internal set { SetProperty(ref isWindow, value); }
+            get => isWindow;
+            internal set => SetProperty(ref isWindow, value);
         }
 
         private Dock dock;
         public Dock Dock
         {
-            get { return dock; }
-            internal set { SetProperty(ref dock, value); }
+            get => dock;
+            internal set => SetProperty(ref dock, value);
         }
 
         protected override void TogglePinStatusExecuted(TabModel item)

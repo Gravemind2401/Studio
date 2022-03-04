@@ -18,8 +18,8 @@ namespace Sandbox.Models
         private DocContainerModel parent;
         public DocContainerModel Parent
         {
-            get { return parent; }
-            set { SetProperty(ref parent, value); }
+            get => parent;
+            set => SetProperty(ref parent, value);
         }
 
         protected override void TogglePinStatusExecuted(TabModel item)
@@ -82,13 +82,10 @@ namespace Sandbox.Models
 
             foreach (var group in groups)
             {
-                var allChildren = group.Children.ToList();
-                foreach (var item in allChildren)
+                foreach (var item in group.Children.ToList())
                 {
                     group.Children.Remove(item);
-                    item.IsPinned = false;
-                    item.IsActive = false;
-
+                    item.IsPinned = item.IsActive = false;
                     newGroup.Children.Add(item);
                 }
             }
@@ -109,13 +106,10 @@ namespace Sandbox.Models
 
             foreach (var group in groups)
             {
-                var allChildren = group.Children.ToList();
-                foreach (var item in allChildren)
+                foreach (var item in group.Children.ToList())
                 {
                     group.Children.Remove(item);
-                    item.IsPinned = false;
-                    item.IsActive = false;
-
+                    item.IsPinned = item.IsActive = false;
                     newGroup.Children.Add(item);
                 }
             }

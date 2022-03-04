@@ -15,32 +15,32 @@ namespace Sandbox.Models
         private SplitViewModel parentModel;
         public SplitViewModel ParentModel
         {
-            get { return parentModel; }
-            private set { SetProperty(ref parentModel, value); }
+            get => parentModel;
+            private set => SetProperty(ref parentModel, value);
         }
 
         private WindowViewModel parentViewModel;
         public WindowViewModel ParentViewModel
         {
-            get { return parentViewModel; }
-            private set { SetProperty(ref parentViewModel, value); }
+            get => parentViewModel;
+            private set => SetProperty(ref parentViewModel, value);
         }
 
         private GridLength panelSize = new GridLength(1, GridUnitType.Star);
         public GridLength PanelSize
         {
-            get { return panelSize; }
-            set { SetProperty(ref panelSize, value); }
+            get => panelSize;
+            set => SetProperty(ref panelSize, value);
         }
 
         private double minPanelSize = 65d;
         public double MinPanelSize
         {
-            get { return minPanelSize; }
-            set { SetProperty(ref minPanelSize, value); }
+            get => minPanelSize;
+            set => SetProperty(ref minPanelSize, value);
         }
 
-        protected bool SetProperty<T>(ref T storage, T value, Action<T, T> onChanged, [CallerMemberName]string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, Action<T, T> onChanged, [CallerMemberName] string propertyName = null)
         {
             var prev = storage;
             if (SetProperty(ref storage, value, propertyName))

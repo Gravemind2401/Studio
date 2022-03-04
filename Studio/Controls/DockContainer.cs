@@ -101,100 +101,93 @@ namespace Studio.Controls
 
         public ICommand DockCommand
         {
-            get { return (ICommand)GetValue(DockCommandProperty); }
-            set { SetValue(DockCommandProperty, value); }
+            get => (ICommand)GetValue(DockCommandProperty);
+            set => SetValue(DockCommandProperty, value);
         }
 
         public Style ItemContainerStyle
         {
-            get { return (Style)GetValue(ItemContainerStyleProperty); }
-            set { SetValue(ItemContainerStyleProperty, value); }
+            get => (Style)GetValue(ItemContainerStyleProperty);
+            set => SetValue(ItemContainerStyleProperty, value);
         }
 
         public StyleSelector ItemContainerStyleSelector
         {
-            get { return (StyleSelector)GetValue(ItemContainerStyleSelectorProperty); }
-            set { SetValue(ItemContainerStyleSelectorProperty, value); }
+            get => (StyleSelector)GetValue(ItemContainerStyleSelectorProperty);
+            set => SetValue(ItemContainerStyleSelectorProperty, value);
         }
 
         public DataTemplate ItemTemplate
         {
-            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
+            get => (DataTemplate)GetValue(ItemTemplateProperty);
+            set => SetValue(ItemTemplateProperty, value);
         }
 
         public DataTemplateSelector ItemTemplateSelector
         {
-            get { return (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty); }
-            set { SetValue(ItemTemplateSelectorProperty, value); }
+            get => (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty);
+            set => SetValue(ItemTemplateSelectorProperty, value);
         }
 
         public IEnumerable LeftItemsSource
         {
-            get { return (IEnumerable)GetValue(LeftItemsSourceProperty); }
-            set { SetValue(LeftItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(LeftItemsSourceProperty);
+            set => SetValue(LeftItemsSourceProperty, value);
         }
 
         public IEnumerable TopItemsSource
         {
-            get { return (IEnumerable)GetValue(TopItemsSourceProperty); }
-            set { SetValue(TopItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(TopItemsSourceProperty);
+            set => SetValue(TopItemsSourceProperty, value);
         }
 
         public IEnumerable RightItemsSource
         {
-            get { return (IEnumerable)GetValue(RightItemsSourceProperty); }
-            set { SetValue(RightItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(RightItemsSourceProperty);
+            set => SetValue(RightItemsSourceProperty, value);
         }
 
         public IEnumerable BottomItemsSource
         {
-            get { return (IEnumerable)GetValue(BottomItemsSourceProperty); }
-            set { SetValue(BottomItemsSourceProperty, value); }
+            get => (IEnumerable)GetValue(BottomItemsSourceProperty);
+            set => SetValue(BottomItemsSourceProperty, value);
         }
 
         public object SelectedItem
         {
-            get { return GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
         public object SelectedValue
         {
-            get { return GetValue(SelectedValueProperty); }
-            set { SetValue(SelectedValueProperty, value); }
+            get => GetValue(SelectedValueProperty);
+            set => SetValue(SelectedValueProperty, value);
         }
 
         public string SelectedValuePath
         {
-            get { return (string)GetValue(SelectedValuePathProperty); }
-            set { SetValue(SelectedValuePathProperty, value); }
+            get => (string)GetValue(SelectedValuePathProperty);
+            set => SetValue(SelectedValuePathProperty, value);
         }
 
         public DataTemplate SelectedContentTemplate
         {
-            get { return (DataTemplate)GetValue(SelectedContentTemplateProperty); }
-            set { SetValue(SelectedContentTemplateProperty, value); }
+            get => (DataTemplate)GetValue(SelectedContentTemplateProperty);
+            set => SetValue(SelectedContentTemplateProperty, value);
         }
 
         public DataTemplateSelector SelectedContentTemplateSelector
         {
-            get { return (DataTemplateSelector)GetValue(SelectedContentTemplateSelectorProperty); }
-            set { SetValue(SelectedContentTemplateSelectorProperty, value); }
+            get => (DataTemplateSelector)GetValue(SelectedContentTemplateSelectorProperty);
+            set => SetValue(SelectedContentTemplateSelectorProperty, value);
         }
 
-        public bool HasSelection
-        {
-            get { return (bool)GetValue(HasSelectionProperty); }
-        }
+        public bool HasSelection => (bool)GetValue(HasSelectionProperty);
 
-        public Dock? SelectedItemDock
-        {
-            get { return (Dock?)GetValue(SelectedItemDockProperty); }
-        }
+        public Dock? SelectedItemDock => (Dock?)GetValue(SelectedItemDockProperty);
         #endregion
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static DockContainer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockContainer), new FrameworkPropertyMetadata(typeof(DockContainer)));

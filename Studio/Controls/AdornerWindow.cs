@@ -12,7 +12,6 @@ namespace Studio.Controls
     {
         private static readonly Dictionary<Window, AdornerWindow> targetLookup = new Dictionary<Window, AdornerWindow>();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static AdornerWindow()
         {
             //DefaultStyleKeyProperty.OverrideMetadata(typeof(AdornerWindow), new FrameworkPropertyMetadata(typeof(AdornerWindow)));
@@ -36,8 +35,7 @@ namespace Studio.Controls
 
         public static void ForTarget(Window target)
         {
-            var wnd = new AdornerWindow(target);
-            wnd.Content = new DockTargetPanel { Visibility = Visibility.Collapsed };
+            var wnd = new AdornerWindow(target) { Content = new DockTargetPanel { Visibility = Visibility.Collapsed } };
             targetLookup.Add(target, wnd);
         }
 
@@ -46,7 +44,7 @@ namespace Studio.Controls
             return targetLookup[target];
         }
 
-        new public void Show()
+        public new void Show()
         {
             base.Show();
 

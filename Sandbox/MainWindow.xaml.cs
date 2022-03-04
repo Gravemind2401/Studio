@@ -35,8 +35,8 @@ namespace Sandbox
 
         public object Model
         {
-            get { return (object)GetValue(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
+            get => GetValue(ModelProperty);
+            set => SetValue(ModelProperty, value);
         }
 
         public MainWindow()
@@ -67,8 +67,8 @@ namespace Sandbox
         private void CreateModel()
         {
             var model = new WindowViewModel();
-
             var item1 = new DocContainerModel(new DocumentWellModel() { IsActive = true });
+
             for (int i = 0; i < 5; i++)
             {
                 item1.Children[0].Children.Add(new TabModel
@@ -78,18 +78,19 @@ namespace Sandbox
                 });
             }
 
-            var content = new SplitViewModel();
-            content.Item1 = item1;
-            content.Item2 = new SplitViewModel
+            var content = new SplitViewModel
             {
-                Orientation = Orientation.Vertical,
-                Item1 = GenerateToolGroup(Dock.Right),
-                Item2 = GenerateToolGroup(Dock.Right)
+                Item1 = item1,
+                Item2 = new SplitViewModel
+                {
+                    Orientation = Orientation.Vertical,
+                    Item1 = GenerateToolGroup(Dock.Right),
+                    Item2 = GenerateToolGroup(Dock.Right)
+                },
+                Item2Size = new GridLength(WindowViewModel.DefaultDockSize)
             };
 
-            content.Item2Size = new GridLength(WindowViewModel.DefaultDockSize);
             model.Content = content;
-
             Model = model;
         }
 

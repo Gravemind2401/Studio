@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Studio.Utilities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Studio.Utilities;
-using System.Collections;
 
 namespace Studio.Controls
 {
@@ -27,20 +27,20 @@ namespace Studio.Controls
 
         public ICommand FloatTabCommand
         {
-            get { return (ICommand)GetValue(FloatTabCommandProperty); }
-            set { SetValue(FloatTabCommandProperty, value); }
+            get => (ICommand)GetValue(FloatTabCommandProperty);
+            set => SetValue(FloatTabCommandProperty, value);
         }
 
         public ICommand FloatAllCommand
         {
-            get { return (ICommand)GetValue(FloatAllCommandProperty); }
-            set { SetValue(FloatAllCommandProperty, value); }
+            get => (ICommand)GetValue(FloatAllCommandProperty);
+            set => SetValue(FloatAllCommandProperty, value);
         }
 
         public ICommand DockCommand
         {
-            get { return (ICommand)GetValue(DockCommandProperty); }
-            set { SetValue(DockCommandProperty, value); }
+            get => (ICommand)GetValue(DockCommandProperty);
+            set => SetValue(DockCommandProperty, value);
         }
 
         internal TabWellItem FirstContainer
@@ -153,7 +153,7 @@ namespace Studio.Controls
             var floatBounds = new Rect(
                 pos.X - offset.X,
                 -floatThreshold,
-                this.ActualWidth,
+                ActualWidth,
                 tab.ActualHeight + floatThreshold * 2
             );
 
@@ -173,11 +173,10 @@ namespace Studio.Controls
                 .Select(i => ItemContainerGenerator.ContainerFromItem(i))
                 .Where(c => DockManager.GetIsPinned(c) == isPinned);
 
-            var collection = ItemsSource as IList ?? Items as IList;
+            var collection = ItemsSource as IList ?? Items;
             if (pos.X < -swapThreshold && index > 0)
             {
-                var prevTab = grouped.TakeWhile(c => c != tab).LastOrDefault() as FrameworkElement;
-                if (prevTab != null)
+                if (grouped.TakeWhile(c => c != tab).LastOrDefault() is FrameworkElement prevTab)
                 {
                     swapThreshold = (int)Math.Ceiling(Math.Max(0, prevTab.ActualWidth - tab.ActualWidth));
                     floatThreshold = maxFloatThreshold;
@@ -190,8 +189,7 @@ namespace Studio.Controls
             }
             else if (pos.X > tab.ActualWidth + swapThreshold && index < Items.Count - 1)
             {
-                var nextTab = grouped.SkipWhile(c => c != tab).Skip(1).FirstOrDefault() as FrameworkElement;
-                if (nextTab != null)
+                if (grouped.SkipWhile(c => c != tab).Skip(1).FirstOrDefault() is FrameworkElement nextTab)
                 {
                     swapThreshold = (int)Math.Ceiling(Math.Max(0, nextTab.ActualWidth - tab.ActualWidth));
                     floatThreshold = maxFloatThreshold;

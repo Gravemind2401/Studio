@@ -28,20 +28,20 @@ namespace Studio.Controls
 
         public TabItemType ItemType
         {
-            get { return (TabItemType)GetValue(ItemTypeProperty); }
-            set { SetValue(ItemTypeProperty, value); }
+            get => (TabItemType)GetValue(ItemTypeProperty);
+            set => SetValue(ItemTypeProperty, value);
         }
 
         public ICommand TogglePinStatusCommand
         {
-            get { return (ICommand)GetValue(TogglePinStatusCommandProperty); }
-            set { SetValue(TogglePinStatusCommandProperty, value); }
+            get => (ICommand)GetValue(TogglePinStatusCommandProperty);
+            set => SetValue(TogglePinStatusCommandProperty, value);
         }
 
         public ICommand CloseCommand
         {
-            get { return (ICommand)GetValue(CloseCommandProperty); }
-            set { SetValue(CloseCommandProperty, value); }
+            get => (ICommand)GetValue(CloseCommandProperty);
+            set => SetValue(CloseCommandProperty, value);
         }
 
         public TabWellItem()

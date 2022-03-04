@@ -14,7 +14,6 @@ namespace Studio.Controls
     [StyleTypedProperty(Property = nameof(HighlightStyle), StyleTargetType = typeof(Path))]
     public class DockTargetPanel : Control
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static DockTargetPanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockTargetPanel), new FrameworkPropertyMetadata(typeof(DockTargetPanel)));
@@ -75,91 +74,91 @@ namespace Studio.Controls
 
         public DockContainer DockHost
         {
-            get { return (DockContainer)GetValue(DockHostProperty); }
-            private set { SetValue(DockHostPropertyKey, value); }
+            get => (DockContainer)GetValue(DockHostProperty);
+            private set => SetValue(DockHostPropertyKey, value);
         }
 
         public Rect DockArea
         {
-            get { return (Rect)GetValue(DockAreaProperty); }
-            private set { SetValue(DockAreaPropertyKey, value); }
+            get => (Rect)GetValue(DockAreaProperty);
+            private set => SetValue(DockAreaPropertyKey, value);
         }
 
         public FrameworkElement TargetHost
         {
-            get { return (FrameworkElement)GetValue(TargetHostProperty); }
-            private set { SetValue(TargetHostPropertyKey, value); }
+            get => (FrameworkElement)GetValue(TargetHostProperty);
+            private set => SetValue(TargetHostPropertyKey, value);
         }
 
         public Rect TargetArea
         {
-            get { return (Rect)GetValue(TargetAreaProperty); }
-            private set { SetValue(TargetAreaPropertyKey, value); }
+            get => (Rect)GetValue(TargetAreaProperty);
+            private set => SetValue(TargetAreaPropertyKey, value);
         }
 
         public bool CanDockOuter
         {
-            get { return (bool)GetValue(CanDockOuterProperty); }
-            private set { SetValue(CanDockOuterPropertyKey, value); }
+            get => (bool)GetValue(CanDockOuterProperty);
+            private set => SetValue(CanDockOuterPropertyKey, value);
         }
 
         public bool CanDockTarget
         {
-            get { return (bool)GetValue(CanDockTargetProperty); }
-            private set { SetValue(CanDockTargetPropertyKey, value); }
+            get => (bool)GetValue(CanDockTargetProperty);
+            private set => SetValue(CanDockTargetPropertyKey, value);
         }
 
         public bool CanSplitLeft
         {
-            get { return (bool)GetValue(CanSplitLeftProperty); }
-            private set { SetValue(CanSplitLeftPropertyKey, value); }
+            get => (bool)GetValue(CanSplitLeftProperty);
+            private set => SetValue(CanSplitLeftPropertyKey, value);
         }
 
         public bool CanSplitTop
         {
-            get { return (bool)GetValue(CanSplitTopProperty); }
-            private set { SetValue(CanSplitTopPropertyKey, value); }
+            get => (bool)GetValue(CanSplitTopProperty);
+            private set => SetValue(CanSplitTopPropertyKey, value);
         }
 
         public bool CanSplitRight
         {
-            get { return (bool)GetValue(CanSplitRightProperty); }
-            private set { SetValue(CanSplitRightPropertyKey, value); }
+            get => (bool)GetValue(CanSplitRightProperty);
+            private set => SetValue(CanSplitRightPropertyKey, value);
         }
 
         public bool CanSplitBottom
         {
-            get { return (bool)GetValue(CanSplitBottomProperty); }
-            private set { SetValue(CanSplitBottomPropertyKey, value); }
+            get => (bool)GetValue(CanSplitBottomProperty);
+            private set => SetValue(CanSplitBottomPropertyKey, value);
         }
 
         public bool CanDropCenter
         {
-            get { return (bool)GetValue(CanDropCenterProperty); }
-            private set { SetValue(CanDropCenterPropertyKey, value); }
+            get => (bool)GetValue(CanDropCenterProperty);
+            private set => SetValue(CanDropCenterPropertyKey, value);
         }
 
         public Geometry HighlightPath
         {
-            get { return (Geometry)GetValue(HighlightPathProperty); }
-            private set { SetValue(HighlightPathPropertyKey, value); }
+            get => (Geometry)GetValue(HighlightPathProperty);
+            private set => SetValue(HighlightPathPropertyKey, value);
         }
 
         public Style HighlightStyle
         {
-            get { return (Style)GetValue(HighlightStyleProperty); }
-            set { SetValue(HighlightStyleProperty, value); }
+            get => (Style)GetValue(HighlightStyleProperty);
+            set => SetValue(HighlightStyleProperty, value);
         }
         #endregion
 
         private bool CanSplitVertical
         {
-            set { CanSplitTop = CanSplitBottom = value; }
+            set => CanSplitTop = CanSplitBottom = value;
         }
 
         private bool CanSplitHorizontal
         {
-            set { CanSplitLeft = CanSplitRight = value; }
+            set => CanSplitLeft = CanSplitRight = value;
         }
 
         internal void AlignToTarget(TargetArgs args)
@@ -261,9 +260,9 @@ namespace Studio.Controls
             if (TargetHost is DocumentContainer)
             {
                 col.Add(hostOffset);
-                col.Add(new Point(hostOffset.X + TargetArea.Width, hostOffset.Y));
-                col.Add(new Point(hostOffset.X + TargetArea.Width, hostOffset.Y + TargetArea.Height));
-                col.Add(new Point(hostOffset.X, hostOffset.Y + TargetArea.Height));
+                col.Add(hostOffset.X + TargetArea.Width, hostOffset.Y);
+                col.Add(hostOffset.X + TargetArea.Width, hostOffset.Y + TargetArea.Height);
+                col.Add(hostOffset.X, hostOffset.Y + TargetArea.Height);
             }
             else
             {
@@ -278,36 +277,35 @@ namespace Studio.Controls
 
                 if (TargetHost is DocumentWell)
                 {
-                    col.Add(new Point(hostOffset.X, firstOffset.Y + itemHeight)); //well top-left
-                    col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
-                    col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
-                    col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
-                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight)); //well top-right
-                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y + TargetHost.ActualHeight)); //well bottom-right
-                    col.Add(new Point(hostOffset.X, hostOffset.Y + TargetHost.ActualHeight)); //well bottom-left
+                    col.Add(hostOffset.X, firstOffset.Y + itemHeight); //well top-left
+                    col.Add(itemOffset.X, itemOffset.Y + itemHeight); //item bottom-left
+                    col.Add(itemOffset.X, itemOffset.Y); //item top-left
+                    col.Add(itemOffset.X + itemWidth, itemOffset.Y); //item top-right
+                    col.Add(itemOffset.X + itemWidth, itemOffset.Y + itemHeight); //item bottom-right
+                    col.Add(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y + itemHeight); //well top-right
+                    col.Add(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y + TargetHost.ActualHeight); //well bottom-right
+                    col.Add(hostOffset.X, hostOffset.Y + TargetHost.ActualHeight); //well bottom-left
                 }
                 else
                 {
-                    col.Add(new Point(hostOffset.X, hostOffset.Y)); //well top-left
-                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y)); //well top-right
-                    col.Add(new Point(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y)); //well bottom-right
+                    col.Add(hostOffset.X, hostOffset.Y); //well top-left
+                    col.Add(hostOffset.X + TargetHost.ActualWidth, hostOffset.Y); //well top-right
+                    col.Add(hostOffset.X + TargetHost.ActualWidth, itemOffset.Y); //well bottom-right
                     if (well.Items.Count > 1) //tab panel visible
                     {
-                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y)); //item top-right
-                        col.Add(new Point(itemOffset.X + itemWidth, itemOffset.Y + itemHeight)); //item bottom-right
-                        col.Add(new Point(itemOffset.X, itemOffset.Y + itemHeight)); //item bottom-left
-                        col.Add(new Point(itemOffset.X, itemOffset.Y)); //item top-left
+                        col.Add(itemOffset.X + itemWidth, itemOffset.Y); //item top-right
+                        col.Add(itemOffset.X + itemWidth, itemOffset.Y + itemHeight); //item bottom-right
+                        col.Add(itemOffset.X, itemOffset.Y + itemHeight); //item bottom-left
+                        col.Add(itemOffset.X, itemOffset.Y); //item top-left
                     }
-                    col.Add(new Point(hostOffset.X, itemOffset.Y)); //well bottom-left
+                    col.Add(hostOffset.X, itemOffset.Y); //well bottom-left
                 }
             }
         }
 
         private bool HighlightSplit(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
         {
-            var panel = DockTargetButton.CurrentTargetHost as FrameworkElement;
-            if (panel == null)
+            if (!(DockTargetButton.CurrentTargetHost is FrameworkElement panel))
             {
                 HighlightPath = Geometry.Empty;
                 return false;
@@ -337,10 +335,10 @@ namespace Studio.Controls
             var relativeOrigin = (UIElement)DockHost?.ContentHost ?? Window.GetWindow(TargetHost);
             var panelOffset = panel.TranslatePoint(new Point(), relativeOrigin);
 
-            col.Add(new Point(panelOffset.X + xOffset, panelOffset.Y + yOffset));
-            col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset));
-            col.Add(new Point(panelOffset.X + xOffset + width, panelOffset.Y + yOffset + height));
-            col.Add(new Point(panelOffset.X + xOffset, panelOffset.Y + yOffset + height));
+            col.Add(panelOffset.X + xOffset, panelOffset.Y + yOffset);
+            col.Add(panelOffset.X + xOffset + width, panelOffset.Y + yOffset);
+            col.Add(panelOffset.X + xOffset + width, panelOffset.Y + yOffset + height);
+            col.Add(panelOffset.X + xOffset, panelOffset.Y + yOffset + height);
 
             return true;
         }

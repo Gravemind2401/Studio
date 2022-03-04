@@ -11,7 +11,6 @@ namespace Studio.Controls
 {
     public class DocumentContainer : ItemsControl, IDockReceiver
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static DocumentContainer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DocumentContainer), new FrameworkPropertyMetadata(typeof(DocumentContainer)));
@@ -25,14 +24,14 @@ namespace Studio.Controls
 
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => (Orientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
         }
 
         public ICommand DockCommand
         {
-            get { return (ICommand)GetValue(DockCommandProperty); }
-            set { SetValue(DockCommandProperty, value); }
+            get => (ICommand)GetValue(DockCommandProperty);
+            set => SetValue(DockCommandProperty, value);
         }
 
         public DocumentContainer()

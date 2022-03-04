@@ -64,9 +64,9 @@ namespace Studio.Controls
             obj.SetValue(DisplayIndexProperty, value);
         }
 
-        public static void DisplayIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void DisplayIndexChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var panel = (d as FrameworkElement)?.Parent as SplitPanel;
+            var panel = (obj as FrameworkElement)?.Parent as SplitPanel;
             panel?.sortedChildren.Sort(panel.SortCompare);
         }
         #endregion
@@ -80,14 +80,14 @@ namespace Studio.Controls
 
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => (Orientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
         }
 
         public double SplitterThickness
         {
-            get { return (double)GetValue(SplitterThicknessProperty); }
-            set { SetValue(SplitterThicknessProperty, value); }
+            get => (double)GetValue(SplitterThicknessProperty);
+            set => SetValue(SplitterThicknessProperty, value);
         }
         #endregion
 
@@ -133,10 +133,6 @@ namespace Studio.Controls
             var totalFixed = segments.Where(e => e.Size.IsAbsolute).Sum(e => e.Size.Value);
             var totalAuto = segments.Where(e => e.Size.IsAuto).Sum(e => Orientation == Orientation.Horizontal ? e.Element.DesiredSize.Width : e.Element.DesiredSize.Height);
             var totalStar = segments.Where(e => e.Size.IsStar).Sum(e => e.Size.Value);
-
-            var splitterSize = Orientation == Orientation.Horizontal
-                ? new Size(SplitterThickness, availableSize.Height)
-                : new Size(availableSize.Width, SplitterThickness);
 
             var allocatedFixed = Math.Min(totalFixed, remaining);
             var allocatedAuto = Math.Min(totalAuto, remaining - allocatedFixed);
@@ -192,13 +188,10 @@ namespace Studio.Controls
 
             if (!(visualAdded is SplitPanelSplitter || visualRemoved is SplitPanelSplitter))
             {
-                var oldElement = visualRemoved as UIElement;
-                var newElement = visualAdded as UIElement;
-
-                if (oldElement != null)
+                if (visualRemoved is UIElement oldElement)
                     sortedChildren.Remove(oldElement);
 
-                if (newElement != null)
+                if (visualAdded is UIElement newElement)
                     sortedChildren.Add(newElement);
 
                 sortedChildren.Sort(SortCompare);

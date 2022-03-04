@@ -19,14 +19,14 @@ namespace Studio.Utilities
 
             while (element.Parent != null)
             {
-                if (element.Parent is T)
-                    return element.Parent as T;
-                else if (element.Parent is FrameworkElement)
-                    element = (FrameworkElement)element.Parent;
+                if (element.Parent is T target)
+                    return target;
+                else if (element.Parent is FrameworkElement fe)
+                    element = fe;
                 else break;
             }
 
-            return default(T);
+            return default;
         }
 
         public static T FindVisualAncestor<T>(this DependencyObject element) where T : DependencyObject
@@ -37,14 +37,14 @@ namespace Studio.Utilities
             element = VisualTreeHelper.GetParent(element);
             while (element != null)
             {
-                if (element is T)
-                    return element as T;
+                if (element is T target)
+                    return target;
                 else if (element is DependencyObject)
                     element = VisualTreeHelper.GetParent(element);
                 else break;
             }
 
-            return default(T);
+            return default;
         }
 
         internal static object GetContainerContext(this FrameworkElement element)
@@ -59,8 +59,7 @@ namespace Studio.Utilities
                 else parent = VisualTreeHelper.GetParent(parent);
             }
 
-            var ic = lineage[0] as ItemsControl;
-            if (ic != null)
+            if (lineage[0] is ItemsControl ic)
             {
                 lineage.Reverse();
                 foreach (var d in lineage)
@@ -107,6 +106,11 @@ namespace Studio.Utilities
             else if (d == DockTarget.DockRight || d == DockTarget.SplitRight)
                 return Dock.Right;
             else return Dock.Bottom;
+        }
+
+        public static void Add(this PointCollection collection, double x, double y)
+        {
+            collection.Add(new Point(x, y));
         }
     }
 }

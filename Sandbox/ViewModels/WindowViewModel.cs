@@ -21,8 +21,8 @@ namespace Sandbox.ViewModels
         private bool isRafted;
         public bool IsRafted
         {
-            get { return isRafted; }
-            internal set { SetProperty(ref isRafted, value); }
+            get => isRafted;
+            internal set => SetProperty(ref isRafted, value);
         }
 
         internal Window Host { get; set; }
@@ -35,15 +35,15 @@ namespace Sandbox.ViewModels
         private TabModel selectedDockItem;
         public TabModel SelectedDockItem
         {
-            get { return selectedDockItem; }
-            set { SetProperty(ref selectedDockItem, value); }
+            get => selectedDockItem;
+            set => SetProperty(ref selectedDockItem, value);
         }
 
         private ModelBase content;
         public ModelBase Content
         {
-            get { return content; }
-            set { SetProperty(ref content, value, OnContentChanged); }
+            get => content;
+            set => SetProperty(ref content, value, OnContentChanged);
         }
 
         public DelegateCommand<TabModel> CloseTabCommand { get; }
@@ -107,13 +107,10 @@ namespace Sandbox.ViewModels
 
             foreach (var group in groups)
             {
-                var allChildren = group.Children.ToList();
-                foreach (var item in allChildren)
+                foreach (var item in group.Children.ToList())
                 {
                     group.Children.Remove(item);
-                    item.IsPinned = false;
-                    item.IsActive = false;
-
+                    item.IsPinned = item.IsActive = false;
                     newGroup.Children.Add(item);
                 }
             }
@@ -148,7 +145,8 @@ namespace Sandbox.ViewModels
 
         public void AddItem(TabModel item, ModelBase target, Dock dock)
         {
-            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
 
             var group = new ToolWellModel() { Width = item.Width, Height = item.Height };
             group.Children.Add(item);

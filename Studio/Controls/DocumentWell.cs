@@ -27,20 +27,20 @@ namespace Studio.Controls
 
         public Style OverflowItemStyle
         {
-            get { return (Style)GetValue(OverflowItemStyleProperty); }
-            set { SetValue(OverflowItemStyleProperty, value); }
+            get => (Style)GetValue(OverflowItemStyleProperty);
+            set => SetValue(OverflowItemStyleProperty, value);
         }
 
         public ICommand OverflowItemSelectedCommand
         {
-            get { return (ICommand)GetValue(OverflowItemSelectedCommandProperty); }
-            set { SetValue(OverflowItemSelectedCommandProperty, value); }
+            get => (ICommand)GetValue(OverflowItemSelectedCommandProperty);
+            set => SetValue(OverflowItemSelectedCommandProperty, value);
         }
 
         public bool PinOnSeparateRow
         {
-            get { return (bool)GetValue(PinOnSeparateRowProperty); }
-            set { SetValue(PinOnSeparateRowProperty, value); }
+            get => (bool)GetValue(PinOnSeparateRowProperty);
+            set => SetValue(PinOnSeparateRowProperty, value);
         }
 
         public DocumentWell() : base()

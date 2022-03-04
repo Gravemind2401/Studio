@@ -34,29 +34,28 @@ namespace Studio.Controls
 
         public ICommand TogglePinStatusCommand
         {
-            get { return (ICommand)GetValue(TogglePinStatusCommandProperty); }
-            set { SetValue(TogglePinStatusCommandProperty, value); }
+            get => (ICommand)GetValue(TogglePinStatusCommandProperty);
+            set => SetValue(TogglePinStatusCommandProperty, value);
         }
 
         public ICommand CloseCommand
         {
-            get { return (ICommand)GetValue(CloseCommandProperty); }
-            set { SetValue(CloseCommandProperty, value); }
+            get => (ICommand)GetValue(CloseCommandProperty);
+            set => SetValue(CloseCommandProperty, value);
         }
 
         public object Caption
         {
-            get { return (object)GetValue(CaptionProperty); }
-            set { SetValue(CaptionProperty, value); }
+            get => GetValue(CaptionProperty);
+            set => SetValue(CaptionProperty, value);
         }
 
         public bool HideTitleBar
         {
-            get { return (bool)GetValue(HideTitleBarProperty); }
-            set { SetValue(HideTitleBarProperty, value); }
+            get => (bool)GetValue(HideTitleBarProperty);
+            set => SetValue(HideTitleBarProperty, value);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static ToolWell()
         {
             TabStripPlacementProperty.OverrideMetadata(typeof(ToolWell), new FrameworkPropertyMetadata(Dock.Bottom));
@@ -69,7 +68,7 @@ namespace Studio.Controls
 
         private void CloseToolCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            (ItemsSource as IList ?? Items as IList)?.Remove(SelectedItem);
+            (ItemsSource as IList ?? Items)?.Remove(SelectedItem);
         }
 
         public override void OnApplyTemplate()

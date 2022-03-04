@@ -24,8 +24,8 @@ namespace Sandbox.Controls
 
         public object Model
         {
-            get { return (object)GetValue(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
+            get => GetValue(ModelProperty);
+            set => SetValue(ModelProperty, value);
         }
 
         public RaftedWindow()

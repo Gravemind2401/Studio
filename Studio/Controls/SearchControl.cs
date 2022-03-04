@@ -26,7 +26,6 @@ namespace Studio.Controls
         private Button CancelButton;
         private string LastSearch;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static SearchControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SearchControl), new FrameworkPropertyMetadata(typeof(SearchControl)));
@@ -76,60 +75,57 @@ namespace Studio.Controls
         public static readonly DependencyProperty LiveSearchDelayProperty =
             DependencyProperty.Register(nameof(LiveSearchDelay), typeof(int), typeof(SearchControl), new PropertyMetadata(DefaultSearchDelay, LiveSearchTimeoutChanged), ValidateLiveSearchDelay);
 
-        public bool HasText
-        {
-            get { return (bool)GetValue(HasTextProperty); }
-        }
+        public bool HasText => (bool)GetValue(HasTextProperty);
 
         public Style AcceptButtonStyle
         {
-            get { return (Style)GetValue(AcceptButtonStyleProperty); }
-            set { SetValue(AcceptButtonStyleProperty, value); }
+            get => (Style)GetValue(AcceptButtonStyleProperty);
+            set => SetValue(AcceptButtonStyleProperty, value);
         }
 
         public Style CancelButtonStyle
         {
-            get { return (Style)GetValue(CancelButtonStyleProperty); }
-            set { SetValue(CancelButtonStyleProperty, value); }
+            get => (Style)GetValue(CancelButtonStyleProperty);
+            set => SetValue(CancelButtonStyleProperty, value);
         }
 
         public string WatermarkText
         {
-            get { return (string)GetValue(WatermarkTextProperty); }
-            set { SetValue(WatermarkTextProperty, value); }
+            get => (string)GetValue(WatermarkTextProperty);
+            set => SetValue(WatermarkTextProperty, value);
         }
 
         public bool IsSearchActive
         {
-            get { return (bool)GetValue(IsSearchActiveProperty); }
-            set { SetValue(IsSearchActiveProperty, value); }
+            get => (bool)GetValue(IsSearchActiveProperty);
+            set => SetValue(IsSearchActiveProperty, value);
         }
 
         public bool LiveSearchEnabled
         {
-            get { return (bool)GetValue(LiveSearchEnabledProperty); }
-            set { SetValue(LiveSearchEnabledProperty, value); }
+            get => (bool)GetValue(LiveSearchEnabledProperty);
+            set => SetValue(LiveSearchEnabledProperty, value);
         }
 
         public int LiveSearchDelay
         {
-            get { return (int)GetValue(LiveSearchDelayProperty); }
-            set { SetValue(LiveSearchDelayProperty, value); }
+            get => (int)GetValue(LiveSearchDelayProperty);
+            set => SetValue(LiveSearchDelayProperty, value);
         }
 
-        public static object CoerceHasText(DependencyObject d, object baseValue)
+        public static object CoerceHasText(DependencyObject obj, object baseValue)
         {
-            return !string.IsNullOrEmpty((d as SearchControl)?.Text);
+            return !string.IsNullOrEmpty((obj as SearchControl)?.Text);
         }
 
         public static bool ValidateLiveSearchDelay(object value)
         {
-            return value is int && (int)value >= 0;
+            return value is int i && i >= 0;
         }
 
-        public static void LiveSearchTimeoutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void LiveSearchTimeoutChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var searchBox = d as SearchControl;
+            var searchBox = obj as SearchControl;
             searchBox.SearchTimer.Interval = TimeSpan.FromMilliseconds((int)e.NewValue);
         }
         #endregion

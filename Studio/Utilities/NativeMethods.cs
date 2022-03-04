@@ -51,8 +51,7 @@ namespace Studio.Utilities
 
         public static Point GetMousePosition()
         {
-            var pos = new Win32Point();
-            GetCursorPos(out pos);
+            GetCursorPos(out Win32Point pos);
             return new Point(pos.X, pos.Y);
         }
 
@@ -62,8 +61,10 @@ namespace Studio.Utilities
               ((HwndSource)PresentationSource.FromVisual(win)).Handle);
 
             for (IntPtr hWnd = GetTopWindow(IntPtr.Zero); hWnd != IntPtr.Zero; hWnd = GetWindow(hWnd, GW_HWNDNEXT))
+            {
                 if (byHandle.ContainsKey(hWnd))
                     yield return byHandle[hWnd];
+            }
         }
 
         public static void BringToFront(this Window wnd)

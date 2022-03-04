@@ -22,13 +22,12 @@ namespace Studio.Controls
         internal static readonly RoutedCommand TabLostMouseCaptureCommand = new RoutedCommand(nameof(TabLostMouseCaptureCommand), typeof(ICommandSource));
 
         internal static void TryExecute(this ICommand command, object parameter) => TryExecute(command, parameter, null);
-        
+
         internal static void TryExecute(this ICommand command, object parameter, IInputElement target)
         {
             if (command == null) return;
 
-            var routed = command as RoutedCommand;
-            if (routed != null)
+            if (command is RoutedCommand routed)
             {
                 if (routed.CanExecute(parameter, target))
                     routed.Execute(parameter, target);

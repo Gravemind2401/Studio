@@ -62,43 +62,40 @@ namespace Studio.Controls
 
         public DockTarget TargetDock
         {
-            get { return (DockTarget)GetValue(TargetDockProperty); }
-            set { SetValue(TargetDockProperty, value); }
+            get => (DockTarget)GetValue(TargetDockProperty);
+            set => SetValue(TargetDockProperty, value);
         }
 
         public CornerRadius CornerRadius
         {
-            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
         }
 
         public Brush GlyphBorderBrush
         {
-            get { return (Brush)GetValue(GlyphBorderBrushProperty); }
-            set { SetValue(GlyphBorderBrushProperty, value); }
+            get => (Brush)GetValue(GlyphBorderBrushProperty);
+            set => SetValue(GlyphBorderBrushProperty, value);
         }
 
         public Brush GlyphBackground
         {
-            get { return (Brush)GetValue(GlyphBackgroundProperty); }
-            set { SetValue(GlyphBackgroundProperty, value); }
+            get => (Brush)GetValue(GlyphBackgroundProperty);
+            set => SetValue(GlyphBackgroundProperty, value);
         }
 
         public Brush GlyphArrowBrush
         {
-            get { return (Brush)GetValue(GlyphArrowBrushProperty); }
-            set { SetValue(GlyphArrowBrushProperty, value); }
+            get => (Brush)GetValue(GlyphArrowBrushProperty);
+            set => SetValue(GlyphArrowBrushProperty, value);
         }
 
-        public bool IsTargeted
-        {
-            get { return (bool)GetValue(IsTargetedProperty); }
-        }
+        public bool IsTargeted => (bool)GetValue(IsTargetedProperty);
 
         public object TargetHost
         {
-            get { return GetValue(TargetHostProperty); }
-            set { SetValue(TargetHostProperty, value); }
+            get => GetValue(TargetHostProperty);
+            set => SetValue(TargetHostProperty, value);
         }
 
         public static object CoerceIsTargeted(DependencyObject d, object baseValue)

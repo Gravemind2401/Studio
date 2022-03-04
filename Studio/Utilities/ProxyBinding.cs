@@ -27,8 +27,8 @@ namespace Studio.Utilities
 
         public object Source
         {
-            get { return GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get => GetValue(SourceProperty);
+            set => SetValue(SourceProperty, value);
         }
 
         private static void SourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -41,8 +41,8 @@ namespace Studio.Utilities
 
         public object Target
         {
-            get { return GetValue(TargetProperty); }
-            set { SetValue(TargetProperty, value); }
+            get => GetValue(TargetProperty);
+            set => SetValue(TargetProperty, value);
         }
 
         protected override Freezable CreateInstanceCore()

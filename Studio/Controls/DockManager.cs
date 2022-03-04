@@ -145,7 +145,7 @@ namespace Studio.Controls
 
                 return IntPtr.Zero;
             }
-            catch (Exception ex)
+            catch
             {
                 System.Diagnostics.Debugger.Break();
                 return IntPtr.Zero;
@@ -157,12 +157,12 @@ namespace Studio.Controls
             windowData.Clear();
             foreach (var w in NativeMethods.SortWindowsTopToBottom(trackedElements.Keys.Where(w => w.WindowState != WindowState.Minimized)))
             {
-                if (w != wnd)
-                {
-                    var info = new WindowInfo(w);
-                    windowData.Add(info);
-                    info.Adorner.Show();
-                }
+                if (w == wnd)
+                    continue;
+
+                var info = new WindowInfo(w);
+                windowData.Add(info);
+                info.Adorner.Show();
             }
 
             wnd.BringToFront();
@@ -192,26 +192,24 @@ namespace Studio.Controls
             foreach (var w in windowData)
                 w.Adorner.Hide();
 
-            if (currentTarget != null)
+            if (currentTarget == null)
+                return false;
+
+            var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
+            var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
+            var targetElement = tab != null ? well : DockTargetButton.CurrentTargetHost;
+
+            if (targetElement?.DockCommand != null)
             {
-                var well = currentTarget.WellBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-                var tab = currentTarget.TabBounds.FirstOrDefault(t => t.Item1.Contains(pos))?.Item2;
-                var targetElement = tab != null ? well : DockTargetButton.CurrentTargetHost;
-
-                if (targetElement?.DockCommand != null)
-                {
-                    var sourceItems = trackedElements[wnd].OfType<TabWellBase>();
-                    var args = new DockEventArgs(sourceItems, targetElement as FrameworkElement, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.GetContainerContext() ?? tab);
-                    targetElement.DockCommand.TryExecute(args);
-                }
-
-                currentTarget.Adorner.ClearTargetParams();
-                currentTarget = null;
-
-                return true;
+                var sourceItems = trackedElements[wnd].OfType<TabWellBase>();
+                var args = new DockEventArgs(sourceItems, targetElement as FrameworkElement, DockTargetButton.CurrentTargetDock ?? DockTarget.Center, tab?.GetContainerContext() ?? tab);
+                targetElement.DockCommand.TryExecute(args);
             }
 
-            return false;
+            currentTarget.Adorner.ClearTargetParams();
+            currentTarget = null;
+
+            return true;
         }
 
         private static TargetArgs GetTargetArgs(Window wnd, Point pos)

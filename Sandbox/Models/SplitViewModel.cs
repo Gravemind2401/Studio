@@ -1,31 +1,30 @@
-﻿using System;
+﻿using Sandbox.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Sandbox.ViewModels;
-using System.Collections.ObjectModel;
-using Prism.Mvvm;
 
 namespace Sandbox.Models
 {
     public class SplitViewModel : ModelBase
     {
-        private ObservableCollection<ModelBase> items = new ObservableCollection<ModelBase>();
+        private readonly ObservableCollection<ModelBase> items = new ObservableCollection<ModelBase>();
         public ReadOnlyObservableCollection<ModelBase> Items { get; }
 
         private Orientation orientation = Orientation.Horizontal;
         public Orientation Orientation
         {
-            get { return orientation; }
-            set { SetProperty(ref orientation, value); }
+            get => orientation;
+            set => SetProperty(ref orientation, value);
         }
 
         public ModelBase Item1
         {
-            get { return Items[0]; }
+            get => Items[0];
             set
             {
                 if (Item1 == value)
@@ -41,7 +40,7 @@ namespace Sandbox.Models
 
         public ModelBase Item2
         {
-            get { return Items[1]; }
+            get => Items[1];
             set
             {
                 if (Item2 == value)
@@ -57,7 +56,7 @@ namespace Sandbox.Models
 
         public GridLength? Item1Size
         {
-            get { return Items[0]?.PanelSize; }
+            get => Items[0]?.PanelSize;
             set
             {
                 if (Item1 != null)
@@ -67,7 +66,7 @@ namespace Sandbox.Models
 
         public GridLength? Item2Size
         {
-            get { return Items[1]?.PanelSize; }
+            get => Items[1]?.PanelSize;
             set
             {
                 if (Item2 != null)
