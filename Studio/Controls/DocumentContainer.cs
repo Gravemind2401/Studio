@@ -40,24 +40,10 @@ namespace Studio.Controls
             Unloaded += DocumentContainer_Unloaded;
         }
 
-        private void DocumentContainer_Loaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Register(this);
-        }
-
-        private void DocumentContainer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Unregister(this);
-        }
-
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new DocumentWell();
-        }
-
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is DocumentWell;
-        }
+        private void DocumentContainer_Loaded(object sender, RoutedEventArgs e) => DockManager.Register(this);
+        private void DocumentContainer_Unloaded(object sender, RoutedEventArgs e) => DockManager.Unregister(this);
+        
+        protected override DependencyObject GetContainerForItemOverride() => new DocumentWell();
+        protected override bool IsItemItsOwnContainerOverride(object item) => item is DocumentWell;
     }
 }

@@ -12,13 +12,9 @@ namespace Studio.Controls
     public class DockEventArgs : EventArgs
     {
         public Window SourceWindow { get; }
-
         public IEnumerable<object> SourceContent { get; }
-
         public double DesiredSize { get; }
-
         public DockTarget TargetDock { get; }
-
         public object TargetItem { get; }
 
         internal DockEventArgs(IEnumerable<FrameworkElement> sourceItems, FrameworkElement targetElement, DockTarget targetDock, object targetIndex)
@@ -28,10 +24,9 @@ namespace Studio.Controls
             TargetDock = targetDock;
             TargetItem = targetIndex;
 
-            if (targetDock.GetDockOrientation() == Orientation.Horizontal)
-                DesiredSize = Math.Min(SourceWindow.ActualWidth, targetElement.ActualWidth / 2);
-            else
-                DesiredSize = Math.Min(SourceWindow.ActualHeight, targetElement.ActualHeight / 2);
+            DesiredSize = targetDock.GetDockOrientation() == Orientation.Horizontal
+                ? Math.Min(SourceWindow.ActualWidth, targetElement.ActualWidth / 2)
+                : Math.Min(SourceWindow.ActualHeight, targetElement.ActualHeight / 2);
         }
     }
 }

@@ -23,7 +23,8 @@ namespace Studio.Utilities
                     return target;
                 else if (element.Parent is FrameworkElement fe)
                     element = fe;
-                else break;
+                else
+                    break;
             }
 
             return default;
@@ -41,7 +42,8 @@ namespace Studio.Utilities
                     return target;
                 else if (element is DependencyObject)
                     element = VisualTreeHelper.GetParent(element);
-                else break;
+                else
+                    break;
             }
 
             return default;
@@ -56,7 +58,8 @@ namespace Studio.Utilities
                 lineage.Insert(0, parent);
                 if (parent is ItemsControl)
                     break;
-                else parent = VisualTreeHelper.GetParent(parent);
+                else
+                    parent = VisualTreeHelper.GetParent(parent);
             }
 
             if (lineage[0] is ItemsControl ic)
@@ -92,7 +95,8 @@ namespace Studio.Utilities
                 return null;
             else if (d == DockTarget.DockLeft || d == DockTarget.DockRight || d == DockTarget.SplitLeft || d == DockTarget.SplitRight)
                 return Orientation.Horizontal;
-            else return Orientation.Vertical;
+            
+            return Orientation.Vertical;
         }
 
         public static Dock? GetDockSide(this DockTarget d)
@@ -105,12 +109,10 @@ namespace Studio.Utilities
                 return Dock.Top;
             else if (d == DockTarget.DockRight || d == DockTarget.SplitRight)
                 return Dock.Right;
-            else return Dock.Bottom;
+            
+            return Dock.Bottom;
         }
 
-        public static void Add(this PointCollection collection, double x, double y)
-        {
-            collection.Add(new Point(x, y));
-        }
+        public static void Add(this PointCollection collection, double x, double y) => collection.Add(new Point(x, y));
     }
 }

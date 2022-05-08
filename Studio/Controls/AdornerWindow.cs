@@ -39,10 +39,7 @@ namespace Studio.Controls
             targetLookup.Add(target, wnd);
         }
 
-        public static AdornerWindow FromTarget(Window target)
-        {
-            return targetLookup[target];
-        }
+        public static AdornerWindow FromTarget(Window target) => targetLookup[target];
 
         public new void Show()
         {

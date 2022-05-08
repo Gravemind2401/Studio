@@ -22,14 +22,9 @@ namespace Studio.Utilities
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value as bool? == true)
-                return TrueValue;
-            else return FalseValue;
+            return value as bool? == true ? TrueValue : FalseValue;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

@@ -12,13 +12,9 @@ namespace Studio.Controls
     public class FloatEventArgs : EventArgs
     {
         public Window Source { get; }
-
         public object DataContext { get; }
-
         public Point MouseOffset { get; }
-
         public double? TabOffset { get; }
-
         public Rect VisualBounds { get; }
 
         internal FloatEventArgs(TabWellBase tabWell, TabWellItem tab, MouseEventArgs e)

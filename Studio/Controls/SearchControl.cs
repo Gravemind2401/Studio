@@ -113,15 +113,9 @@ namespace Studio.Controls
             set => SetValue(LiveSearchDelayProperty, value);
         }
 
-        public static object CoerceHasText(DependencyObject obj, object baseValue)
-        {
-            return !string.IsNullOrEmpty((obj as SearchControl)?.Text);
-        }
+        public static object CoerceHasText(DependencyObject obj, object baseValue) => !string.IsNullOrEmpty((obj as SearchControl)?.Text);
 
-        public static bool ValidateLiveSearchDelay(object value)
-        {
-            return value is int i && i >= 0;
-        }
+        public static bool ValidateLiveSearchDelay(object value) => value is int i && i >= 0;
 
         public static void LiveSearchTimeoutChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -211,7 +205,8 @@ namespace Studio.Controls
         {
             base.OnKeyDown(e);
 
-            if (e.Handled) return;
+            if (e.Handled)
+                return;
 
             if (e.Key == Key.Escape || string.IsNullOrEmpty(Text) && e.Key == Key.Enter)
                 StopSearch();
@@ -223,11 +218,13 @@ namespace Studio.Controls
         {
             base.OnLostFocus(e);
 
-            if (e.Handled) return;
+            if (e.Handled)
+                return;
 
             if (!string.IsNullOrEmpty(Text))
                 StartSearch();
-            else StopSearch();
+            else
+                StopSearch();
         }
 
         private void SearchControl_TextChanged(object sender, TextChangedEventArgs e)
@@ -239,7 +236,8 @@ namespace Studio.Controls
             {
                 if (LiveSearchDelay == 0)
                     SearchTimer_Tick(null, null);
-                else SearchTimer.Start();
+                else
+                    SearchTimer.Start();
             }
         }
 
@@ -247,19 +245,18 @@ namespace Studio.Controls
         {
             if (string.IsNullOrEmpty(Text))
                 StopSearch();
-            else StartSearch();
+            else
+                StartSearch();
         }
 
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Text))
                 StopSearch();
-            else StartSearch();
+            else
+                StartSearch();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            StopSearch();
-        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e) => StopSearch();
     }
 }

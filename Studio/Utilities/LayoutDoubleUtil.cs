@@ -13,7 +13,8 @@ namespace Studio.Utilities
 
         internal static bool AreClose(double value1, double value2)
         {
-            if (value1 == value2) return true;
+            if (value1 == value2)
+                return true;
 
             double diff = value1 - value2;
             return (diff < eps) && (diff > -eps);

@@ -13,8 +13,7 @@ namespace Studio.Controls
     [StyleTypedProperty(Property = nameof(OverflowItemStyle), StyleTargetType = typeof(MenuItem))]
     public class DocumentWell : TabWellBase
     {
-        private static readonly object tabStyleKey = new Guid("98887b53-8f42-4300-a9ff-75168d55f2b3");
-        public static object DocumentTabStyleKey => tabStyleKey;
+        public static object DocumentTabStyleKey { get; } = new Guid("98887b53-8f42-4300-a9ff-75168d55f2b3");
 
         public static readonly DependencyProperty OverflowItemStyleProperty =
             DependencyProperty.Register(nameof(OverflowItemStyle), typeof(Style), typeof(DocumentWell), new PropertyMetadata(null));

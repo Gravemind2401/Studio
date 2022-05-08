@@ -1,8 +1,5 @@
 ﻿using Sandbox.Models;
-using Studio.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,8 +18,8 @@ namespace Sandbox.Utilities
                 return element.FindResource("DocumentContainerTemplate") as DataTemplate;
             else if (item is ToolWellModel)
                 return element.FindResource("ToolGroupTemplate") as DataTemplate;
-            else
-                return base.SelectTemplate(item, container);
+            
+            return base.SelectTemplate(item, container);
         }
     }
 }

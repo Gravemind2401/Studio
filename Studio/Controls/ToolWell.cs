@@ -17,8 +17,7 @@ namespace Studio.Controls
 
         private FrameworkElement titleBar;
 
-        private static readonly object tabStyleKey = new Guid("6bed4f5f-4da7-4c65-8efa-a5b7b999885a");
-        public static object ToolTabStyleKey => tabStyleKey;
+        public static object ToolTabStyleKey { get; } = new Guid("6bed4f5f-4da7-4c65-8efa-a5b7b999885a");
 
         public static readonly DependencyProperty TogglePinStatusCommandProperty =
             DependencyProperty.Register(nameof(TogglePinStatusCommand), typeof(ICommand), typeof(ToolWell), new PropertyMetadata((ICommand)null));

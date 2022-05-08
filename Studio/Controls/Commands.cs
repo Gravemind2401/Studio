@@ -25,7 +25,8 @@ namespace Studio.Controls
 
         internal static void TryExecute(this ICommand command, object parameter, IInputElement target)
         {
-            if (command == null) return;
+            if (command == null)
+                return;
 
             if (command is RoutedCommand routed)
             {

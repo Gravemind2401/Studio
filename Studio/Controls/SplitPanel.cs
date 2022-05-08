@@ -11,58 +11,35 @@ namespace Studio.Controls
 {
     public class SplitPanel : Panel
     {
+        private const string DesiredSizePropertyName = "DesiredSize";
+        private const string MinSizePropertyName = "MinSize";
+        private const string MaxSizePropertyName = "MaxSize";
+        private const string DisplayIndexPropertyName = "DisplayIndex";
+
         #region Attached Dependency Properties
         public static readonly DependencyProperty DesiredSizeProperty =
-            DependencyProperty.RegisterAttached("DesiredSize", typeof(GridLength), typeof(SplitPanel), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            DependencyProperty.RegisterAttached(DesiredSizePropertyName, typeof(GridLength), typeof(SplitPanel), new FrameworkPropertyMetadata(new GridLength(1, GridUnitType.Star), FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public static GridLength GetDesiredSize(DependencyObject obj)
-        {
-            return (GridLength)obj.GetValue(DesiredSizeProperty);
-        }
-
-        public static void SetDesiredSize(DependencyObject obj, GridLength value)
-        {
-            obj.SetValue(DesiredSizeProperty, value);
-        }
+        public static GridLength GetDesiredSize(DependencyObject obj) => (GridLength)obj.GetValue(DesiredSizeProperty);
+        public static void SetDesiredSize(DependencyObject obj, GridLength value) => obj.SetValue(DesiredSizeProperty, value);
 
         public static readonly DependencyProperty MinSizeProperty =
-            DependencyProperty.RegisterAttached("MinSize", typeof(double), typeof(SplitPanel), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            DependencyProperty.RegisterAttached(MinSizePropertyName, typeof(double), typeof(SplitPanel), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
-        public static double GetMinSize(DependencyObject obj)
-        {
-            return (double)obj.GetValue(MinSizeProperty);
-        }
-
-        public static void SetMinSize(DependencyObject obj, double value)
-        {
-            obj.SetValue(MinSizeProperty, value);
-        }
+        public static double GetMinSize(DependencyObject obj) => (double)obj.GetValue(MinSizeProperty);
+        public static void SetMinSize(DependencyObject obj, double value) => obj.SetValue(MinSizeProperty, value);
 
         public static readonly DependencyProperty MaxSizeProperty =
-            DependencyProperty.RegisterAttached("MaxSize", typeof(double), typeof(SplitPanel), new FrameworkPropertyMetadata(double.PositiveInfinity, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            DependencyProperty.RegisterAttached(MaxSizePropertyName, typeof(double), typeof(SplitPanel), new FrameworkPropertyMetadata(double.PositiveInfinity, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
-        public static double GetMaxSize(DependencyObject obj)
-        {
-            return (double)obj.GetValue(MaxSizeProperty);
-        }
-
-        public static void SetMaxSize(DependencyObject obj, double value)
-        {
-            obj.SetValue(MaxSizeProperty, value);
-        }
+        public static double GetMaxSize(DependencyObject obj) => (double)obj.GetValue(MaxSizeProperty);
+        public static void SetMaxSize(DependencyObject obj, double value) => obj.SetValue(MaxSizeProperty, value);
 
         public static readonly DependencyProperty DisplayIndexProperty =
-            DependencyProperty.RegisterAttached("DisplayIndex", typeof(int), typeof(SplitPanel), new PropertyMetadata(0, DisplayIndexChanged));
+            DependencyProperty.RegisterAttached(DisplayIndexPropertyName, typeof(int), typeof(SplitPanel), new PropertyMetadata(0, DisplayIndexChanged));
 
-        public static int GetDisplayIndex(DependencyObject obj)
-        {
-            return (int)obj.GetValue(DisplayIndexProperty);
-        }
-
-        public static void SetDisplayIndex(DependencyObject obj, int value)
-        {
-            obj.SetValue(DisplayIndexProperty, value);
-        }
+        public static int GetDisplayIndex(DependencyObject obj) => (int)obj.GetValue(DisplayIndexProperty);
+        public static void SetDisplayIndex(DependencyObject obj, int value) => obj.SetValue(DisplayIndexProperty, value);
 
         public static void DisplayIndexChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -115,9 +92,7 @@ namespace Studio.Controls
         private int SortCompare(UIElement a, UIElement b)
         {
             var explicitIndex = GetDisplayIndex(a).CompareTo(GetDisplayIndex(b));
-            if (explicitIndex != 0)
-                return explicitIndex;
-            else return InternalChildren.IndexOf(a).CompareTo(InternalChildren.IndexOf(b));
+            return explicitIndex != 0 ? explicitIndex : InternalChildren.IndexOf(a).CompareTo(InternalChildren.IndexOf(b));
         }
 
         private Dictionary<UIElement, Size> SizeElements(Size availableSize)
@@ -158,7 +133,8 @@ namespace Studio.Controls
                         var fraction = Orientation == Orientation.Horizontal ? child.DesiredSize.Width : child.DesiredSize.Height;
                         actual = (fraction / totalAuto) * allocatedAuto;
                     }
-                    else actual = 0;
+                    else
+                        actual = 0;
                 }
                 else //desired.IsStar
                     actual = totalStar > 0 ? (desired.Value / totalStar) * allocatedStar : 0;

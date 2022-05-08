@@ -34,10 +34,7 @@ namespace Studio.Utilities
             return margin;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
         private static TreeViewItem GetParent(TreeViewItem item)
         {

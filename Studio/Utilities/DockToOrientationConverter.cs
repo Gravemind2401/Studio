@@ -28,12 +28,10 @@ namespace Studio.Utilities
                 return LeftRightValue;
             else if (dock == Dock.Top || dock == Dock.Bottom)
                 return TopBottomValue;
-            else return null;
+            
+            return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

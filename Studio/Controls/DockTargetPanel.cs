@@ -163,33 +163,19 @@ namespace Studio.Controls
 
         internal void AlignToTarget(TargetArgs args)
         {
+            Rect GetElementBounds(UIElement element) => element == null ? Rect.Empty : new Rect(element.TranslatePoint(new Point(), this), element.RenderSize);
+
             if (args.DockContainer != DockHost)
             {
                 DockHost = args.DockContainer;
-                if (DockHost == null)
-                    DockArea = Rect.Empty;
-                else
-                {
-                    DockArea = new Rect(
-                        DockHost.ContentHost.TranslatePoint(new Point(), this),
-                        DockHost.ContentHost.RenderSize
-                    );
-                }
+                DockArea = GetElementBounds(DockHost?.ContentHost);
             }
 
             var host = args.TabWell as FrameworkElement ?? args.DocumentContainer;
             if (host != TargetHost)
             {
                 TargetHost = host;
-                if (TargetHost == null)
-                    TargetArea = Rect.Empty;
-                else
-                {
-                    TargetArea = new Rect(
-                        TargetHost.TranslatePoint(new Point(), this),
-                        TargetHost.RenderSize
-                    );
-                }
+                TargetArea = GetElementBounds(TargetHost);
             }
 
             var isAllTools = args.SourceItems.All(i => i.ItemType == TabItemType.Tool);
@@ -268,7 +254,8 @@ namespace Studio.Controls
             {
                 var well = TargetHost as TabWellBase;
                 var first = well.FirstContainer;
-                if (item == null) item = first;
+                if (item == null)
+                    item = first;
 
                 var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
                 var itemOffset = item?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
@@ -347,7 +334,6 @@ namespace Studio.Controls
         {
             DockHost = null;
             TargetHost = null;
-
             DockArea = TargetArea = Rect.Empty;
         }
     }

@@ -1,10 +1,8 @@
-﻿using Prism.Commands;
-using Sandbox.Controls;
+﻿using Sandbox.Controls;
 using Sandbox.ViewModels;
 using Studio.Controls;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +20,7 @@ namespace Sandbox.Models
             set => SetProperty(ref parent, value);
         }
 
-        protected override void TogglePinStatusExecuted(TabModel item)
-        {
-            item.IsPinned = !item.IsPinned;
-        }
+        protected override void TogglePinStatusExecuted(TabModel item) => item.IsPinned = !item.IsPinned;
 
         protected override void FloatTabExecuted(FloatEventArgs e)
         {
@@ -63,7 +58,8 @@ namespace Sandbox.Models
                 base.DockExecuted(e);
             else if (e.TargetDock == DockTarget.SplitLeft || e.TargetDock == DockTarget.SplitTop || e.TargetDock == DockTarget.SplitRight || e.TargetDock == DockTarget.SplitBottom)
                 InnerDock(e);
-            else OuterDock(e);
+            else
+                OuterDock(e);
         }
 
         private void InnerDock(DockEventArgs e)

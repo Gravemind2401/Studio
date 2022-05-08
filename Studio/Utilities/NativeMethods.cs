@@ -25,8 +25,7 @@ namespace Studio.Utilities
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(IntPtr hWnd,
-            int hWndInsertAfter, int x, int y, int cx, int cy, int uFlags);
+        private static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, int uFlags);
 
         private const int HWND_TOPMOST = -1;
         private const int HWND_NOTOPMOST = -2;
@@ -38,7 +37,7 @@ namespace Studio.Utilities
         {
             public int X;
             public int Y;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct Win32Rect
@@ -51,16 +50,15 @@ namespace Studio.Utilities
 
         public static Point GetMousePosition()
         {
-            GetCursorPos(out Win32Point pos);
+            GetCursorPos(out var pos);
             return new Point(pos.X, pos.Y);
         }
 
         public static IEnumerable<Window> SortWindowsTopToBottom(IEnumerable<Window> unsorted)
         {
-            var byHandle = unsorted.ToDictionary(win =>
-              ((HwndSource)PresentationSource.FromVisual(win)).Handle);
+            var byHandle = unsorted.ToDictionary(win => ((HwndSource)PresentationSource.FromVisual(win)).Handle);
 
-            for (IntPtr hWnd = GetTopWindow(IntPtr.Zero); hWnd != IntPtr.Zero; hWnd = GetWindow(hWnd, GW_HWNDNEXT))
+            for (var hWnd = GetTopWindow(IntPtr.Zero); hWnd != IntPtr.Zero; hWnd = GetWindow(hWnd, GW_HWNDNEXT))
             {
                 if (byHandle.ContainsKey(hWnd))
                     yield return byHandle[hWnd];

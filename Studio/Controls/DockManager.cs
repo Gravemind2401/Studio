@@ -6,49 +6,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
-using System.Windows.Media;
 
 namespace Studio.Controls
 {
     public static class DockManager
     {
+        private const string DockGroupPropertyName = "DockGroup";
+        private const string IsActivePropertyName = "IsActive";
+        private const string IsPinnedPropertyName = "IsPinned";
+
         #region DockGroup
         public static readonly DependencyProperty DockGroupProperty =
-            DependencyProperty.RegisterAttached("DockGroup", typeof(string), typeof(DockManager), new PropertyMetadata(string.Empty), ValidateDockGroup);
+            DependencyProperty.RegisterAttached(DockGroupPropertyName, typeof(string), typeof(DockManager), new PropertyMetadata(string.Empty), ValidateDockGroup);
 
-        public static string GetDockGroup(DependencyObject obj)
-        {
-            return (string)obj.GetValue(DockGroupProperty);
-        }
-
-        public static void SetDockGroup(DependencyObject obj, string value)
-        {
-            obj.SetValue(DockGroupProperty, value);
-        }
-
-        public static bool ValidateDockGroup(object value)
-        {
-            return value as string != null;
-        }
+        public static string GetDockGroup(DependencyObject obj) => (string)obj.GetValue(DockGroupProperty);
+        public static void SetDockGroup(DependencyObject obj, string value) => obj.SetValue(DockGroupProperty, value);
+        public static bool ValidateDockGroup(object value) => value as string != null;
         #endregion
 
         #region IsActive
         private static readonly Dictionary<string, DependencyObject> activeObjects = new Dictionary<string, DependencyObject>();
 
         public static readonly DependencyProperty IsActiveProperty =
-            DependencyProperty.RegisterAttached("IsActive", typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, IsActiveChanged) { BindsTwoWayByDefault = true });
+            DependencyProperty.RegisterAttached(IsActivePropertyName, typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, IsActiveChanged) { BindsTwoWayByDefault = true });
 
-        public static bool GetIsActive(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsActiveProperty);
-        }
-
-        public static void SetIsActive(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsActiveProperty, value);
-        }
+        public static bool GetIsActive(DependencyObject obj) => (bool)obj.GetValue(IsActiveProperty);
+        public static void SetIsActive(DependencyObject obj, bool value) => obj.SetValue(IsActiveProperty, value);
 
         public static void IsActiveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -69,17 +53,10 @@ namespace Studio.Controls
 
         #region IsPinned
         public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.RegisterAttached("IsPinned", typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            DependencyProperty.RegisterAttached(IsPinnedPropertyName, typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public static bool GetIsPinned(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsPinnedProperty);
-        }
-
-        public static void SetIsPinned(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsPinnedProperty, value);
-        }
+        public static bool GetIsPinned(DependencyObject obj) => (bool)obj.GetValue(IsPinnedProperty);
+        public static void SetIsPinned(DependencyObject obj, bool value) => obj.SetValue(IsPinnedProperty, value);
 
         #endregion
 
@@ -101,6 +78,7 @@ namespace Studio.Controls
                 trackedElements.Add(wnd, new List<UIElement>());
                 TrackWindow(wnd);
             }
+
             windowLookup.Add(element, wnd);
             trackedElements[wnd].Add(element);
         }

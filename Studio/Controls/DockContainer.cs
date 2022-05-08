@@ -70,10 +70,7 @@ namespace Studio.Controls
 
         public static readonly DependencyProperty HasSelectionProperty = HasSelectionPropertyKey.DependencyProperty;
 
-        private static object CoerceHasSelection(DependencyObject d, object baseValue)
-        {
-            return ((DockContainer)d).SelectedItem != null;
-        }
+        private static object CoerceHasSelection(DependencyObject d, object baseValue) => ((DockContainer)d).SelectedItem != null;
 
         private static readonly DependencyPropertyKey SelectedItemDockPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedItemDock), typeof(Dock?), typeof(DockContainer), new PropertyMetadata(null, null, CoerceSelectedItemDock));
@@ -93,7 +90,8 @@ namespace Studio.Controls
                 return Dock.Bottom;
             else if (c.TopItemsSource.OfType<object>().Contains(c.SelectedItem))
                 return Dock.Top;
-            else return null;
+
+            return null;
         }
 
         public static readonly DependencyProperty DockCommandProperty =
@@ -199,15 +197,8 @@ namespace Studio.Controls
             Unloaded += DockContainer_Unloaded;
         }
 
-        private void DockContainer_Loaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Register(this);
-        }
-
-        private void DockContainer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Unregister(this);
-        }
+        private void DockContainer_Loaded(object sender, RoutedEventArgs e) => DockManager.Register(this);
+        private void DockContainer_Unloaded(object sender, RoutedEventArgs e) => DockManager.Unregister(this);
 
         public override void OnApplyTemplate()
         {
@@ -222,9 +213,6 @@ namespace Studio.Controls
                 ContentHost.PreviewMouseDown += ContentHost_PreviewMouseDown;
         }
 
-        private void ContentHost_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            SelectedItem = null;
-        }
+        private void ContentHost_PreviewMouseDown(object sender, MouseButtonEventArgs e) => SelectedItem = null;
     }
 }

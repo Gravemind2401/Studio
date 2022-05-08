@@ -114,14 +114,7 @@ namespace Studio.Controls
             Unloaded += DockTargetButton_Unloaded;
         }
 
-        private void DockTargetButton_Loaded(object sender, RoutedEventArgs e)
-        {
-            Instances.Add(this);
-        }
-
-        private void DockTargetButton_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Instances.Remove(this);
-        }
+        private void DockTargetButton_Loaded(object sender, RoutedEventArgs e) => Instances.Add(this);
+        private void DockTargetButton_Unloaded(object sender, RoutedEventArgs e) => Instances.Remove(this);
     }
 }

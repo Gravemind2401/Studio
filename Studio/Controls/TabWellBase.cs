@@ -69,25 +69,11 @@ namespace Studio.Controls
             Unloaded += TabWellBase_Unloaded;
         }
 
-        private void TabWellBase_Loaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Register(this);
-        }
+        private void TabWellBase_Loaded(object sender, RoutedEventArgs e) => DockManager.Register(this);
+        private void TabWellBase_Unloaded(object sender, RoutedEventArgs e) => DockManager.Unregister(this);
 
-        private void TabWellBase_Unloaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Unregister(this);
-        }
-
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new TabWellItem();
-        }
-
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is TabWellItem;
-        }
+        protected override DependencyObject GetContainerForItemOverride() => new TabWellItem();
+        protected override bool IsItemItsOwnContainerOverride(object item) => item is TabWellItem;
 
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
@@ -130,7 +116,8 @@ namespace Studio.Controls
             var tab = (TabWellItem)e.OriginalSource;
             var mouseArgs = (MouseButtonEventArgs)e.Parameter;
 
-            if (mouseArgs.ChangedButton != MouseButton.Left || !tab.IsMouseCaptured) return;
+            if (mouseArgs.ChangedButton != MouseButton.Left || !tab.IsMouseCaptured)
+                return;
 
             swapThreshold = 0;
             tab.ReleaseMouseCapture();
@@ -143,7 +130,8 @@ namespace Studio.Controls
             var tab = (TabWellItem)e.OriginalSource;
             var mouseArgs = (MouseEventArgs)e.Parameter;
 
-            if (!tab.IsMouseCaptured || !tab.IsLoaded) return;
+            if (!tab.IsMouseCaptured || !tab.IsLoaded)
+                return;
 
             var item = ItemContainerGenerator.ItemFromContainer(tab);
             var index = Items.IndexOf(item);
@@ -166,7 +154,8 @@ namespace Studio.Controls
                 return;
             }
 
-            if (pos.X > 0 && pos.X < tab.ActualWidth) swapThreshold = 0;
+            if (pos.X > 0 && pos.X < tab.ActualWidth)
+                swapThreshold = 0;
 
             var isPinned = DockManager.GetIsPinned(tab);
             var grouped = Items.OfType<object>()
@@ -206,10 +195,7 @@ namespace Studio.Controls
         }
 
         //internal command - OriginalSource is TabWellItem, Parameter is MouseEventArgs
-        private void TabLostMouseCaptureCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            floatThreshold = minFloatThreshold;
-        }
+        private void TabLostMouseCaptureCommandExecuted(object sender, ExecutedRoutedEventArgs e) => floatThreshold = minFloatThreshold;
         #endregion
     }
 }

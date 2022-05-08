@@ -24,10 +24,7 @@ namespace Studio.Controls
             CursorProperty.OverrideMetadata(typeof(SplitPanelSplitter), new FrameworkPropertyMetadata(null, CoerceCursor));
         }
 
-        private static object CoerceCursor(DependencyObject d, object value)
-        {
-            return ((SplitPanelSplitter)d).Owner.Orientation == Orientation.Horizontal ? Cursors.SizeWE : Cursors.SizeNS;
-        }
+        private static object CoerceCursor(DependencyObject d, object value) => ((SplitPanelSplitter)d).Owner.Orientation == Orientation.Horizontal ? Cursors.SizeWE : Cursors.SizeNS;
         #endregion
 
         #region Dependency Properties
@@ -235,10 +232,7 @@ namespace Studio.Controls
             splitter.OnDragStarted(e);
         }
 
-        private void OnDragStarted(DragStartedEventArgs e)
-        {
-            InitializeData(ShowsPreview);
-        }
+        private void OnDragStarted(DragStartedEventArgs e) => InitializeData(ShowsPreview);
 
         private static void OnDragDelta(object sender, DragDeltaEventArgs e)
         {

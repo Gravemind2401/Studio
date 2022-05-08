@@ -50,15 +50,8 @@ namespace Studio.Controls
             Unloaded += TabWellItem_Unloaded;
         }
 
-        private void TabWellItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Register(this);
-        }
-
-        private void TabWellItem_Unloaded(object sender, RoutedEventArgs e)
-        {
-            DockManager.Unregister(this);
-        }
+        private void TabWellItem_Loaded(object sender, RoutedEventArgs e) => DockManager.Register(this);
+        private void TabWellItem_Unloaded(object sender, RoutedEventArgs e) => DockManager.Unregister(this);
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
@@ -76,7 +69,8 @@ namespace Studio.Controls
                 if (e.ButtonState == MouseButtonState.Pressed)
                     CloseCommand?.TryExecute(DataContext ?? this, this);
             }
-            else Commands.TabMouseDownCommand.TryExecute(e, this);
+            else
+                Commands.TabMouseDownCommand.TryExecute(e, this);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)

@@ -69,25 +69,10 @@ namespace Sandbox.Models
                 parent.Host.Close();
         }
 
-        protected virtual void TogglePinStatusExecuted(TabModel item)
-        {
-
-        }
-
-        protected virtual void SelectItemExecuted(TabModel item)
-        {
-            SelectedItem = item;
-        }
-
-        protected virtual void FloatTabExecuted(FloatEventArgs e)
-        {
-
-        }
-
-        protected virtual void FloatAllExecuted(FloatEventArgs e)
-        {
-
-        }
+        protected virtual void TogglePinStatusExecuted(TabModel item) { }
+        protected virtual void SelectItemExecuted(TabModel item) => SelectedItem = item;
+        protected virtual void FloatTabExecuted(FloatEventArgs e) { }
+        protected virtual void FloatAllExecuted(FloatEventArgs e) { }
 
         protected virtual void DockExecuted(DockEventArgs e)
         {
@@ -130,10 +115,7 @@ namespace Sandbox.Models
             OnChildrenChanged();
         }
 
-        protected virtual void OnChildrenChanged()
-        {
-
-        }
+        protected virtual void OnChildrenChanged() { }
 
         private void UpdateChildrenWidth()
         {
