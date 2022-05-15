@@ -40,7 +40,7 @@ namespace Studio.Utilities
             {
                 if (element is T target)
                     return target;
-                else if (element is DependencyObject)
+                else if (element != null)
                     element = VisualTreeHelper.GetParent(element);
                 else
                     break;
