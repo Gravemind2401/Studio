@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -42,7 +37,7 @@ namespace Studio.Controls
 
         private void DocumentContainer_Loaded(object sender, RoutedEventArgs e) => DockManager.Register(this);
         private void DocumentContainer_Unloaded(object sender, RoutedEventArgs e) => DockManager.Unregister(this);
-        
+
         protected override DependencyObject GetContainerForItemOverride() => new DocumentWell();
         protected override bool IsItemItsOwnContainerOverride(object item) => item is DocumentWell;
     }

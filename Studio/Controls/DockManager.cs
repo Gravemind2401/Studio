@@ -148,8 +148,7 @@ namespace Studio.Controls
 
         private static void OnDragMove(Window wnd, Point pos)
         {
-            if (currentTarget == null)
-                currentTarget = windowData.FirstOrDefault(d => d.WindowBounds.Contains(pos));
+            currentTarget ??= windowData.FirstOrDefault(d => d.WindowBounds.Contains(pos));
 
             if (currentTarget == null)
                 return;

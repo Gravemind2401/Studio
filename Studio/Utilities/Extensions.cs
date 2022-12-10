@@ -1,9 +1,6 @@
 ﻿using Studio.Controls;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -93,9 +90,9 @@ namespace Studio.Utilities
         {
             if (d == DockTarget.Center)
                 return null;
-            else if (d == DockTarget.DockLeft || d == DockTarget.DockRight || d == DockTarget.SplitLeft || d == DockTarget.SplitRight)
+            else if (d is DockTarget.DockLeft or DockTarget.DockRight or DockTarget.SplitLeft or DockTarget.SplitRight)
                 return Orientation.Horizontal;
-            
+
             return Orientation.Vertical;
         }
 
@@ -103,13 +100,13 @@ namespace Studio.Utilities
         {
             if (d == DockTarget.Center)
                 return null;
-            else if (d == DockTarget.DockLeft || d == DockTarget.SplitLeft)
+            else if (d is DockTarget.DockLeft or DockTarget.SplitLeft)
                 return Dock.Left;
-            else if (d == DockTarget.DockTop || d == DockTarget.SplitTop)
+            else if (d is DockTarget.DockTop or DockTarget.SplitTop)
                 return Dock.Top;
-            else if (d == DockTarget.DockRight || d == DockTarget.SplitRight)
+            else if (d is DockTarget.DockRight or DockTarget.SplitRight)
                 return Dock.Right;
-            
+
             return Dock.Bottom;
         }
 

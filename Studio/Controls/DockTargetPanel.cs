@@ -254,8 +254,7 @@ namespace Studio.Controls
             {
                 var well = TargetHost as TabWellBase;
                 var first = well.FirstContainer;
-                if (item == null)
-                    item = first;
+                item ??= first;
 
                 var firstOffset = first?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
                 var itemOffset = item?.TranslatePoint(new Point(), relativeOrigin) ?? hostOffset;
@@ -292,7 +291,7 @@ namespace Studio.Controls
 
         private bool HighlightSplit(PointCollection col, IEnumerable<TabWellItem> sourceTabs, TabWellItem item)
         {
-            if (!(DockTargetButton.CurrentTargetHost is FrameworkElement panel))
+            if (DockTargetButton.CurrentTargetHost is not FrameworkElement panel)
             {
                 HighlightPath = Geometry.Empty;
                 return false;

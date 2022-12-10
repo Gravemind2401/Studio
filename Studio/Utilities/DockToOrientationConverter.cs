@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -24,11 +20,11 @@ namespace Studio.Utilities
         {
             var dock = value as Dock?;
 
-            if (dock == Dock.Left || dock == Dock.Right)
+            if (dock is Dock.Left or Dock.Right)
                 return LeftRightValue;
-            else if (dock == Dock.Top || dock == Dock.Bottom)
+            else if (dock is Dock.Top or Dock.Bottom)
                 return TopBottomValue;
-            
+
             return null;
         }
 
