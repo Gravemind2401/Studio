@@ -1,12 +1,7 @@
 ﻿using Prism.Commands;
 using Sandbox.ViewModels;
 using Studio.Controls;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Sandbox.Models
