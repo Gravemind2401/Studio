@@ -54,11 +54,11 @@ namespace Studio.Controls
 
         protected TabWellBase()
         {
-            CommandBindings.Add(new CommandBinding(Commands.TabMouseDownCommand, TabMouseDownCommandExecuted));
-            CommandBindings.Add(new CommandBinding(Commands.TabMouseMoveCommand, TabMouseMoveCommandExecuted));
-            CommandBindings.Add(new CommandBinding(Commands.TabMouseUpCommand, TabMouseUpCommandExecuted));
-            CommandBindings.Add(new CommandBinding(Commands.TabLostMouseCaptureCommand, TabLostMouseCaptureCommandExecuted));
-            CommandBindings.Add(new CommandBinding(Commands.CloseTabCommand, CloseTabCommandExecuted));
+            CommandBindings.Add(Commands.TabMouseDownCommand, TabMouseDownCommandExecuted);
+            CommandBindings.Add(Commands.TabMouseMoveCommand, TabMouseMoveCommandExecuted);
+            CommandBindings.Add(Commands.TabMouseUpCommand, TabMouseUpCommandExecuted);
+            CommandBindings.Add(Commands.TabLostMouseCaptureCommand, TabLostMouseCaptureCommandExecuted);
+            CommandBindings.Add(Commands.CloseTabCommand, CloseTabCommandExecuted);
 
             Loaded += TabWellBase_Loaded;
             Unloaded += TabWellBase_Unloaded;

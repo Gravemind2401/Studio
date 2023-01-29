@@ -11,19 +11,19 @@ namespace Sandbox.ViewModels
     {
         public const double DefaultDockSize = 260d;
 
+        internal Window Host { get; set; }
+
+        public ObservableCollection<TabModel> LeftDockItems { get; } = new ObservableCollection<TabModel>();
+        public ObservableCollection<TabModel> TopDockItems { get; } = new ObservableCollection<TabModel>();
+        public ObservableCollection<TabModel> RightDockItems { get; } = new ObservableCollection<TabModel>();
+        public ObservableCollection<TabModel> BottomDockItems { get; } = new ObservableCollection<TabModel>();
+
         private bool isRafted;
         public bool IsRafted
         {
             get => isRafted;
             internal set => SetProperty(ref isRafted, value);
         }
-
-        internal Window Host { get; set; }
-
-        public ObservableCollection<TabModel> LeftDockItems { get; }
-        public ObservableCollection<TabModel> TopDockItems { get; }
-        public ObservableCollection<TabModel> RightDockItems { get; }
-        public ObservableCollection<TabModel> BottomDockItems { get; }
 
         private TabModel selectedDockItem;
         public TabModel SelectedDockItem
@@ -48,11 +48,6 @@ namespace Sandbox.ViewModels
             CloseTabCommand = new DelegateCommand<TabModel>(CloseTabExecuted);
             TogglePinStatusCommand = new DelegateCommand<TabModel>(TogglePinStatusExecuted);
             DockCommand = new DelegateCommand<DockEventArgs>(DockExecuted);
-
-            LeftDockItems = new ObservableCollection<TabModel>();
-            TopDockItems = new ObservableCollection<TabModel>();
-            RightDockItems = new ObservableCollection<TabModel>();
-            BottomDockItems = new ObservableCollection<TabModel>();
 
             LeftDockItems.CollectionChanged += DockItems_CollectionChanged;
             TopDockItems.CollectionChanged += DockItems_CollectionChanged;

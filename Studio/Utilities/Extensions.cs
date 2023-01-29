@@ -1,6 +1,8 @@
 ﻿using Studio.Controls;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Studio.Utilities
@@ -9,8 +11,7 @@ namespace Studio.Utilities
     {
         public static T FindLogicalAncestor<T>(this FrameworkElement element) where T : DependencyObject
         {
-            if (element == null)
-                throw new ArgumentNullException(nameof(element));
+            ArgumentNullException.ThrowIfNull(element);
 
             while (element.Parent != null)
             {
@@ -27,8 +28,7 @@ namespace Studio.Utilities
 
         public static T FindVisualAncestor<T>(this DependencyObject element) where T : DependencyObject
         {
-            if (element == null)
-                throw new ArgumentNullException(nameof(element));
+            ArgumentNullException.ThrowIfNull(element);
 
             element = VisualTreeHelper.GetParent(element);
             while (element != null)
@@ -44,7 +44,7 @@ namespace Studio.Utilities
             return default;
         }
 
-        internal static object GetContainerContext(this FrameworkElement element)
+        public static object GetContainerContext(this FrameworkElement element)
         {
             var lineage = new List<DependencyObject> { element };
             var parent = VisualTreeHelper.GetParent(element);
@@ -73,7 +73,7 @@ namespace Studio.Utilities
 
         public static DpiScale GetDpi(this Visual visual)
         {
-            var method = typeof(Visual).GetMethod(nameof(GetDpi), System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var method = typeof(Visual).GetMethod(nameof(GetDpi), BindingFlags.Instance | BindingFlags.NonPublic);
             return (DpiScale)method.Invoke(visual, null);
         }
 
@@ -109,5 +109,7 @@ namespace Studio.Utilities
         }
 
         public static void Add(this PointCollection collection, double x, double y) => collection.Add(new Point(x, y));
+
+        public static void Add(this CommandBindingCollection collection, ICommand command, ExecutedRoutedEventHandler executed) => collection.Add(new CommandBinding(command, executed));
     }
 }

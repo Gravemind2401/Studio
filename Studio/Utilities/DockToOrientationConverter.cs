@@ -6,14 +6,8 @@ namespace Studio.Utilities
 {
     public class DockToOrientationConverter : IValueConverter
     {
-        public Orientation LeftRightValue { get; set; }
-        public Orientation TopBottomValue { get; set; }
-
-        public DockToOrientationConverter()
-        {
-            LeftRightValue = Orientation.Vertical;
-            TopBottomValue = Orientation.Horizontal;
-        }
+        public Orientation LeftRightValue { get; set; } = Orientation.Vertical;
+        public Orientation TopBottomValue { get; set; } = Orientation.Horizontal;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

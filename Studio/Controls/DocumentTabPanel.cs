@@ -107,7 +107,7 @@ namespace Studio.Controls
 
             var result = new Size();
             var rowCount = GetRowCount(availableSize);
-            for (int i = 0; i < rowCount; i++)
+            for (var i = 0; i < rowCount; i++)
             {
                 var items = GetItemsOnRow(availableSize, i).ToList();
                 result.Width = Math.Max(result.Width, items.Sum(e => e.DesiredSize.Width));
@@ -127,7 +127,7 @@ namespace Studio.Controls
             var offset = new Point();
             var rowCount = GetRowCount(finalSize);
 
-            for (int i = -1; i < rowCount; i++)
+            for (var i = -1; i < rowCount; i++)
             {
                 var items = GetItemsOnRow(finalSize, i).ToList();
                 foreach (var item in items)

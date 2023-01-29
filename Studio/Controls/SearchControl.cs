@@ -35,14 +35,14 @@ namespace Studio.Controls
 
         public event RoutedEventHandler SearchAccepted
         {
-            add { AddHandler(SearchAcceptedEvent, value); }
-            remove { RemoveHandler(SearchAcceptedEvent, value); }
+            add => AddHandler(SearchAcceptedEvent, value);
+            remove => RemoveHandler(SearchAcceptedEvent, value);
         }
 
         public event RoutedEventHandler SearchCanceled
         {
-            add { AddHandler(SearchCanceledEvent, value); }
-            remove { RemoveHandler(SearchCanceledEvent, value); }
+            add => AddHandler(SearchCanceledEvent, value);
+            remove => RemoveHandler(SearchCanceledEvent, value);
         }
         #endregion
 

@@ -38,15 +38,14 @@ namespace Sandbox.Models
         protected bool SetProperty<T>(ref T storage, T value, Action<T, T> onChanged, [CallerMemberName] string propertyName = null)
         {
             var prev = storage;
-            if (SetProperty(ref storage, value, propertyName))
-            {
-                onChanged(prev, value);
-                return true;
-            }
-            else return false;
+            if (!SetProperty(ref storage, value, propertyName))
+                return false;
+
+            onChanged(prev, value);
+            return true;
         }
 
-        protected void ShowOnClose(Window close, Window show)
+        protected static void ShowOnClose(Window close, Window show)
         {
             //if we try to close window A then show and drag window B we get the error 'Can only call DragMove when primary mouse button is down.'
             //this is a workaround to ensure window A has closed before windo B attempts to show and drag

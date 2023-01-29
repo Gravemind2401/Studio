@@ -57,7 +57,7 @@ namespace Sandbox
             var model = new WindowViewModel();
             var item1 = new DocContainerModel(new DocumentWellModel() { IsActive = true });
 
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 item1.Children[0].Children.Add(new TabModel
                 {
@@ -82,10 +82,10 @@ namespace Sandbox
             Model = model;
         }
 
-        private ToolWellModel GenerateToolGroup(Dock dock)
+        private static ToolWellModel GenerateToolGroup(Dock dock)
         {
             var item = new ToolWellModel() { Dock = dock };
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 item.Children.Add(new TabModel
                 {

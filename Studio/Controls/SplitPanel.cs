@@ -180,7 +180,7 @@ namespace Studio.Controls
                 ? new Size(SplitterThickness, availableSize.Height)
                 : new Size(availableSize.Width, SplitterThickness);
 
-            foreach (UIElement splitter in splitters)
+            foreach (var splitter in splitters.OfType<UIElement>())
                 splitter.Measure(splitterSize);
 
             return base.MeasureOverride(availableSize);
@@ -195,7 +195,7 @@ namespace Studio.Controls
                 : new Size(finalSize.Width, SplitterThickness);
 
             double offset = 0;
-            for (int i = 0; i < InternalChildren.Count; i++)
+            for (var i = 0; i < InternalChildren.Count; i++)
             {
                 var child = calculated[i].Key;
                 var childSize = calculated[i].Value;

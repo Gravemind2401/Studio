@@ -66,7 +66,7 @@ namespace Studio.Controls
 
         private static bool IsValidDelta(object o)
         {
-            double delta = (double)o;
+            var delta = (double)o;
             return delta > 0.0 && !double.IsPositiveInfinity(delta);
         }
 

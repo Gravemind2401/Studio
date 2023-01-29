@@ -39,8 +39,8 @@ namespace Studio.Controls
 
         public DocumentWell() : base()
         {
-            CommandBindings.Add(new CommandBinding(Commands.PinTabCommand, PinTabCommandExecuted));
-            CommandBindings.Add(new CommandBinding(Commands.SelectTabCommand, SelectTabCommandExecuted));
+            CommandBindings.Add(Commands.PinTabCommand, PinTabCommandExecuted);
+            CommandBindings.Add(Commands.SelectTabCommand, SelectTabCommandExecuted);
         }
 
         private void PinTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
