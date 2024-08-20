@@ -22,47 +22,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Themes\Themes.tt">
+    <None Update="Themes\2015\Themes2015.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Themes2015.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Themes\Blue.xaml">
+    <Page Update="Themes\2015\Blue.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Dark.xaml">
+    <Page Update="Themes\2015\Dark.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Green.xaml">
+    <Page Update="Themes\2015\Green.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Light.xaml">
+    <Page Update="Themes\2015\Light.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Purple.xaml">
+    <Page Update="Themes\2015\Purple.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Red.xaml">
+    <Page Update="Themes\2015\Red.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\SolarizedDark.xaml">
+    <Page Update="Themes\2015\SolarizedDark.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\SolarizedLight.xaml">
+    <Page Update="Themes\2015\SolarizedLight.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
-    <Page Update="Themes\Tan.xaml">
+    <Page Update="Themes\2015\Tan.xaml">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Themes.tt</DependentUpon>
+      <DependentUpon>Themes\2015\Themes2015.tt</DependentUpon>
     </Page>
   </ItemGroup>
 

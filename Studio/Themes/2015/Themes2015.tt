@@ -1,5 +1,5 @@
 ﻿<#@ template debug="true" hostSpecific="true" language="C#" #>
-<#@ include file="T4.FileManager.VisualStudio.ttinclude" #>
+<#@ include file="..\T4.FileManager.VisualStudio.ttinclude" #>
 <#@ Assembly Name="System.Core" #>
 <#@ Assembly Name="System.Drawing" #>
 <#@ Assembly Name="System.Xml" #>

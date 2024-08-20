@@ -251,7 +251,7 @@
                 properties = new FileProperties();
 
             properties.SetParameter(Property.AutoGen, true);
-            properties.SetParameter(Property.DependentUpon, Path.GetFileName(host.TemplateFile));
+            properties.SetParameter(Property.DependentUpon, Path.Combine(relativePath, Path.GetFileName(host.TemplateFile)));
 
             CreateNewFile(filename, projectName, relativePath, properties);
         }
@@ -442,7 +442,7 @@
 
             AddMissingFileToProject(fileToGenerate.Project, fileToGenerate.AbsolutePath, fileToGenerate.Filename, fileToGenerate.ParentItem == Path.GetFileName(host.TemplateFile));
 
-            var fileProjectItem = FindProjectItem(fileToGenerate.Project, fileToGenerate.Filename);
+            var fileProjectItem = FindProjectItem(fileToGenerate.Project, Path.Combine(fileToGenerate.Path, fileToGenerate.Filename));
             var canOverwriteExistingFile = CanOverwriteExistingFileByFile(fileToGenerate);
 
             if (fileToGenerate.Properties != null && (canOverwriteExistingFile && CanOverwriteExistingFile) || !exists)
