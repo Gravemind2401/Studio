@@ -1,0 +1,272 @@
+﻿<#@ template debug="true" hostSpecific="true" language="C#" #>
+<#@ include file="..\T4.FileManager.VisualStudio.ttinclude" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Drawing" #>
+<#@ Assembly Name="System.Xml" #>
+<#@ Assembly Name="System.Xml.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Drawing" #> 
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<# 
+    var fileManager = T4FileManager.Create(this).DisableTemplateMainOutputFile();
+    var dir = this.Host.ResolvePath("VSTheme");
+    var files = Directory.EnumerateFiles(dir, "*.vstheme");
+    foreach (var fileName in files)
+    {
+        fileManager.CreateNewFile(Path.GetFileNameWithoutExtension(fileName) + ".xaml");
+        #><ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Studio;component/Styles/VS2015.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+<#
+        var results = new List<ColourResource>();
+
+        var doc = new XmlDocument();
+        doc.Load(fileName);
+
+        foreach (XmlNode node in doc.SelectNodes(@"//Category/Color"))
+            results.Add(new ColourResource(node));
+    
+        var ordered = results.OrderBy(c => c.Category).ThenBy(c => c.Name);
+
+        foreach (var category in ordered.GroupBy(c => c.Category))
+        {
+            var values = (from c in category.SelectMany(c => c.ResourceComponents)
+                          where !excludedResources.Any(s => Regex.IsMatch(c.Key, s))
+                          let split = c.Key.Split('.')
+                          select new 
+                          {
+                              Key = c.Key,
+                              Value = c.Value,
+                              Group = split.Length > 2 ? split[1] : string.Empty
+                          }).ToList();
+
+            if (values.Count == 0) continue;
+            #>
+
+    <!--#region <#= category.Key #>-->
+
+<#
+            foreach (var g in values.GroupBy(c => c.Group).OrderBy(g => g.Key))
+            {
+                var list = g.ToList();
+
+                if (g.Key.Length > 0)
+                {
+                #>
+
+    <!--#region <#= g.Key #>-->
+<#
+                }
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var item = list[i];
+                    if (item.Key.EndsWith("Begin") || item.Key.EndsWith("Bottom"))
+                    {
+                        var name = Regex.Replace(item.Key, @"([\w\.]+)(?:Begin|Bottom)$", "$1");
+                        var gradients = list.Skip(i).TakeWhile(v => v.Key.StartsWith(name)).ToList();
+                    #>
+    <LinearGradientBrush x:Key="<#= name #>" StartPoint="0,0" EndPoint="0,1">
+<#                        
+                        int stopCount = 0;
+                        foreach (var stop in gradients.OrderBy(v => SortGradient(v.Key)).ThenBy(v => v.Key))
+                        {
+                            var offset = stopCount++ / (float)(gradients.Count - 1);
+                            #>
+        <GradientStop Offset="<#= offset.ToString("0.###") #>" Color="<#= stop.Value #>" />
+<#
+                        }
+
+                        i += gradients.Count - 1;
+
+                        #>
+    </LinearGradientBrush>
+<#
+                    }
+                    else
+                    {
+                    #>
+    <SolidColorBrush x:Key="<#= item.Key #>" Color="<#= item.Value #>" />
+<#                    }
+                }
+                if (g.Key.Length > 0)
+                {
+                #>
+    <!--#endregion-->
+<#
+                }
+            }
+        #>
+
+    <!--#endregion-->
+<#
+        }
+        #>
+
+</ResourceDictionary>
+        <#
+    }
+
+    fileManager.Generate();
+#>
+<#+
+    string[] excludedResources = new[]
+    {
+        @"^ACDC",
+        @"ApplicationInsights",
+        @"^Autos",
+        @"^CallStack", 
+        @"^Cider\.(?!Artboard)", 
+        @"^Code", 
+        @"^ColorizedSignatureHelp",
+        @"^CommonDocument",
+        @"Config",
+        @"Console",
+        @"^Cpu",
+        @"^Data",
+        @"^Debug",
+        @"^Decorative",
+        @"^Designer",
+        @"Diagnostic",
+        @"^\w*Editor",
+        @"^Environment\.Branded",
+        @"^Environment\.ClassDesigner",
+        @"^Environment\.Diag",
+        @"^Environment\.Debug",
+        @"^Environment\.Extension",
+        @"^Environment\.Help",
+        @"^Environment\.\w*SmartTag",
+        @"^Environment\.StartPage",
+        @"^Environment\.QuickCustomize",
+        @"^Environment\.VizSurface",
+        @"^Environment\.Wizard",
+        @"Explorer",
+        @"^FindResults",
+        @"^FolderDifference",
+        @"^FSharp",
+        @"^Graph",
+        @"Graphics",
+        @"^ImmediateWindow",
+        @"InformationBadge",
+        @"^InfoBar",
+        @"^Intelli",
+        @"JavaScript",
+        @"^LightSwitch",
+        @"^Locals",
+        @"Manifest",
+        @"^Navigat",
+        @"Notification",
+        @"^Parallel",
+        @"^Perf",
+        @"Project",
+        @"^Promotion",
+        @"^SharePoint",
+        @"^Shell",
+        @"^StartPage",
+        @"^Sql",
+        @"SQL",
+        @"TabbedDesigner",
+        @"^Themed",
+        @"^Threads",
+        @"^UltimateStartPage",
+        @"^Unthemed",
+        @"^UserInformation",
+        @"^Version",
+        @"^Visual",
+        @"^Vs",
+        @"^VSSearch",
+        @"^Watch",
+        @"^Welcome",
+        @"^Work",
+        @"Xamarin",
+        @"^XAML"
+    };
+
+    public int SortGradient(string key)
+    {
+        if (key.EndsWith("Begin") || key.EndsWith("Top"))
+            return 0;
+            
+        if (key.EndsWith("End") || key.EndsWith("Bottom"))
+            return 2;
+
+        return 1;
+    }
+
+    public class ColourResource
+    {
+        private static Dictionary<string, string[]> groups = new Dictionary<string, string[]>
+        {
+            { "Cider", new[] { "Artboard" }},
+            { "CommonControls", new[] { "Button", "CheckBox", "ComboBox", "InnerTab", "TextBox" }},
+            { "Environment", new[] { "DropDown", "DockTarget", "DocWellOverflowButton", "ScrollBar", "ComboBox", "CommandBar", "CommandShelf", "FileTab", "SearchBox", "TitleBar", "Toolbox", "ToolWindow", "Panel", "SideBar", "MainWindow", "RaftedWindow", "StatusBar", "ToolTip" }},
+            { "SearchControl", new[] { "Popup" }},
+            { "TreeView", new[] { "SelectedItem" }}
+        };
+    
+        public string Category { get; set; }
+        public string Name { get; set; }
+        private Dictionary<string, string> Components { get; set; }
+    
+        public ColourResource(XmlNode node)
+        {
+            Category = node.ParentNode.Attributes["Name"].Value;
+            Name = node.Attributes["Name"].Value;
+
+            Components = new Dictionary<string,string>();
+            foreach (XmlNode n in node.ChildNodes)
+            {
+                var src = n.Attributes["Source"].Value;
+                if (n.Attributes["Type"].Value == "CT_SYSCOLOR")
+                {
+                    //for some reason some of them are zero, but the editor shows it as "scrollbar" so just treat it as that
+                    if (src == "00000000")
+                        src = "00000017";
+
+                    var c = (KnownColor)int.Parse(src, NumberStyles.HexNumber);
+                    src = string.Format("{{x:Static SystemColors.{0}Color}}", c);
+                }
+                else src = "#" + src;
+                
+                Components.Add(n.Name, src);
+            }
+        }
+    
+        public IEnumerable<KeyValuePair<string,string>> ResourceComponents
+        {
+            get
+            {
+                var cat = Regex.Replace(Category, @"[ ]", string.Empty);
+                var name = Regex.Replace(Name, @"[ \(\)]", string.Empty);
+            
+                if (groups.ContainsKey(Category))
+                {
+                    var g = groups[Category].FirstOrDefault(s => name.StartsWith(s));
+                    if (g != null) name = name.Replace(g, g + ".");
+                }
+                
+                foreach (var component in Components)
+                {
+                    if (name.EndsWith("Background"))
+                    {
+                        if (component.Key == "Foreground")
+                            name = Regex.Replace(name, "(.*)Background$", "$1Foreground");
+                    }
+                    else if (Components.Count > 1) 
+                        name += component.Key;
+                    
+                    yield return new KeyValuePair<string, string>(string.Format("{0}.{1}", cat, name).TrimEnd('.'), component.Value);
+                }
+            }
+        }
+    }
+#>

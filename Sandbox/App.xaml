@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/WindowButtonCommands.xaml" />
-                <ResourceDictionary Source="/Studio;component/Themes/2015/Blue.xaml" />
+                <ResourceDictionary Source="/Studio;component/Themes/2022/Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <u:TabTreeTemplateSelector x:Key="tabTreeTemplateSelector" />

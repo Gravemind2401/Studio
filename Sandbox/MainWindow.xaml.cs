@@ -2,7 +2,6 @@
 using Sandbox.Models;
 using Sandbox.ViewModels;
 using Studio.Controls;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,10 +12,15 @@ namespace Sandbox
     /// </summary>
     public partial class MainWindow : MahApps.Metro.Controls.MetroWindow
     {
-        private static readonly Dictionary<string, ResourceDictionary> themes = (new[]
+        private static readonly Dictionary<string, ResourceDictionary> themes2015 = (new[]
         {
-            "Blue", "Dark", "Light", "Green", "Purple", "Red", "Tan", "Solarized (Dark)", "Solarized (Light)"
-        }).ToDictionary(s => s, s => new ResourceDictionary { Source = new Uri($"/Studio;component/Themes/2015/{Regex.Replace(s, @"[ \(\)]", string.Empty)}.xaml", UriKind.RelativeOrAbsolute) });
+            "Blue", "Dark", "Light", "Green", "Purple", "Red", "Tan", "Solarized Dark", "Solarized Light"
+        }).ToDictionary(s => s, s => new ResourceDictionary { Source = new Uri($"/Studio;component/Themes/2015/{s}.xaml", UriKind.RelativeOrAbsolute) });
+
+        private static readonly Dictionary<string, ResourceDictionary> themes2022 = (new[]
+        {
+            "Blue", "Dark", "Light", "Red", "Solarized Dark", "Solarized Light", "Dark+", "Light+", "Abyss", "High Contrast", "Kimbie Dark", "Monokai", "Monokai Dimmed", "Quiet Light", "Tomorrow Night Blue"
+        }).ToDictionary(s => s, s => new ResourceDictionary { Source = new Uri($"/Studio;component/Themes/2022/{s}.xaml", UriKind.RelativeOrAbsolute) });
 
         public static readonly DependencyProperty ModelProperty =
             DependencyProperty.Register(nameof(Model), typeof(object), typeof(MainWindow), new PropertyMetadata((object)null));
@@ -34,16 +38,31 @@ namespace Sandbox
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (var theme in themes)
+            var item2015 = new MenuItem { Header = "2015" };
+            foreach (var (name, path) in themes2015.OrderBy(kv => kv.Key))
             {
-                var item = new MenuItem { Header = theme.Key };
+                var item = new MenuItem { Header = name };
                 item.Click += (s, args) =>
                 {
                     App.Instance.Resources.MergedDictionaries.Clear();
-                    App.Instance.Resources.MergedDictionaries.Add(theme.Value);
+                    App.Instance.Resources.MergedDictionaries.Add(path);
                 };
-                ThemesMenu.Items.Add(item);
+                item2015.Items.Add(item);
             }
+            ThemesMenu.Items.Add(item2015);
+
+            var item2022 = new MenuItem { Header = "2022" };
+            foreach (var (name, path) in themes2022.OrderBy(kv => kv.Key))
+            {
+                var item = new MenuItem { Header = name };
+                item.Click += (s, args) =>
+                {
+                    App.Instance.Resources.MergedDictionaries.Clear();
+                    App.Instance.Resources.MergedDictionaries.Add(path);
+                };
+                item2022.Items.Add(item);
+            }
+            ThemesMenu.Items.Add(item2022);
 
             var none = new MenuItem { Header = "(None)" };
             none.Click += (s, args) => App.Instance.Resources.MergedDictionaries.Clear();
