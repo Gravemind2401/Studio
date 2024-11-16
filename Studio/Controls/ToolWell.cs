@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Studio.Controls
 {
-    [TemplatePart(Name = nameof(PART_TitleBar), Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = PART_TitleBar, Type = typeof(FrameworkElement))]
     public class ToolWell : TabWellBase
     {
         private const string PART_TitleBar = "PART_TitleBar";

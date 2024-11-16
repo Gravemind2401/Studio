@@ -117,5 +117,10 @@ namespace Sandbox
 
             return item;
         }
+
+        private void SplitButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("default click");
+        }
     }
 }

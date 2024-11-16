@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Studio.Controls
 {
-    [TemplatePart(Name = nameof(PART_ContentHost), Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = PART_ContentHost, Type = typeof(ContentPresenter))]
     [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(ListBoxItem))]
     public class DockContainer : ContentControl, IDockReceiver
     {

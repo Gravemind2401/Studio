@@ -51,7 +51,8 @@
                 <Button Content="enabled" />
                 <Button Content="disabled" IsEnabled="False" />
                 <ToggleButton Content="toggle" />
-                <s:SplitButton Content="split">
+                <s:SplitButton Content="split"
+                               Click="SplitButton_Click">
                     <s:SplitButton.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Item 1" />

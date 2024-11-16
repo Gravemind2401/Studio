@@ -1567,36 +1567,30 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
                         <Border x:Name="Separator" Grid.Column="1" Width="1" Margin="0,1" Background="{DynamicResource Environment.CommandBar.SplitButtonSeparator}" />
-                        <ToggleButton x:Name="ToggleButton" Grid.Column="2" Margin="0,1,1,1"
-                                      Focusable="False" ClickMode="Press" Background="Transparent"
-                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                      Foreground="{DynamicResource Environment.CommandBar.SplitButtonGlyph}">
-                            <ToggleButton.Template>
-                                <ControlTemplate TargetType="ToggleButton">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <Path Margin="0,1,0,0" Fill="{TemplateBinding Foreground}"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              Data="M0,0 L3,3 L6,0 Z" />
-                                    </Border>
-                                </ControlTemplate>
-                            </ToggleButton.Template>
-                        </ToggleButton>
+                        <Border x:Name="PART_MenuButton"
+                                Grid.Column="2" Margin="0,1,1,1"
+                                Background="Transparent">
+                            <Path x:Name="ArrowGlyph" Margin="0,1,0,0"
+                                  Fill="{DynamicResource Environment.CommandBar.SplitButtonGlyph}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M0,0 L3,3 L6,0 Z" />
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="Separator" Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseOverGlyph}" />
-                            <Setter TargetName="ToggleButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                            <Setter TargetName="ArrowGlyph" Property="Fill" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseOverGlyph}" />
+                            <Setter TargetName="PART_MenuButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseDownGlyph}" />
-                            <Setter TargetName="ToggleButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                            <Setter TargetName="ArrowGlyph" Property="Fill" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseDownGlyph}" />
+                            <Setter TargetName="PART_MenuButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+                            <Setter TargetName="ArrowGlyph" Property="Fill" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
