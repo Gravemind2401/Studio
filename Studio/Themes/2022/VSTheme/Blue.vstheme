@@ -4173,7 +4173,7 @@
         <Background Type="CT_RAW" Source="FFFFFFFF" />
       </Color>
       <Color Name="CommandBarMouseDownBorder">
-        <Background Type="CT_RAW" Source="FFE5C365" />
+        <Background Type="CT_RAW" Source="FF5D6B99" />
       </Color>
       <Color Name="CommandBarMouseOverBackgroundBegin">
         <Background Type="CT_RAW" Source="FFECF4FF" />

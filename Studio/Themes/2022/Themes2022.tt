@@ -34,7 +34,7 @@
 
         foreach (XmlNode node in doc.SelectNodes(@"//Category/Color"))
             results.Add(new ColourResource(node));
-    
+
         var ordered = results.OrderBy(c => c.Category).ThenBy(c => c.Name);
 
         foreach (var category in ordered.GroupBy(c => c.Category))

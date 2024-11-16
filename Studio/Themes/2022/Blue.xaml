@@ -399,7 +399,7 @@
         <GradientStop Offset="0.5" Color="#FFFFFFFF" />
         <GradientStop Offset="1" Color="#FFFFFFFF" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="Environment.CommandBar.MouseDownBorder" Color="#FFE5C365" />
+    <SolidColorBrush x:Key="Environment.CommandBar.MouseDownBorder" Color="#FF5D6B99" />
     <LinearGradientBrush x:Key="Environment.CommandBar.MouseOverBackground" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#FFECF4FF" />
         <GradientStop Offset="0.333" Color="#FFECF4FF" />
