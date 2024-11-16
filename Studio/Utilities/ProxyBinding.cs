@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Data;
 
 namespace Studio.Utilities
 {
@@ -21,7 +22,12 @@ namespace Studio.Utilities
             set => SetValue(SourceProperty, value);
         }
 
-        private static void SourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ProxyBinding).Target = e.NewValue;
+        private static void SourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            //only propagate changes if the target is actually bound to something
+            if (BindingOperations.GetBindingBase(d, TargetProperty) != null)
+                (d as ProxyBinding).Target = e.NewValue;
+        }
 
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(object), typeof(ProxyBinding), new PropertyMetadata((object)null));
