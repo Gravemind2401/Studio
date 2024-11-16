@@ -51,6 +51,15 @@
                 <Button Content="enabled" />
                 <Button Content="disabled" IsEnabled="False" />
                 <ToggleButton Content="toggle" />
+                <s:SplitButton Content="split">
+                    <s:SplitButton.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Item 1" />
+                            <MenuItem Header="Item 2" />
+                        </ContextMenu>
+                    </s:SplitButton.ContextMenu>
+                </s:SplitButton>
+                <s:SplitButton Content="disabled" IsEnabled="False" />
                 <Separator />
                 <ComboBox MinWidth="100">
                     <ComboBoxItem Content="item 1" />

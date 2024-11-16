@@ -357,6 +357,7 @@
 
     <Style x:Key="Studio.ButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="2" />
@@ -1536,6 +1537,81 @@
 
     <!--#region Custom Controls-->
 
+    <Style x:Key="Studio.SplitButtonStyle" TargetType="c:SplitButton" BasedOn="{StaticResource Studio.ToolBarButtonStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:SplitButton">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="11" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.ColumnSpan="3"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        </Border>
+                        <Border Grid.Column="0" BorderBrush="Transparent" Background="Transparent"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <Border x:Name="Separator" Grid.Column="1" Width="1" Margin="0,1" Background="{DynamicResource Environment.CommandBar.SplitButtonSeparator}" />
+                        <ToggleButton x:Name="ToggleButton" Grid.Column="2" Margin="0,1,1,1"
+                                      Focusable="False" ClickMode="Press" Background="Transparent"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Foreground="{DynamicResource Environment.CommandBar.SplitButtonGlyph}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <Path Margin="0,1,0,0" Fill="{TemplateBinding Foreground}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M0,0 L3,3 L6,0 Z" />
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="Separator" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseOverGlyph}" />
+                            <Setter TargetName="ToggleButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.SplitButtonMouseDownGlyph}" />
+                            <Setter TargetName="ToggleButton" Property="Background" Value="{DynamicResource Environment.CommandBar.MouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ToggleButton" Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextInactive}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsDropDownOpen" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Environment.CommandBar.TextMouseDown}" />
+                <Setter Property="Background" Value="{DynamicResource Environment.CommandBar.MouseDownBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Environment.CommandBar.Border}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="Studio.SearchControlStyle" TargetType="c:SearchControl">
         <Style.Resources>
             <Style x:Key="ActionButtonStyle" TargetType="Button">
@@ -2712,6 +2788,7 @@
 
     <!--#region Custom Controls-->
 
+    <Style TargetType="c:SplitButton" BasedOn="{StaticResource Studio.SplitButtonStyle}" />
     <Style TargetType="c:SearchControl" BasedOn="{StaticResource Studio.SearchControlStyle}" />
     <Style TargetType="c:DockContainer" BasedOn="{StaticResource Studio.DockContainerStyle}" />
     <Style TargetType="c:SplitPanel" BasedOn="{StaticResource Studio.SplitPanelStyle}" />
