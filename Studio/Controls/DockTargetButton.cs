@@ -20,7 +20,7 @@ namespace Studio.Controls
 
     public class DockTargetButton : Button
     {
-        private static readonly List<DockTargetButton> Instances = new List<DockTargetButton>();
+        private static readonly List<DockTargetButton> Instances = new();
 
         internal static DockTarget? CurrentTargetDock => Instances.FirstOrDefault(b => b.IsTargeted)?.TargetDock;
 

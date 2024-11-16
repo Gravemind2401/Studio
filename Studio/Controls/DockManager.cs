@@ -21,7 +21,7 @@ namespace Studio.Controls
         #endregion
 
         #region IsActive
-        private static readonly Dictionary<string, DependencyObject> activeObjects = new Dictionary<string, DependencyObject>();
+        private static readonly Dictionary<string, DependencyObject> activeObjects = new();
 
         public static readonly DependencyProperty IsActiveProperty =
             DependencyProperty.RegisterAttached(IsActivePropertyName, typeof(bool), typeof(DockManager), new FrameworkPropertyMetadata(false, IsActiveChanged) { BindsTwoWayByDefault = true });
@@ -57,9 +57,9 @@ namespace Studio.Controls
 
         #region Tracking
 
-        private static readonly Dictionary<Window, List<UIElement>> trackedElements = new Dictionary<Window, List<UIElement>>();
-        private static readonly Dictionary<UIElement, Window> windowLookup = new Dictionary<UIElement, Window>();
-        private static readonly List<WindowInfo> windowData = new List<WindowInfo>();
+        private static readonly Dictionary<Window, List<UIElement>> trackedElements = new();
+        private static readonly Dictionary<UIElement, Window> windowLookup = new();
+        private static readonly List<WindowInfo> windowData = new();
         private static WindowInfo currentTarget;
 
         internal static void Register(UIElement element)

@@ -7,7 +7,7 @@
     <Style TargetType="c:DockContainer">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        
+
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -69,7 +69,7 @@
                             </Setter>
                         </Style>
                     </ControlTemplate.Resources>
-                    <DockPanel LastChildFill="True" 
+                    <DockPanel LastChildFill="True"
                                Background="{TemplateBinding Background}">
                         <ListBox x:Name="TopDock" DockPanel.Dock="Top"
                                  ItemsSource="{TemplateBinding TopItemsSource}"

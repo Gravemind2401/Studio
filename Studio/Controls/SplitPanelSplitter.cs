@@ -127,10 +127,9 @@ namespace Studio.Controls
 
             protected override Visual GetVisualChild(int index)
             {
-                if (index != 0)
-                    throw new ArgumentOutOfRangeException(nameof(index));
-
-                return decorator;
+                return index == 0
+                    ? (Visual)decorator
+                    : throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             protected override int VisualChildrenCount => 1;
@@ -319,7 +318,7 @@ namespace Studio.Controls
             // Restore original column/row lengths
             if (_resizeData.ShowsPreview)
                 RemovePreviewAdorner();
-            else // Reset the columns'/rows' lengths to the saved values 
+            else // Reset the columns'/rows' lengths to the saved values
             {
                 _resizeData.Definition1.DesiredSize = _resizeData.OriginalDefinition1Length;
                 _resizeData.Definition2.DesiredSize = _resizeData.OriginalDefinition2Length;
@@ -367,7 +366,7 @@ namespace Studio.Controls
             }
         }
 
-        //Sets the length of definition1 and definition2 
+        //Sets the length of definition1 and definition2
         private void SetLengths(double definition1Pixels, double definition2Pixels)
         {
             if (_resizeData.SplitBehavior == SplitBehavior.Resize1)
@@ -377,7 +376,7 @@ namespace Studio.Controls
             else // For the case where both definition1 and 2 are stars, update all star values to match their current pixel values
             {
                 int i = 0;
-                foreach (FrameworkElement child in Owner.SortedChildren)
+                foreach (var child in Owner.SortedChildren.OfType<FrameworkElement>())
                 {
                     // For each definition, if it is a star, set is value to ActualLength in stars
                     // This makes 1 star == 1 pixel in length
@@ -419,7 +418,7 @@ namespace Studio.Controls
             var definition2 = _resizeData.Definition2;
             if (definition1 != null && definition2 != null)
             {
-                // When splitting, Check to see if the total pixels spanned by the definitions 
+                // When splitting, Check to see if the total pixels spanned by the definitions
                 // is the same as before starting resize. If not cancel the drag
                 if (_resizeData.SplitBehavior == SplitBehavior.ResizeBoth &&
                     !LayoutDoubleUtil.AreClose(definition1.ActualSize + definition2.ActualSize, _resizeData.OriginalDefinition1ActualLength + _resizeData.OriginalDefinition2ActualLength))

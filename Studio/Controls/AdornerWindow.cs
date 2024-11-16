@@ -4,7 +4,7 @@ namespace Studio.Controls
 {
     internal class AdornerWindow : Window
     {
-        private static readonly Dictionary<Window, AdornerWindow> targetLookup = new Dictionary<Window, AdornerWindow>();
+        private static readonly Dictionary<Window, AdornerWindow> targetLookup = new();
 
         static AdornerWindow()
         {

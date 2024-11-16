@@ -11,7 +11,7 @@
         Loaded="Window_Loaded"
         Title="MainWindow" Height="720" Width="1280"
         Style="{StaticResource MainWindowStyle}">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -86,7 +86,7 @@
                 </ComboBox>
             </ToolBar>
         </ToolBarTray>
-        <s:DockContainer Grid.Row="2" 
+        <s:DockContainer Grid.Row="2"
                 LeftItemsSource="{Binding LeftDockItems}"
                 TopItemsSource="{Binding TopDockItems}"
                 RightItemsSource="{Binding RightDockItems}"

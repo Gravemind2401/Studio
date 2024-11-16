@@ -73,7 +73,7 @@ namespace Sandbox.Models
         {
             //Reverse() to preserve tab order
             var groups = e.SourceContent.OfType<TabWellModelBase>().Reverse().ToList();
-            var index = !(e.TargetItem is TabModel target) || target.IsPinned ? 0 : Children.IndexOf(target);
+            var index = (e.TargetItem is not TabModel target) || target.IsPinned ? 0 : Children.IndexOf(target);
 
             foreach (var group in groups)
             {

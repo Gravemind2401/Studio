@@ -171,7 +171,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Bottom" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}" />
-                
+
                 <!--inactive-->
                 <Setter Property="Foreground" Value="{DynamicResource Environment.MainWindow.ButtonInactiveGlyph}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ButtonInactiveBorder}" />
@@ -233,7 +233,7 @@
                         <Setter Property="DarkCloseButtonStyle" Value="{StaticResource MainWindowButtonStyle}" />
                     </Style>
                 </Style.Resources>
-                
+
                 <Setter Property="WindowTitleBrush" Value="{DynamicResource Environment.MainWindow.ActiveCaptionBackground}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />
                 <!--<Setter Property="GlowBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />-->
@@ -328,7 +328,7 @@
                         <Setter Property="DarkCloseButtonStyle" Value="{StaticResource RaftedWindowButtonStyle}" />
                     </Style>
                 </Style.Resources>
-                
+
                 <Setter Property="WindowTitleBrush" Value="{DynamicResource Environment.ToolWindow.FloatingFrameBackground}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />
                 <!--<Setter Property="GlowBrush" Value="{DynamicResource Environment.MainWindow.ActiveDefaultBorder}" />-->
@@ -434,7 +434,7 @@
                         <Setter Property="DarkCloseButtonStyle" Value="{StaticResource ToolWindowCloseButtonStyle}" />
                     </Style>
                 </Style.Resources>
-                
+
                 <Setter Property="Background" Value="{DynamicResource Environment.EnvironmentBackground}" />
 
                 <Setter Property="WindowTitleBrush" Value="{DynamicResource Environment.TitleBar.ActiveGradient}" />

@@ -15,7 +15,7 @@ namespace Studio.Controls
         private const string PART_CancelButton = "PART_CancelButton";
 
         private const int DefaultSearchDelay = 300;
-        private readonly DispatcherTimer SearchTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(DefaultSearchDelay) };
+        private readonly DispatcherTimer SearchTimer = new() { Interval = TimeSpan.FromMilliseconds(DefaultSearchDelay) };
 
         private Button AcceptButton;
         private Button CancelButton;
