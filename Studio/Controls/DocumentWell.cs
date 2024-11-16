@@ -16,6 +16,9 @@ namespace Studio.Controls
         public static readonly DependencyProperty OverflowItemSelectedCommandProperty =
             DependencyProperty.Register(nameof(OverflowItemSelectedCommand), typeof(ICommand), typeof(DocumentWell), new PropertyMetadata(Commands.SelectTabCommand));
 
+        public static readonly DependencyProperty OverflowItemClosedCommandProperty =
+            DependencyProperty.Register(nameof(OverflowItemClosedCommand), typeof(ICommand), typeof(DocumentWell), new PropertyMetadata(Commands.CloseTabCommand));
+
         public static readonly DependencyProperty PinOnSeparateRowProperty =
             DependencyProperty.Register(nameof(PinOnSeparateRow), typeof(bool), typeof(DocumentWell), new PropertyMetadata(false));
 
@@ -29,6 +32,12 @@ namespace Studio.Controls
         {
             get => (ICommand)GetValue(OverflowItemSelectedCommandProperty);
             set => SetValue(OverflowItemSelectedCommandProperty, value);
+        }
+
+        public ICommand OverflowItemClosedCommand
+        {
+            get => (ICommand)GetValue(OverflowItemClosedCommandProperty);
+            set => SetValue(OverflowItemClosedCommandProperty, value);
         }
 
         public bool PinOnSeparateRow

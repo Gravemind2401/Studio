@@ -2047,9 +2047,32 @@
         <Setter Property="OverflowItemStyle">
             <Setter.Value>
                 <Style TargetType="MenuItem">
+                    <Style.Resources>
+                        <u:VisibilityConverter x:Key="visConverter" FalseValue="Collapsed" />
+                    </Style.Resources>
+
                     <Setter Property="Header" Value="{Binding Header}" />
                     <Setter Property="Command" Value="{Binding DataContext.OverflowItemSelectedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                     <Setter Property="CommandParameter" Value="{Binding}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Grid>
+                                    <ContentPresenter Content="{Binding}" />
+                                    <Button x:Name="CloseButton" Margin="0,-2,-50,0" HorizontalAlignment="Right"
+                                            Visibility="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Converter={StaticResource visConverter}}"
+                                            Command="{Binding DataContext.OverflowItemClosedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <ContentControl Margin="2,1" Template="{StaticResource TabCloseGlyph}" />
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </Setter.Value>
         </Setter>
