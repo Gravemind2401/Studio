@@ -1009,12 +1009,11 @@
                 <ControlTemplate TargetType="Separator">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
                             <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border Grid.ColumnSpan="2" MinWidth="27" />
-                        <Border Grid.Column="2"
+                        <Border Grid.Column="0" MinWidth="27" />
+                        <Border Grid.Column="1"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -1079,14 +1078,13 @@
                                 Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
                                     <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Border Margin="0,1,0,0" Grid.ColumnSpan="2"
+                                <Border Margin="0,1,0,0" Grid.Column="0"
                                         VerticalAlignment="Stretch" MinWidth="27"
                                         Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
-                                <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="2" IsItemsHost="True"
                                         KeyboardNavigation.DirectionalNavigation="Cycle" />
                             </Grid>
                             <Border.Effect>
@@ -1115,31 +1113,31 @@
                 BorderThickness="1" SnapsToDevicePixels="True">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupCheckBox" />
                     <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupIcon" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition SharedSizeGroup="MenuPopupShortcut" />
                     <ColumnDefinition Width="18" />
                 </Grid.ColumnDefinitions>
-                <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
-                        Width="18" Height="18" BorderThickness="2" Margin="-3,0,0,0"
-                        Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
-                        BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
-                    <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
-                </Border>
-                <Border x:Name="IconBox" SnapsToDevicePixels="True"
-                        Grid.Column="1" Visibility="Visible">
-                    <ContentPresenter x:Name="Icon" ContentSource="Icon"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
-                <ContentPresenter x:Name="Presenter" Grid.Column="2"
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
+                            Width="18" Height="18" BorderThickness="2" Margin="1,0"
+                            Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
+                            BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
+                        <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
+                    </Border>
+                    <Border x:Name="IconBox" SnapsToDevicePixels="True" Visibility="Visible">
+                        <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+                <ContentPresenter x:Name="Presenter" Grid.Column="1"
                         Margin="6,3,36,2"
                         ContentSource="Header" RecognizesAccessKey="True"
                         TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
                         TextOptions.TextFormattingMode="Display" />
                 <TextBlock x:Name="InputGestureText"
-                        Grid.Column="3" Margin="0,3,0,2"
+                        Grid.Column="2" Margin="0,3,0,2"
                         Foreground="{DynamicResource Environment.CommandBar.TextActive}"
                         Text="{TemplateBinding InputGestureText}"
                         TextOptions.TextFormattingMode="Display" />
@@ -1175,35 +1173,35 @@
                 BorderThickness="1" SnapsToDevicePixels="True">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupCheckBox" />
                     <ColumnDefinition Width="Auto" SharedSizeGroup="MenuPopupIcon" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition SharedSizeGroup="MenuPopupShortcut" />
                     <ColumnDefinition Width="18" />
                 </Grid.ColumnDefinitions>
-                <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
-                        Width="18" Height="18" BorderThickness="2" Margin="-3,0,0,0"
-                        Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
-                        BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
-                    <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
-                </Border>
-                <Border x:Name="IconBox" SnapsToDevicePixels="True"
-                        Grid.Column="1" Visibility="Visible">
-                    <ContentPresenter x:Name="Icon" ContentSource="Icon"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
-                <ContentPresenter x:Name="Presenter" Grid.Column="2"
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Border x:Name="CheckBox" SnapsToDevicePixels="True" Visibility="Collapsed"
+                            Width="18" Height="18" BorderThickness="2" Margin="1,0"
+                            Background="{DynamicResource Environment.CommandBar.SelectedIcon}"
+                            BorderBrush="{DynamicResource Environment.CommandBar.CheckBox}">
+                        <ContentControl x:Name="CheckIcon" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Environment.CommandBar.CheckBox}" />
+                    </Border>
+                    <Border x:Name="IconBox" SnapsToDevicePixels="True" Visibility="Visible">
+                        <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+                <ContentPresenter x:Name="Presenter" Grid.Column="1"
                         Margin="6,3,36,2"
                         ContentSource="Header" RecognizesAccessKey="True"
                         TextBlock.Foreground="{DynamicResource Environment.CommandBar.TextActive}"
                         TextOptions.TextFormattingMode="Display" />
                 <TextBlock x:Name="InputGestureText"
-                        Grid.Column="3" Margin="0,3,0,2"
+                        Grid.Column="2" Margin="0,3,0,2"
                         Foreground="{DynamicResource Environment.CommandBar.TextActive}"
                         Text="{TemplateBinding InputGestureText}"
                         TextOptions.TextFormattingMode="Display" />
-                <Path x:Name="Indicator" Grid.Column="4"
+                <Path x:Name="Indicator" Grid.Column="3"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Fill="{DynamicResource Environment.CommandBar.MenuSubmenuGlyph}"
@@ -1220,14 +1218,13 @@
                             Background="{DynamicResource Environment.CommandBar.MenuBackgroundGradient}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
                                 <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Border Grid.ColumnSpan="2" MinWidth="27"
+                            <Border Grid.Column="0" MinWidth="27"
                                     VerticalAlignment="Stretch"
                                     Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
-                            <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="2" IsItemsHost="True" 
                                     KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </Grid>
                         <Border.Effect>
@@ -1280,14 +1277,13 @@
                                 Background="{TemplateBinding Background}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition SharedSizeGroup="MenuPopupCheckBox" />
                                     <ColumnDefinition SharedSizeGroup="MenuPopupIcon" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.ColumnSpan="2" MinWidth="27"
+                                <Border Grid.Column="0" MinWidth="27"
                                         VerticalAlignment="Stretch"
                                         Background="{DynamicResource Environment.CommandBar.MenuIconBackground}" />
-                                <StackPanel Grid.ColumnSpan="3" Margin="2" IsItemsHost="True" 
+                                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="2" IsItemsHost="True" 
                                         KeyboardNavigation.DirectionalNavigation="Cycle" />
                             </Grid>
                             <Border.Effect>
