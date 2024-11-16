@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Sandbox.Models
 {
-    public abstract class TabWellModelBase : ModelBase
+    public abstract class TabWellModelBase : ModelBase, ITabHostModel
     {
         public ObservableCollection<TabModel> Children { get; }
 

@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Sandbox.ViewModels
 {
-    public class WindowViewModel : ModelBase
+    public class WindowViewModel : ModelBase, ITabHostModel
     {
         public const double DefaultDockSize = 260d;
 

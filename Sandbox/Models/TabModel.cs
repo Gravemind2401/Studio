@@ -6,8 +6,8 @@ namespace Sandbox.Models
 {
     public class TabModel : BindableBase
     {
-        private ModelBase parent;
-        public ModelBase Parent
+        private ITabHostModel parent;
+        public ITabHostModel Parent
         {
             get => parent;
             set => SetProperty(ref parent, value);

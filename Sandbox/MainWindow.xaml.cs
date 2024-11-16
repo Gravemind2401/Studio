@@ -23,11 +23,11 @@ namespace Sandbox
         }).ToDictionary(s => s, s => new ResourceDictionary { Source = new Uri($"/Studio;component/Themes/2022/{s}.xaml", UriKind.RelativeOrAbsolute) });
 
         public static readonly DependencyProperty ModelProperty =
-            DependencyProperty.Register(nameof(Model), typeof(object), typeof(MainWindow), new PropertyMetadata((object)null));
+            DependencyProperty.Register(nameof(Model), typeof(WindowViewModel), typeof(MainWindow), new PropertyMetadata((object)null));
 
-        public object Model
+        public WindowViewModel Model
         {
-            get => GetValue(ModelProperty);
+            get => (WindowViewModel)GetValue(ModelProperty);
             set => SetValue(ModelProperty, value);
         }
 
