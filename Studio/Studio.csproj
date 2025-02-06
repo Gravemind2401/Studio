@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- cant use MSBuildProjectName because it can end up being something like "Studio_tmp" under certain build conditions -->
+    <ProjectName>$([System.IO.Path]::GetFileName($(MSBuildProjectDirectory)))</ProjectName>
     <OutputType>Library</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>disable</Nullable>
@@ -11,8 +13,8 @@
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(VersionPrefix)$(AssemblyVersion)</Version>
     <Copyright>Copyright © $(Authors) 2019 - $([System.DateTime]::Now.Year)</Copyright>
-    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
-    <AssemblyOriginatorKeyFile>$(MSBuildProjectName).snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>$(ProjectName)</RootNamespace>
+    <AssemblyOriginatorKeyFile>$(ProjectName).snk</AssemblyOriginatorKeyFile>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
